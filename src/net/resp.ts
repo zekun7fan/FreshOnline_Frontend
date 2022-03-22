@@ -1,13 +1,13 @@
 
 
-interface Resp {
+export interface Resp {
     code: number,
     msg: string,
     data: RespContent
 
 }
 
-interface RespContent {
+export interface RespContent {
 
 }
 

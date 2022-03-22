@@ -1,35 +1,11 @@
 import axios from "axios";
+import {ReqParam} from "./reqParam";
+import {ReqBody} from "./reqBody";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:8080'
 
-const user_token_key = "token"
-const user_id_key = "id"
-const user_type_key = "type"
 
-
-
-enum UserType {
-    CUSTOMER,
-    ADMINISTRATOR
-}
-
-export function getUserId(): number | null{
-    const id =  localStorage.getItem(user_id_key);
-    return id != null ? parseInt(id) : null;
-}
-
-
-export function getUserType(): UserType | null{
-    let type = localStorage.getItem(user_type_key);
-    if (type == null){
-        return null;
-    }else if (parseInt(type) == 0){
-        return UserType.CUSTOMER;
-    }else {
-        return UserType.ADMINISTRATOR;
-    }
-}
 
 // axios.interceptors.request.use(
 //     function (config) {
@@ -70,11 +46,14 @@ export function getUserType(): UserType | null{
 //     })
 
 
-function toQueryString(param: ReqParam = {}) : string {
+function toQueryString(param: any = {}) : string {
     let paramStr: string = ''
-    Object.keys(param).forEach(key => {
+    for (let key in param){
         paramStr += key + '=' + param[key] + '&'
-    })
+    }
+    // Object.keys(param).forEach(key => {
+    //     paramStr += key + '=' + param[key] + '&'
+    // })
     if (paramStr) {
         paramStr = '?' + paramStr.substring(0, paramStr.length - 1)
     }

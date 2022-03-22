@@ -1,5 +1,15 @@
 import {del, get, post, put} from "./http";
-import {categoryTree, goods, goodsById} from "./url";
+import {
+    categoryTree,
+    goods,
+    goodsById,
+    loginUrl,
+    paymentMethodByPid,
+    paymentMethodByUserId,
+    paymentMethodUrl, registerUrl
+} from "./url";
+import {AdminSearchParam} from "./reqParam";
+import {Goods, PaymentMethod, User} from "./reqBody";
 
 
 export function getCategoryTree() {
@@ -24,4 +34,26 @@ export function addGoods(data: Goods) {
 
 export function deleteGoods(id: number) {
     return del(goodsById(id));
+}
+
+
+export function getPaymentMethodByUserId(id: number) {
+    return get(paymentMethodByUserId(id))
+}
+
+export function addPaymentMethod(paymentMethod: PaymentMethod) {
+    return post(paymentMethodUrl, {}, paymentMethod)
+
+}
+
+export function delPaymentMethodByPid(id: number) {
+    return del(paymentMethodByPid(id))
+}
+
+export function login(user: User) {
+    return put(loginUrl, {}, user)
+}
+
+export function register(user: User) {
+    return post(registerUrl, {}, user)
 }

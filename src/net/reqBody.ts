@@ -1,11 +1,11 @@
 
 
 
-interface ReqBody {
+export interface ReqBody {
 
 }
 
-interface Goods extends ReqBody{
+export interface Goods extends ReqBody{
     id?: number,
     name: string,
     type: number,
@@ -20,4 +20,26 @@ interface Goods extends ReqBody{
     brand: string,
     category_id: number,
     is_new: number,
+}
+
+
+export interface PaymentMethod extends ReqBody{
+    id? : number,
+    userId: number,
+    paymentType: number,
+    details: string
+}
+
+export interface Details extends ReqBody {
+    cardNumber: number,
+    cvvCode: number
+}
+
+export interface User extends ReqBody{
+    id?: number,
+    name?: string,
+    password: string,
+    email: string,
+    type?: number,
+    localtion?: string
 }

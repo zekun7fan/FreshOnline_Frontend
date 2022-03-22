@@ -1,10 +1,10 @@
 
-interface ReqParam {
+export interface ReqParam {
 
 }
 
 
-interface AdminSearchParam extends ReqParam {
+export interface AdminSearchParam extends ReqParam {
     category_id: Array<number>,
     keyword: string,
     brands: Array<string>,
