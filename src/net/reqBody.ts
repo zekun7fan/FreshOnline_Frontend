@@ -20,6 +20,7 @@ export interface Goods extends ReqBody{
     brand: string,
     category_id: number,
     is_new: number,
+    pic: string
 }
 
 
@@ -38,8 +39,16 @@ export interface Details extends ReqBody {
 export interface User extends ReqBody{
     id?: number,
     name?: string,
-    password: string,
-    email: string,
+    password?: string,
+    email?: string,
     type?: number,
     localtion?: string
+}
+
+export interface Category extends ReqBody{
+    id?: number,
+    parentId: number,
+    name: string,
+    level: number
+
 }

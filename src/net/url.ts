@@ -24,3 +24,5 @@ export const paymentMethodUrl = '/paymentMethod'
 export const loginUrl = '/login'
 
 export const registerUrl = '/register'
+
+export const logoutUrl = '/logout'

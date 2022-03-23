@@ -1,11 +1,13 @@
+import {User} from "../net/reqBody";
 
 const user_token_key = "token"
 const user_id_key = "id"
 const user_type_key = "type"
+const user_name_key = "name"
 
 
 
-enum UserType {
+export enum UserType {
     CUSTOMER=0,
     ADMINISTRATOR=1
 }
@@ -28,3 +30,17 @@ export function getUserType(): UserType | null {
         return UserType.ADMINISTRATOR;
     }
 }
+
+
+export function getUserName(): string {
+    const uname = localStorage.getItem(user_name_key)
+    return uname !== null ? uname : 'NOT LOGIN';
+}
+
+
+export function getUserInfo(): User {
+    return {
+        id: getUserId()!,
+    };
+}
+

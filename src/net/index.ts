@@ -1,15 +1,17 @@
 import {del, get, post, put} from "./http";
 import {
+    category,
     categoryTree,
     goods,
     goodsById,
-    loginUrl,
+    loginUrl, logoutUrl,
     paymentMethodByPid,
     paymentMethodByUserId,
     paymentMethodUrl, registerUrl
 } from "./url";
 import {AdminSearchParam} from "./reqParam";
-import {Goods, PaymentMethod, User} from "./reqBody";
+import {Category, Goods, PaymentMethod, User} from "./reqBody";
+import {CategoryNode} from "../utils/utils";
 
 
 export function getCategoryTree() {
@@ -56,4 +58,16 @@ export function login(user: User) {
 
 export function register(user: User) {
     return post(registerUrl, {}, user)
+}
+
+export function delCategory(node: CategoryNode){
+    return del(category, {}, node)
+}
+
+export function addCategory(node: Category) {
+    return post(category, {}, node)
+}
+
+export function logout(user: User){
+    return put(logoutUrl, {}, user)
 }
