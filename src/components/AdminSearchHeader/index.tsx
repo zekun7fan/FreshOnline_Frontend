@@ -10,8 +10,8 @@ import {category} from "../../net/url";
 import {getGoods} from "../../net";
 import {GoodsInfoBySearch, Resp} from "../../net/resp";
 import {update_admin_search_header_params} from "../../redux/actions/admin_search_header_params";
-import {update_admin_list_data} from "../../redux/actions/admin_list_data";
-import {update_admin_pagination} from "../../redux/actions/admin_pagination";
+import {update_admin_goods_data} from "../../redux/actions/admin_list_data";
+import {update_admin_pagination_params} from "../../redux/actions/admin_pagination";
 
 
 const {Option} = Select
@@ -23,7 +23,8 @@ const empty_header_params: AdminSearchParam = {
     brands: [],
     price_low: -1,
     price_high: -1,
-    sort_type: 0
+    sort_type: 0,
+    page: 1
 
 }
 
@@ -125,8 +126,8 @@ function AdminSearchHeader() {
             if (ifRenderHeaderParam){
                 dispatch(update_admin_search_header_params(header_params));
             }
-            dispatch(update_admin_list_data(goods_list));
-            dispatch(update_admin_pagination({page: 1, total: goods_total}));
+            dispatch(update_admin_goods_data(goods_list));
+            dispatch(update_admin_pagination_params({page: 1, total: goods_total}));
         }
     };
 
