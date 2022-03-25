@@ -8,10 +8,13 @@ interface CounterProps {
     main_num : number
 }
 
+// execute Counter function when mount, update
 function Counter(props: CounterProps) {
+
 
     console.log("exec Counter Func")
 
+    // skip when update
     const [count, setCount] = useState<number>(0)
     const [count2, setCount2] = useState<number>(0)
     const [n, setn] = useState<number>(0)
