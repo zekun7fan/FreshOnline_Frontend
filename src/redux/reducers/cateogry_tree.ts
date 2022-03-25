@@ -20,7 +20,7 @@ const queryCategoryTree = async () => {
     }
 };
 
-queryCategoryTree().catch();
+// queryCategoryTree().catch();
 
 
 
