@@ -26,9 +26,6 @@ function Counter(props: CounterProps) {
         };
     }, [])
 
-    // useEffect(() => {
-    //
-    // }, [])
 
     // componentDidUpdate, componentWillUpdate
     useEffect(() => {
