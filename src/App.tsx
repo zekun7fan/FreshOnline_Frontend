@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Main from "./example/classExample/Main";
 import ExamplePanel from "./example/ExamplePanel";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
