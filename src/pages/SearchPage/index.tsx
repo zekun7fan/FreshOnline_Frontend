@@ -30,15 +30,19 @@ export default function SearchPage() {
                             minHeight: 280,
                         }}
                     >
-                        <SearchContent
-                            // data={this.props.search_result}
-                        />
+                        <SearchContent/>
                     </Content>
                 </Layout>
             </Layout>
-            <Layout>
-                <Footer style={{ textAlign: 'center' }}>FreshOnline ©2022 Created by Team FreshOnline</Footer>
-            </Layout>
+            <SearchFooter/>
         </Layout>
     );
+}
+
+export function SearchFooter() {
+    return (
+        <Layout>
+            <Footer style={{ textAlign: 'center' }}>FreshOnline ©2022 Created by Team FreshOnline</Footer>
+        </Layout>
+    )
 }

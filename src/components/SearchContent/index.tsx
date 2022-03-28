@@ -1,14 +1,34 @@
 import React, {useState} from "react";
 
 import {Row, Col, Layout, Pagination} from "antd";
-import {shallowEqual, useSelector} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/reducers";
+import {update_search_params} from "../../redux/actions/search_params";
+import {onQuery} from "../SearchHeader";
+import {update_search_results} from "../../redux/actions/search_results";
 
 export default function SearchContent() {
 
+    const dispatch = useDispatch()
     const cur_search_results = useSelector((state:RootState) => {
         return state.search_results
     }, shallowEqual)
+    const cur_search_param = useSelector((state: RootState) => {
+        return state.search_params
+    }, shallowEqual)
+
+    const onChange = (pageNumber: number) => {
+        console.log('pageNumber:', pageNumber)
+        const search_param = {
+            ...cur_search_param,
+            page: pageNumber
+        }
+        dispatch(update_search_params(search_param))
+        onQuery(search_param).then(r => {
+            if (typeof r === 'undefined') return
+            dispatch(update_search_results(r.goods_list))
+        })
+    }
 
     return (
         <Layout>
@@ -29,7 +49,7 @@ export default function SearchContent() {
                 <Row justify="center" align="middle">
                     <Col>
                         <Pagination
-                            defaultCurrent={1}
+                            defaultCurrent={1} onChange={onChange}
                             total={cur_search_results.length} pageSize={20}
                         />
                     </Col>
