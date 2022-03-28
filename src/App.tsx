@@ -13,7 +13,7 @@ import SearchPage from "./pages/SearchPage";
 function App() {
   return (
     <div className="App">
-      <Main/>
+      <SearchPage/>
     </div>
   );
 }
