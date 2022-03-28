@@ -48,7 +48,7 @@ export async function onQuery(params: AdminSearchParam) {
 export default function SearchHeader() {
 
     const [category_tree, setCategoryTree] = useState<CategoryNode[]>([])
-    const [keyword, setKeyword] = useState<string>()
+    const [keyword, setKeyword] = useState<string>("")
     const dispatch = useDispatch()
     const cur_search_param = useSelector((state: RootState) => {
         return state.search_params
@@ -85,13 +85,11 @@ export default function SearchHeader() {
         }
     }
 
-    const onChangeKeyword = (e:any) => {
-        console.log(e.target.value)
-        console.log(cur_search_param)
+    const onChangeKeyword = () => {
         const search_param = {
             ...empty_search_params,
             category_id: cur_search_param.category_id,
-            keyword: e.target.value
+            keyword: keyword
         }
         dispatch(update_search_params(search_param))
         onQuery(search_param).then(r => ChangeBrandsAndResults(r))
@@ -114,7 +112,7 @@ export default function SearchHeader() {
                            value={keyword} onPressEnter={onChangeKeyword}
                            onChange={(e) => {setKeyword(e.target.value)}}
                     />
-                    {/*<Button type="primary" onClick={this.onChangeKeyword}>Submit</Button>*/}
+                    <Button type="primary" onClick={onChangeKeyword}>Submit</Button>
                 </Menu.Item>
                 <Menu.Item key="header4"><Button>Login/Sign up</Button></Menu.Item>
                 <Menu.Item key="header5"><Button>Cart</Button></Menu.Item>

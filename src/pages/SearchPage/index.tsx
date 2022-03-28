@@ -22,14 +22,12 @@ export default function SearchPage() {
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>Search</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Content
-                        className="site-layout-background"
+                    <Content className="site-layout-background"
                         style={{
                             padding: 24,
                             margin: 0,
                             minHeight: 280,
-                        }}
-                    >
+                        }}>
                         <SearchContent/>
                     </Content>
                 </Layout>
