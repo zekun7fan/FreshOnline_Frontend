@@ -2,12 +2,15 @@ import React, {useEffect, useState} from "react";
 
 import {Button, Cascader, Input, Menu, Row, Col, InputRef} from "antd";
 import {BulbOutlined} from "@ant-design/icons";
-import {getCategoryTree} from "../../net";
-import {Resp} from "../../net/resp";
-import {CategoryNode} from "../../utils/utils";
+import {getCategoryTree, getGoods} from "../../net";
+import {GoodsInfoBySearch, Resp} from "../../net/resp";
+import {RootState} from "../../redux/reducers";
+import {CategoryNode, getAllLeafOfSpecificNode} from "../../utils/utils";
 import {AdminSearchParam} from "../../net/reqParam";
 import {update_search_params} from "../../redux/actions/search_params";
-import {useDispatch} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import {update_search_brands} from "../../redux/actions/search_brands";
+import {update_search_results} from "../../redux/actions/search_results";
 
 
 const empty_search_params: AdminSearchParam = {
@@ -21,7 +24,6 @@ const empty_search_params: AdminSearchParam = {
 
 }
 
-
 function parseCategoryTree(tree:any) {
     for(let i = 0; i < tree.length; i++){
         tree[i]["value"] = tree[i].id
@@ -33,12 +35,24 @@ function parseCategoryTree(tree:any) {
     return tree
 }
 
+export async function onQuery(params: AdminSearchParam) {
+    console.log('search params:', params)
+    const raw = await getGoods(params)
+    const resp: Resp = raw.data
+    console.log('resp:', resp)
+    if (resp.code === 0) {
+        return resp.data as GoodsInfoBySearch
+    }
+}
+
 export default function SearchHeader() {
 
     const [category_tree, setCategoryTree] = useState<CategoryNode[]>([])
     const [keyword, setKeyword] = useState<string>()
     const dispatch = useDispatch()
-    let SearchRef = React.createRef<InputRef>();
+    const cur_search_param = useSelector((state: RootState) => {
+        return state.search_params
+    }, shallowEqual)
 
     useEffect( () => {
         (async function loadCategoryTree() {
@@ -51,22 +65,36 @@ export default function SearchHeader() {
         })();
     }, [])
 
+    const ChangeBrandsAndResults = (goodsInfo: GoodsInfoBySearch | undefined) => {
+        if (typeof goodsInfo === 'undefined') return
+        dispatch(update_search_results(goodsInfo.goods_list))
+        dispatch(update_search_brands(goodsInfo.brand_list))
+    }
+
     const onChangeCategory = (value: any) => {
         if (typeof (value) !== 'undefined'){
             const category_list: number[] = value as number[]
             const category_id: number = category_list[category_list.length - 1]
             const search_param = {
                 ...empty_search_params,
-                category_id: category_id
+                category_id: getAllLeafOfSpecificNode(category_id, category_tree)
             }
             dispatch(update_search_params(search_param))
-            console.log('onChangeCategory search_param', search_param)
             setKeyword("")
+            onQuery(search_param).then(r => ChangeBrandsAndResults(r))
         }
     }
 
     const onChangeKeyword = (e:any) => {
         console.log(e.target.value)
+        console.log(cur_search_param)
+        const search_param = {
+            ...empty_search_params,
+            category_id: cur_search_param.category_id,
+            keyword: e.target.value
+        }
+        dispatch(update_search_params(search_param))
+        onQuery(search_param).then(r => ChangeBrandsAndResults(r))
     }
 
 
