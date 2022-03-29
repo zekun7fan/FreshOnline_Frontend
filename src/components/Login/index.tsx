@@ -3,15 +3,19 @@ import { Form, Input, Button, Checkbox, message } from 'antd';
 import {User} from "../../net/reqBody";
 import {login} from "../../net";
 import {Resp} from "../../net/resp";
+import { useNavigate } from 'react-router';
 
 function Login() {
+
+    let navigate = useNavigate();
 
     const onFinish = async (user: User) => {
        console.log(user)
         const raw = await login(user)
         const resp: Resp = raw.data
         message.info(resp.msg)
-
+        //huang added code here
+        navigate(`/`);
     };
 
 

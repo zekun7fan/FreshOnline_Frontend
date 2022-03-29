@@ -9,11 +9,15 @@ import Register from "./components/Register";
 import Main from "./example/classExample/Main";
 import ExamplePanel from "./example/ExamplePanel";
 import SearchPage from "./pages/SearchPage";
+import WeeklySpeicalPanl from "./components/WeeklySpeicalPanl";
+import Home from "./components/Home";
+
+
 
 function App() {
   return (
     <div className="App">
-      <Main/>
+      <Home/>
     </div>
   );
 }
