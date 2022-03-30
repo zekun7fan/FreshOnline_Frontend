@@ -16,4 +16,3 @@ deploy-prod:
   stage: deploy
   script:
     - echo "deply stage"
-    - touch 1.txt
