@@ -10,7 +10,8 @@ import {RootState} from "../../redux/reducers";
 
 
 interface AdminAddGoodsPanelProps {
-    visible: boolean
+    visible: boolean,
+    changeVisible: Function
 }
 
 const {Option} = Select
@@ -23,7 +24,7 @@ const layout = {
 
 function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
 
-    const [visible, setVisible] = useState<boolean>(props.visible);
+    console.log("fcc")
 
     const categoryTree = useSelector((state: RootState) => {
         return state.category_tree;
@@ -33,11 +34,11 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
 
     const cancel = () => {
         ref.current?.resetFields()
-        setVisible(false)
+        props.changeVisible(false)
     };
 
     const submit = async (goods: Goods) => {
-        if (goods.sale_price != undefined && goods.sale_price >= goods.price){
+        if (goods.salePrice != undefined && goods.salePrice >= goods.price){
             message.warn("sale price can not be greater than original price")
             return;
         }
@@ -50,13 +51,11 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
     };
 
 
-
-
     return (
             <div>
                 <Modal
                     title={"ADD GOODS"}
-                    visible={visible}
+                    visible={props.visible}
                     footer={[null, null]}
                     onCancel={cancel}
                 >
@@ -143,7 +142,7 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
                             </Select>
                         </Form.Item>
                         <Form.Item
-                            name="sale_price"
+                            name="salePrice"
                             label="Sale price"
                             rules={[
                                 {
@@ -170,7 +169,7 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
                             <Input/>
                         </Form.Item>
                         <Form.Item
-                            name="category_id"
+                            name="categoryId"
                             label="Category"
                             rules={[
                                 {
@@ -189,7 +188,7 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
                             </TreeSelect>
                         </Form.Item>
                         <Form.Item
-                            name="is_new"
+                            name="isNew"
                             label="Isnew"
                             rules={[
                                 {

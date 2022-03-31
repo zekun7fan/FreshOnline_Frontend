@@ -1,17 +1,18 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from 'react';
-import {Button, Input, Space, TreeSelect, Select, InputNumber} from "antd";
+import React, {ChangeEvent, ChangeEventHandler, useEffect, useState} from 'react';
+import {Button, Input, Space, TreeSelect, Select, InputNumber, Modal} from "antd";
 import {PlusOutlined, SearchOutlined} from '@ant-design/icons';
-import {getAllLeafOfSpecificNode, renderTreeNode} from "../../utils/utils";
+import {CategoryNode, getAllLeafOfSpecificNode, renderTreeNode} from "../../utils/utils";
 import AdminAddGoodsPanel from "../AdminAddGoodsPanel";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/reducers";
 import {AdminSearchParam} from "../../net/reqParam";
 import {category} from "../../net/url";
-import {getGoods} from "../../net";
+import {getCategoryTree, getGoods} from "../../net";
 import {GoodsInfoBySearch, Resp} from "../../net/resp";
 import {update_admin_search_header_params} from "../../redux/actions/admin_search_header_params";
 import {update_admin_goods_data} from "../../redux/actions/admin_list_data";
 import {update_admin_pagination_params} from "../../redux/actions/admin_pagination";
+import {update_category} from "../../redux/actions/category_tree";
 
 
 const {Option} = Select
@@ -44,8 +45,23 @@ function AdminSearchHeader() {
     }, shallowEqual)
 
 
+    const queryTree = async () => {
+        const raw = await getCategoryTree()
+        console.log("raw=",raw)
+        const resp: Resp = raw.data
+        if (resp.code === 0){
+            const tree: CategoryNode[] = resp.data as CategoryNode[];
+            dispatch(update_category(tree))
+        }
+    }
+
+    useEffect(() => {
+        queryTree().catch()
+    },[])
+
+
     const onAddGoods = () => {
-        setShowAddGoodsPanel(true)
+        setShowAddGoodsPanel( true)
     };
 
 
@@ -131,10 +147,13 @@ function AdminSearchHeader() {
         }
     };
 
+    const changeVisible = (visible: boolean) => {
+        setShowAddGoodsPanel(visible)
+    };
+
 
     return (
         <div>
-            <div>
                 <Space direction="vertical">
                     <Space size={250}>
                         <TreeSelect
@@ -156,13 +175,13 @@ function AdminSearchHeader() {
                                 onClick={onAddGoods}>
                             ADD GOODS
                         </Button>
-                        <AdminAddGoodsPanel visible={showAddGoodsPanel}/>
+                        <AdminAddGoodsPanel visible={showAddGoodsPanel} changeVisible={changeVisible}/>
                     </Space>
                     <Space size={100}>
                         <InputNumber prefix="$" placeholder="low bound" onChange={onPriceLowChange}
-                                     style={{width: 120}} value={adminSearchParams.price_low} min={0} max={10000}/>
+                                     style={{width: 120}} value={adminSearchParams.price_low} min={-1} max={10000}/>
                         <InputNumber prefix="$" placeholder="high bound" onChange={onPriceHighChange}
-                                     style={{width: 120}} value={adminSearchParams.price_high} min={0} max={10000}/>
+                                     style={{width: 120}} value={adminSearchParams.price_high} min={-1} max={10000}/>
                         <Select value={adminSearchParams.sort_type} bordered={true} onSelect={onSortTypeChange} style={{width: 200}}>
                             <Option key={0} value={0}>select sort type</Option>
                             <Option key={1} value={1}>price from low to high</Option>
@@ -173,7 +192,6 @@ function AdminSearchHeader() {
                         <Button onClick={onApplyFilter}>apply filter</Button>
                     </Space>
                 </Space>
-            </div>
         </div>
     );
 }

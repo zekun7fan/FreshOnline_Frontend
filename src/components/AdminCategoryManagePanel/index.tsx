@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {Button, Input, InputRef, message, Modal, TreeSelect} from "antd";
 import {CategoryNode, getSubCategoryTree, renderTreeNode} from "../../utils/utils";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
@@ -62,7 +62,9 @@ function AdminCategoryManagePanel(){
         }
         resetSelectedNode()
         message.info(resp.msg)
-
+        setVisible(false)
+        console.log("input=,", ref)
+        ref.current!.input!.value = ''
     }
 
     const onDelCategory = async () => {
@@ -111,6 +113,21 @@ function AdminCategoryManagePanel(){
     const onClear = () => {
         resetSelectedNode()
     }
+
+
+    const queryTree = async () => {
+        const raw = await getCategoryTree()
+        console.log("raw=",raw)
+        const resp: Resp = raw.data
+        if (resp.code === 0){
+            const tree: CategoryNode[] = resp.data as CategoryNode[];
+            dispatch(update_category(tree))
+        }
+    }
+
+    useEffect(() => {
+        queryTree().catch()
+    },[])
 
     return (
             <div>

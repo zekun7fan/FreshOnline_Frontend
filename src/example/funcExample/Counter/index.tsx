@@ -2,10 +2,19 @@ import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Button, InputRef} from "antd";
 import {BaseSelectRef} from "rc-select";
+import {toQueryString} from "../../../net/http";
 
 interface CounterProps {
     visible : boolean
     main_num : number
+}
+
+
+interface ex1 {
+    id: number,
+    name?: string,
+    age?: number
+
 }
 
 // execute Counter function when mount, update
@@ -13,6 +22,14 @@ function Counter(props: CounterProps) {
 
 
     console.log("exec Counter Func")
+
+    const e1 : ex1 = {
+        id: 10,
+        age :3
+    }
+
+    const s1 = toQueryString(e1)
+    console.log("str=",s1)
 
     // skip when update
     const [count, setCount] = useState<number>(0)

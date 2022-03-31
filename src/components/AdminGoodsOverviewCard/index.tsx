@@ -82,7 +82,7 @@ function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
                     <Divider />
                     <Rate allowHalf defaultValue={props.goods.rate} disabled={true}/>Rate Count:{props.goods.rate_count}
                     <Divider />
-                    {props.goods.onsale===1?<p>Sale Price:{props.goods.sale_price}</p>:<p>Price:{props.goods.price}</p>}{price_symbol}
+                    {props.goods.onsale===1?<p>Sale Price:{props.goods.salePrice}</p>:<p>Price:{props.goods.price}</p>}{price_symbol}
                 </Card>
                 <AdminEditGoodsPanel goods={props.goods} visible={showEditGoodsPanel}/>
             </div>

@@ -9,8 +9,8 @@ import {
 } from '@ant-design/icons';
 import {Content} from "antd/es/layout/layout";
 import { Routes} from "react-router";
-import AdminCategoryManagePanel from "../AdminCategoryManagePanel";
 import AdminGoodsManagePanel from "../AdminGoodsManagePanel";
+import AdminCategoryManagePanel from "../../components/AdminCategoryManagePanel";
 
 
 function AdminPanel() {
@@ -33,18 +33,14 @@ function AdminPanel() {
                         <Menu.Item key="2" icon={<EditOutlined/>}>
                             <NavLink to={'/admin/category_management'}>CATEGORY MANAGEMENT</NavLink>
                         </Menu.Item>
-                        <Menu.Item key="3" icon={<AreaChartOutlined/>}>
-                            <NavLink to={'/admin/goods_statistics'}>GOODS STATISTICS</NavLink>
-                        </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout className="site-layout">
                     <Content style={{margin: '0 16px'}}>
                         <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
                             <Routes>
-                                <Route path={'/admin/goods_management'} children={AdminGoodsManagePanel}/>
-                                <Route path={'/admin/category_management'} children={AdminCategoryManagePanel}/>
-                                {/*<Redirect to={'/admin/goods_management'}/>*/}
+                                <Route path={'/admin/goods_management'} element={<AdminGoodsManagePanel/>}/>
+                                <Route path={'/admin/category_management'} element={<AdminCategoryManagePanel/>}/>
                             </Routes>
                         </div>
                     </Content>

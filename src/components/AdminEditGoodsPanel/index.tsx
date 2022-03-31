@@ -39,7 +39,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
 
 
     const submit = async (goods: Goods) => {
-        if (goods.sale_price != undefined && goods.sale_price >= goods.price){
+        if (goods.salePrice != undefined && goods.salePrice >= goods.price){
             message.warn("sale price can not be greater than original price")
             return;
         }
@@ -168,7 +168,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                             </Select>
                         </Form.Item>
                         <Form.Item
-                            name="sale_price"
+                            name="salePrice"
                             label="Sale price"
                             rules={[
                                 {
@@ -195,7 +195,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                             <Rate allowHalf disabled={true}/>
                         </Form.Item>
                          <Form.Item
-                            name="rate_count"
+                            name="rateCount"
                             label="Rate count"
                             rules={[
                                 {
@@ -217,7 +217,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                             <Input/>
                         </Form.Item>
                         <Form.Item
-                            name="category_id"
+                            name="categoryId"
                             label="Category"
                             rules={[
                                 {
@@ -236,7 +236,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                             </TreeSelect>
                         </Form.Item>
                         <Form.Item
-                            name="is_new"
+                            name="isNew"
                             label="Isnew"
                             rules={[
                                 {

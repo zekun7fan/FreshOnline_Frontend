@@ -14,12 +14,12 @@ export interface Goods extends ReqBody, Resp{
     sales?: number,
     description?: string,
     onsale: number,
-    sale_price?: number,
+    salePrice?: number,
     rate?: number,
     rate_count?: number,
     brand: string,
-    category_id: number,
-    is_new: number,
+    categoryId: number,
+    isNew: number,
     pic: string
 }
 

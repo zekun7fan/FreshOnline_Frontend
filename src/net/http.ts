@@ -46,7 +46,7 @@ axios.defaults.baseURL = 'http://localhost:8080'
 //     })
 
 
-function toQueryString(param: any = {}) : string {
+export function toQueryString(param: any = {}) : string {
     let paramStr: string = ''
     for (let key in param){
         paramStr += key + '=' + param[key] + '&'
