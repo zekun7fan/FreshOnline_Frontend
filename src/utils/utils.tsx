@@ -126,3 +126,7 @@ function retrieveAllLeaf(item: CategoryNode, res_list: Array<number>): void {
 
 
 
+export function getOrderStatus(status?:number){
+    const order_status = ["","Paid","Delivering","Delivered","Canceled"]
+    return status&&status<5?order_status[status]:""
+}

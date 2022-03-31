@@ -71,3 +71,26 @@ export function addCategory(node: Category) {
 export function logout(user: User){
     return put(logoutUrl, {}, user)
 }
+
+export function updatePass(userId?:number, old_pass?:string, new_pass?:string) {
+    return get('/user/update_password', { 'user_id': userId, "old_pass": old_pass, "new_pass": new_pass })
+}
+export function updateAddress(userId?:number, address?:string) {
+    return get('/user/update_address', { 'user_id': userId, "address": address })
+}
+
+export function queryOrderByUser(userId?:number, startPo?:number) {
+    return get('/user/orders', { 'user_id': userId, 'position': startPo })
+}
+
+export function queryWeeklySpecial() {
+    return get('/weekly_special', {})
+}
+
+export function queryCategoryGoods(idList?:Array<number>|number) {
+    return get('/random_goods', { 'catogory_id_list': idList })
+}
+
+export function queryUser(userId?:number) {
+    return get('/user', { 'user_id': userId })
+}
