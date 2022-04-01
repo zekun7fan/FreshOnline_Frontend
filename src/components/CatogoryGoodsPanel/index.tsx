@@ -31,7 +31,7 @@ function CatogoryGoodsPanel() {
             rows.push(<h1 key={"h1s"+k}>{data[k].name}</h1>)
             const categoods=data[k].goods
             const rownum = 5
-            const maxitem = Math.max(5,categoods.length)
+            const maxitem = Math.min(5,categoods.length)
             const rowlength = maxitem/rownum
             for(let i=0; i<rowlength; i++){
                 const cols=[]
@@ -51,11 +51,11 @@ function CatogoryGoodsPanel() {
                         show_button:true,
                         in_cart:0
                     }
-                    cols.push(<Col key = {"entry"+(i+data.length*k)*rownum+j} span={6}>
+                    cols.push(<Col key = {"entry"+(i+data.length*k)*rownum+j} span={4.5}>
                         <GoodsOverviewCard {...card}/>
                     </Col>)
                  }
-                 rows.push(<Row key={"row"+i+data.length*k} gutter={16}>{cols}</Row>)
+                 rows.push(<Row key={"row"+i+data.length*k} gutter={16} justify={"center"}>{cols}</Row>)
              }
          }
         return rows

@@ -15,7 +15,7 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
         const rownum = 5
         if(data.length==0) return []
         const rows=[]
-        const maxitem = Math.max(10,data.length)
+        const maxitem = Math.min(10,data.length)
         const rowlength =Math.floor(maxitem/rownum)
         for(let i=0; i<rowlength; i++){
             const cols=[]
@@ -35,11 +35,11 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
                     show_button:true,
                     in_cart:0
                 }
-                cols.push(<Col key={"entry"+i*rownum+j} span={6}>
+                cols.push(<Col key={"entry"+i*rownum+j} span={4.5}>
                 <GoodsOverviewCard {...card}/>  
                                    </Col>)
              }
-             rows.push(<Row key={"row"+i} gutter={16}>{cols}</Row>)
+             rows.push(<Row key={"row"+i} gutter={16} justify={"center"}>{cols}</Row>)
          }
         return rows
     }
