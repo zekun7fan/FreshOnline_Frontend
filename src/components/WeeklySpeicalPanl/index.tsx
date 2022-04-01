@@ -18,7 +18,7 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
         const rowlength =Math.floor(data.length/rownum)
         for(let i=0; i<rowlength; i++){
             const cols=[]
-             rows.push(<Divider />)
+             rows.push(<Divider key={"div"+i} />)
              for(let j=0; j<rownum; j++){
                 const xx = rownum*i+j
                 const card:OverviewCardProps = {
@@ -31,14 +31,14 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
                     sale_price:data[xx].salePrice,
                     type:data[xx].type!,
                     pic:data[xx].pic!,
-                    show_button:false,
+                    show_button:true,
                     in_cart:0
                 }
-                cols.push(<Col span={6}>
+                cols.push(<Col key={"entry"+i*rownum+j} span={6}>
                 <GoodsOverviewCard {...card}/>  
                                    </Col>)
              }
-             rows.push(<Row gutter={16}>{cols}</Row>)
+             rows.push(<Row key={"row"+i} gutter={16}>{cols}</Row>)
          }
         return rows
     }

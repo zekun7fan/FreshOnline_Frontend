@@ -27,8 +27,8 @@ function CatogoryGoodsPanel() {
     const formatData = () => {
         const rows=[]
         for(let k=0;k<data.length;k++){
-            rows.push(<Divider />)
-            rows.push(<h1>{data[k].name}</h1>)
+            rows.push(<Divider key={"div"+k}/>)
+            rows.push(<h1 key={"h1s"+k}>{data[k].name}</h1>)
             const categoods=data[k].goods
             const rownum = 4
             const rowlength = categoods.length/rownum
@@ -47,14 +47,14 @@ function CatogoryGoodsPanel() {
                         sale_price:categoods[xx].salePrice,
                         type:categoods[xx].type!,
                         pic:categoods[xx].pic!,
-                        show_button:false,
+                        show_button:true,
                         in_cart:0
                     }
-                    cols.push(<Col span={6}>
+                    cols.push(<Col key = {"entry"+(i+data.length*k)*rownum+j} span={6}>
                         <GoodsOverviewCard {...card}/>
                     </Col>)
                  }
-                 rows.push(<Row gutter={16}>{cols}</Row>)
+                 rows.push(<Row key={"row"+i+data.length*k} gutter={16}>{cols}</Row>)
              }
          }
         return rows

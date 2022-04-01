@@ -92,7 +92,7 @@ function AddressBook() {
         var lines = data.map( (ele)=>{
             if(ele.editing&&ele.alive)
             return (
-                <Row gutter={16}>
+                <Row key = {ele.row} gutter={16}>
                     <Col span={8}>
                         <Input defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
                     </Col>
@@ -101,7 +101,7 @@ function AddressBook() {
                     </Col>
                 </Row>)
             else if(ele.alive) return (
-                <Row gutter={16}>
+                <Row key = {ele.row} gutter={16}>
                     <Col span={8}>
                         <h2>{ele.text}</h2>
                     </Col>
