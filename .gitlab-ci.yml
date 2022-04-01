@@ -16,4 +16,4 @@ deploy-prod:
   stage: deploy
   script:
     - echo "deply stage"
-    - cp -rf /home/gitlab-runner/builds/L36zCbyR/0/651projectGroup33/frontend-re /home/gitlab-runner/
+    - cp -rf ./ /root/front
