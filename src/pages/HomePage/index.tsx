@@ -7,6 +7,7 @@ import HomeFootPanel from "../../components/HomeFootPanel";
 import CatogoryGoodsPanel from "../../components/CatogoryGoodsPanel";
 import WeeklySpeicalPanl from "../../components/WeeklySpeicalPanl";
 import UserIcon from "../../components/UserIcon";
+import {SearchFooter} from"../SearchPage"
 
 import ContactUs from "../../components/ContactUs";
 import { PageHeader } from 'antd';
@@ -23,19 +24,15 @@ function Homepage() {
     return (
             <div> 
         <Layout>
-            <Header>
-                <HomepageHeader />
-                <Divider />
-            </Header>
             <Content>
                 <HomeContent/>
             </Content>
             <Footer>
-                <HomeFootPanel/>
+                <SearchFooter/>
             </Footer>
         </Layout>
         <BackTop>
-            <div className='ant-back-top'>Back to Top</div>
+            <div className='ant-back-top'>Back to top</div>
         </BackTop>
         </div>
     );

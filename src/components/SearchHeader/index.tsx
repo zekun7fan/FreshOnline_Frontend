@@ -12,6 +12,7 @@ import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {update_search_brands} from "../../redux/actions/search_brands";
 import {update_search_results} from "../../redux/actions/search_results";
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
+import UserIcon from "../UserIcon";
 
 const empty_search_params: AdminSearchParam = {
     category_id: [],
@@ -117,7 +118,7 @@ export default function SearchHeader() {
     return (
         <div className="logo">
             <Menu theme="dark" mode="horizontal">
-                <Menu.Item key="header1">FreshOnline <BulbOutlined/></Menu.Item>
+                <Menu.Item key="header1"><Button onClick={()=>navigate("/")}>FreshOnline</Button><BulbOutlined/></Menu.Item>
                 <Menu.Item key="header2">
                     <Cascader options={category_tree}
                               onChange={onChangeCategory}
@@ -132,7 +133,7 @@ export default function SearchHeader() {
                     />
                     <Button type="primary" onClick={onChangeKeyword}>Submit</Button>
                 </Menu.Item>
-                <Menu.Item key="header4"><Button onClick={()=>navigate("/login")}>Login/Sign up</Button></Menu.Item>
+                <Menu.Item key="header4"><UserIcon/></Menu.Item>
                 <Menu.Item key="header5"><Button onClick={()=>navigate("/cart")}>Cart</Button></Menu.Item>
             </Menu>
         </div>
