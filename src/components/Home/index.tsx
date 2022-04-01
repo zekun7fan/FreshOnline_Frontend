@@ -26,7 +26,7 @@ function Home() {
             {/*        <Menu.Item key="home_header2"><UserIcon/></Menu.Item>*/}
             {/*    </Menu>*/}
             {/*</Header>*/}
-            <UserIcon/>
+            {/* <UserIcon/> */}
             <Routes>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
