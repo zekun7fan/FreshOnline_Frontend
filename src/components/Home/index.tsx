@@ -13,7 +13,8 @@ import {BulbOutlined} from "@ant-design/icons";
 import SearchPage from "../../pages/SearchPage";
 import Logout from "../Logout";
 import PaymentMethodPanel from "../PaymentMethodPanel";
-
+import GoodsOverviewDisplay from '../GoodsOverviewDisplay';
+import GoodsDetailsDisplay from '../GoodsDetailsDisplay';
 const { Header, Content, Sider, Footer } = Layout;
 
 function Home() {
@@ -33,8 +34,8 @@ function Home() {
                 <Route path={'/admin'} element={<AdminPanel/>}/>
                 {/* <Route path={'/error'} element={ErrorPage}/> */}
                 <Route path="/customer/*" element={<UserInfo/>}/>
-                {/* <Route path={'/cart'} element={GoodsOverviewDisplay}/> */}
-                {/* <Route path={'/goods/:goodsId'} render={({match}) => (<GoodsDetailsDisplay id={match.params.goodsId}/>)}/> */}
+                <Route path={'/cart'} element={<GoodsOverviewDisplay/>}    />
+                <Route path={'/goods/:goodsId'} element={<GoodsDetailsDisplay/>}/>
                 <Route path={'/goods'} element={<SearchPage/>}/>
                 <Route path={'/'} element={<HomePage/>}/>
                 <Route path={'/payment'} element={<PaymentMethodPanel/>}/>

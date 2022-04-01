@@ -8,6 +8,7 @@ import {
     paymentMethodByPid,
     paymentMethodByUserId,
     paymentMethodUrl, registerUrl
+    , cartUrl, goodsDetailsUrl, favoriteUrl
 } from "./url";
 import {AdminSearchParam} from "./reqParam";
 import {Category, Goods, PaymentMethod, User} from "./reqBody";
@@ -93,4 +94,43 @@ export function queryCategoryGoods(idList?:Array<number>|number) {
 
 export function queryUser(userId?:number) {
     return get('/user', { 'user_id': userId })
+}
+
+
+
+export function getCartEntry(userId :number, goodsId: number) {
+    return get(cartUrl + "_element", { 'user_id': userId, 'goods_id': goodsId })
+}
+
+export function updateToCart(userId :number, goodsId:number, count:number = 1) {
+    return post(cartUrl, {}, { userId: userId, goodsID: goodsId, count: count })
+}
+
+export function addToCart(userId :number, goodsId:number, count:number = 1) {
+    return put(cartUrl, {}, { userId: userId, goodsID: goodsId, count: count })
+}
+
+export function removeFromCart(userId :number, goodsId: number) {
+    return del(cartUrl, {}, { userId: userId, goodsID: goodsId })
+}
+
+
+export function getCartGoods(userId :number) {
+    return get(cartUrl, { 'user_id': userId })
+}
+
+export function getGoodsDetails(goodsId:number) {
+    return get(goodsDetailsUrl + "/" + goodsId)
+}
+export function getFavEntry(userId :number, goodsId: number) {
+    return get(favoriteUrl, { 'user_id': userId, 'goods_id': goodsId })
+}
+
+
+export function addToFav(userId :number, goodsId: number) {
+    return put(favoriteUrl, {}, { userId: userId, goodsID: goodsId })
+}
+
+export function removeFromFav(userId :number, goodsId: number) {
+    return del(favoriteUrl, {}, { userId: userId, goodsID: goodsId })
 }

@@ -1,0 +1,6 @@
+.rate{ margin-top:3px; margin-bottom: 3px;font-size: 12px}
+.meta{font-size: 13px;}
+.price{font-size: 18px; margin:0; font-weight: bold;}
+.original_price{font-size:15px; text-decoration: line-through;margin:0 }
+.onsale_price{font-size: 19px;color:red;margin:0; font-weight: bold;}
+.button{width:100%; color:black; font-size: 15px; margin-top: 10px; border-radius: 8px; border-width: 3px;text-align: center;}
