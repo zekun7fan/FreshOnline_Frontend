@@ -28,9 +28,6 @@ function Homepage() {
                 <Divider />
             </Header>
             <Content>
-                <div>
-                    <SearchHeader />
-                </div>
                 <HomeContent/>
             </Content>
             <Footer>

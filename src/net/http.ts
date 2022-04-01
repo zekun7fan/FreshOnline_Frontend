@@ -7,7 +7,7 @@ import {Resp} from "./resp";
 
 
 axios.defaults.withCredentials = true;
-const baseURL = 'http://localhost:8080'
+const baseURL = 'http://137.184.8.39:8080'
 axios.defaults.baseURL = baseURL
 
 const history = createBrowserHistory();

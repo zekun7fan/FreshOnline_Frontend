@@ -10,9 +10,6 @@ const { Header, Content, Sider, Footer } = Layout;
 export default function SearchPage() {
     return (
         <Layout>
-            <Header className="header">
-                <SearchHeader />
-            </Header>
             <Layout>
                 <Sider width={200} className="site-layout-background">
                     <SearchSider />
