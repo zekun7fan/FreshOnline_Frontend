@@ -46,7 +46,7 @@ import {StockedGoods} from "../../utils/javamodel";
     return (
         <div>
             <Divider />
-                <h1> Weekly Special !!!!</h1>
+                <h1> Weekly Special !</h1>
                 {formatData()}
             <Divider />
         </div>
