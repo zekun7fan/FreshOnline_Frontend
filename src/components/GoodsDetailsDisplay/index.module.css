@@ -1,0 +1,11 @@
+.meta{font-size: 13px;}
+.price{font-size: 22px; margin:2px; font-weight: bold;}
+.original_price{font-size:18px; text-decoration: line-through;margin:0 }
+.onsale_price{font-size: 23px;color:red;margin:2px; font-weight: bold;}
+.button{width:200px;height: 60px; color:black; font-size: 20px; margin-top: 10px; border-radius: 8px; border-width: 3px;text-align: center;}
+.cate_navigator_element{display:inline-block; color:green;  }
+.cate_navigator{margin:5px; margin-bottom: 20px;}
+.info_div{ width: 50%; display: inline-block;max-width: 700px; font-size: 16px; vertical-align:top; padding:20px }
+.carousel_div{ width: 50%; display: inline-block; max-width: 700px; padding:20px }
+.favourite_icon { font-size: 25px; color: red; cursor:pointer }
+.unfavourite_icon { font-size: 25px; color: gray; cursor:pointer }

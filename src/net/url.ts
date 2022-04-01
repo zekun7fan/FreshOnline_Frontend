@@ -26,3 +26,9 @@ export const loginUrl = '/toLogin'
 export const registerUrl = '/toRegister'
 
 export const logoutUrl = '/toLogout'
+
+export const cartUrl = '/cart'
+
+export const goodsDetailsUrl = '/goodsdetails'
+
+export const favoriteUrl = '/favourite'
