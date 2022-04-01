@@ -7,7 +7,7 @@ import {Resp} from "./resp";
 
 
 axios.defaults.withCredentials = true;
-const baseURL = 'http://137.184.8.39:8080'
+const baseURL = 'http://localhost:8080'
 axios.defaults.baseURL = baseURL
 
 const history = createBrowserHistory();
@@ -18,7 +18,7 @@ axios.interceptors.request.use(
         const token = localStorage.getItem(user_token_key)
         if (token != null){
             const oldHeader: AxiosRequestHeaders = config.headers as AxiosRequestHeaders
-            config.headers = {...oldHeader, "token": token,"Access-Control-Allow-Origin":baseURL}
+            config.headers = {...oldHeader, "token": token}
         }
         return config
     },

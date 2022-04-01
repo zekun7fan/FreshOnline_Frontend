@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import { Divider,Card, Col, Row } from 'antd';
 import {queryWeeklySpecial} from "../../net/";
 import {StockedGoods} from "../../utils/javamodel";
-//import GoodsOverviewCard from "../GoodsOverviewCard";
+import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
 
 /**
  * @author Zetian Huang
@@ -21,8 +21,21 @@ import {StockedGoods} from "../../utils/javamodel";
              rows.push(<Divider />)
              for(let j=0; j<rownum; j++){
                 const xx = rownum*i+j
+                const card:OverviewCardProps = {
+                    id:data[xx].id!,
+                    name:data[xx].name!,
+                    rate:data[xx].rate!,
+                    rate_count:data[xx].rateCount!,
+                    price:data[xx].price!,
+                    onsale:data[xx].onsale?true:false,
+                    sale_price:data[xx].salePrice,
+                    type:data[xx].type!,
+                    pic:data[xx].pic!,
+                    show_button:false,
+                    in_cart:0
+                }
                 cols.push(<Col span={6}>
-                    <Card title={data[xx].name} bordered={false} key={data[xx].id}>{data[xx].price}</Card>
+                <GoodsOverviewCard {...card}/>  
                                    </Col>)
              }
              rows.push(<Row gutter={16}>{cols}</Row>)
@@ -55,6 +68,6 @@ import {StockedGoods} from "../../utils/javamodel";
 
 export default WeeklySpeicalPanl;
 
-/* <GoodsOverviewCard id={data[xx].id} name={data[xx].name} rate={data[xx].rate} rate_count={data[xx].rateCount}
+{/* <GoodsOverviewCard id={data[xx].id} name={data[xx].name} rate={data[xx].rate} rate_count={data[xx].rateCount}
 price={data[xx].price} onsale={data[xx].onsale} type={data[xx].type} sale_price={data[xx].salePrice}
-pic={data[xx].pic}/> */
+pic={data[xx].pic}/>  */}
