@@ -31,14 +31,14 @@ function Home() {
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/logout'} element={<Logout/>}/>
-                <Route path={'/admin'} element={<AdminPanel/>}/>
+                <Route path={'/admin/*'} element={<AdminPanel/>}/>
                 {/* <Route path={'/error'} element={ErrorPage}/> */}
                 <Route path="/customer/*" element={<UserInfo/>}/>
-                <Route path={'/cart'} element={<GoodsOverviewDisplay/>}    />
+                <Route path={'/cart/*'} element={<GoodsOverviewDisplay/>}    />
                 <Route path={'/goods/:goodsId'} element={<GoodsDetailsDisplay/>}/>
                 <Route path={'/goods'} element={<SearchPage/>}/>
                 <Route path={'/'} element={<HomePage/>}/>
-                <Route path={'/payment'} element={<PaymentMethodPanel/>}/>
+                <Route path={'/payment/*'} element={<PaymentMethodPanel/>}/>
             </Routes>
         </Layout>
 
