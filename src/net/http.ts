@@ -18,7 +18,7 @@ axios.interceptors.request.use(
         const token = localStorage.getItem(user_token_key)
         if (token != null){
             const oldHeader: AxiosRequestHeaders = config.headers as AxiosRequestHeaders
-            config.headers = {...oldHeader, "token": token,"Access-Control-Allow-Origin":baseURL}
+            config.headers = {...oldHeader, "token": token}
         }
         return config
     },
