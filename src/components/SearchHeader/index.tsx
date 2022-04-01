@@ -90,6 +90,7 @@ export default function SearchHeader() {
                 navigate("/goods")
             })
         }
+        dispatch(update_search_params(empty_search_params))
     }
 
     const onChangeKeyword = () => {

@@ -53,7 +53,7 @@ export default function SearchSider() {
         <Content
             style={{
                 background: 'white',
-                // minHeight: height,
+                minHeight: 1710,
             }}
             className="sider-content"
         >
