@@ -8,7 +8,7 @@ import {
     AreaChartOutlined
 } from '@ant-design/icons';
 import {Content} from "antd/es/layout/layout";
-import { Routes} from "react-router";
+import {Routes} from "react-router";
 import AdminGoodsManagePanel from "../AdminGoodsManagePanel";
 import AdminCategoryManagePanel from "../../components/AdminCategoryManagePanel";
 

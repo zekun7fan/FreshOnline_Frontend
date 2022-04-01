@@ -1,7 +1,7 @@
-import React, {ChangeEvent, ChangeEventHandler, MutableRefObject, Ref, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {getUserId} from "../../utils/user";
 
-import {Select, message, Button, Collapse, Input, Space, Table, Empty} from 'antd';
+import {Select, message, Button, Collapse, Input, Space, Table, Empty, InputRef} from 'antd';
 import {parseCardNumber, parseCvvCode} from "../../utils/utils";
 import {addPaymentMethod, delPaymentMethodByPid, getPaymentMethodByUserId} from "../../net";
 import {Resp} from "../../net/resp";
@@ -15,10 +15,11 @@ const {Panel} = Collapse;
 function PaymentMethodPanel() {
 
 
-    const [type, setType] = useState<number>();
-    const [cardNumber, setCardNumber] = useState<number>();
-    const [cvvCode, setCvvCode] = useState<number>();
+    const [type, setType] = useState<number | undefined>();
+    const [cardNumber, setCardNumber] = useState<number | undefined>();
+    const [cvvCode, setCvvCode] = useState<number | undefined>();
     const [data, setData] = useState<Array<PaymentMethod>>([]);
+
 
     const columns = [
         {
@@ -29,36 +30,35 @@ function PaymentMethodPanel() {
         },
         {
             title: 'CARD NUMBER',
-            dataIndex: 'card number',
+            dataIndex: 'details',
             key: 'card number',
-            render: (details: string) => <a>{parseCardNumber(details)}</a>
+            render: (details: string) => (<a>{parseCardNumber(details)}</a>)
         },
         {
             title: 'CVV CODE',
-            dataIndex: 'cvv code',
+            dataIndex: 'details',
             key: 'cvv code',
             render: (details: string) => <a>{parseCvvCode(details)}</a>
         },
         {
             title: 'Action',
             key: 'action',
-            render: (id: number) => (
+            render: (item: PaymentMethod) => (
                 <Space size="middle">
-                    <Button onClick={() => {
-                        del(id)
-                    }}>DELETE</Button>
+                    <a>dett={item.details}</a>
+                    <Button onClick={() => {del(item.id!)}}>DELETE</Button>
                 </Space>
             ),
         },
     ];
 
     const queryPaymentMethods = async () => {
-        // const userId = getUserId();
-        const userId = 5;
+        const userId = getUserId();
         if (userId !== null) {
             const raw_resp = await getPaymentMethodByUserId(userId);
             const resp: Resp = raw_resp.data
             if (resp.code === 0){
+                console.log("resp====",resp)
                 setData(resp.data as Array<PaymentMethod>)
             }
         }
@@ -69,55 +69,56 @@ function PaymentMethodPanel() {
     }, [])
 
 
-    useEffect(() => {
-
-    }, [])
 
 
     const onAdd = async () => {
+        const userId = getUserId();
+        if (userId == null){
+            message.warn("please login")
+            return
+        }
+        if (type === undefined){
+            message.warn("please select type")
+            return
+        }
         if (cardNumber === undefined){
             message.warn("please input card number")
+            return
         }
         if (cvvCode === undefined){
             message.warn("please input cvv code")
+            return
         }
         const details: Details = {
-            cardNumber: cardNumber!,
-            cvvCode: cvvCode!
+            cardNumber: cardNumber,
+            cvvCode: cvvCode
         }
         const paymentMethod: PaymentMethod = {
-            userId: getUserId()!,
-            paymentType: type!,
+            userId: userId,
+            paymentType: type,
             details: JSON.stringify(details)
         }
         const raw_resp = await addPaymentMethod(paymentMethod)
         const resp: Resp = raw_resp.data
         message.info(resp.msg)
-        if (resp.code === 0){
+        if (resp.code === 0) {
+            setCardNumber(undefined)
+            setCvvCode(undefined)
+            setType(undefined)
             queryPaymentMethods().catch();
         }
     };
 
     const onCardNumberChange = (e : ChangeEvent<HTMLInputElement>): void => {
-        const num = Number(e.target.value)
-        if (isNaN(num)){
-            message.warn("card number can only contains digit")
-        }else{
-            setCardNumber(num)
-        }
+        setCardNumber(parseInt(e.target.value))
     };
 
     const onCvvCodeChange = (e : ChangeEvent<HTMLInputElement>): void => {
-        const code = Number(e.target.value)
-        if (isNaN(code)){
-            message.warn("cvv code can only contains digit")
-        }else{
-            setCvvCode(code)
-        }
+        setCvvCode(parseInt(e.target.value))
     };
 
-    const onTypeChange = (e : ChangeEvent<HTMLSelectElement>): void => {
-        setType(Number(e.target.value))
+    const onTypeChange = (val: number): void => {
+        setType(val)
     };
 
 
@@ -140,19 +141,19 @@ function PaymentMethodPanel() {
             <h2>USER PAYMENT METHOD</h2>
             <Collapse defaultActiveKey={['1']}>
                 <Panel header="ADD NEW PAYMENT METHOD" key="1">
-                    <Select style={{width: '100%'}} placeholder={"please select"} onSelect={onTypeChange}>
+                    <Select style={{width: '100%'}} placeholder={"please select"} onSelect={onTypeChange} value={type}>
                         <Option value={0}>
                             CREDIT CARD
                         </Option>
                     </Select>
-                    <Input placeholder={"input credit card number"} onChange={onCardNumberChange}/>
-                    <Input placeholder={"input cvv code"} onChange={onCvvCodeChange} />
+                    <Input type={"number"} placeholder={"input credit card number"} onChange={onCardNumberChange} value={cardNumber}/>
+                    <Input type={"number"} placeholder={"input cvv code"} onChange={onCvvCodeChange} value={cvvCode}/>
                     <Button onClick={onAdd}>ADD</Button>
                 </Panel>
             </Collapse>
             {
                 data.length > 0 ?
-                    <Table columns={columns} dataSource={data} /> : <Empty/>
+                    <Table columns={columns} dataSource={data} rowKey={"id"}/> : <Empty/>
             }
 
         </div>

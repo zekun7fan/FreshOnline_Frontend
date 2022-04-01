@@ -11,7 +11,6 @@ interface Action {
 let initState: CategoryNode[] = []
 
 export default function category_tree_reducer(preState=initState,action: Action){
-    console.log("ac= ",action)
     const {type,data} = action
     switch (type) {
         case UPDATE_CATEGORY_TREE:

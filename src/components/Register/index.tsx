@@ -29,7 +29,6 @@ function Register() {
 
 
     const onFinish = async (userinfo: UserInfo) => {
-        console.log(userinfo)
         const pwd : string = userinfo.password
         const pwd2 : string = userinfo.password2
         if (pwd !== pwd2){
@@ -37,8 +36,6 @@ function Register() {
             return
         }
         const user : User = userinfo
-        console.log("user info", userinfo)
-        console.log("user", user)
         const raw = await register(user)
         const resp: Resp = raw.data
         message.info(resp.msg)

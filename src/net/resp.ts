@@ -22,6 +22,14 @@ export interface GoodsInfoBySearch {
 }
 
 
+export interface LoginedUserInfo extends RespContent{
+    id: number,
+    name: string,
+    type: number,
+    token: string
+}
+
+
 
 
 

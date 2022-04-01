@@ -11,6 +11,8 @@ import UserInfo from "../../pages/UserInfo";
 //import GoodsDetailsDisplay from '../GoodsDetailsDisplay';
 import {BulbOutlined} from "@ant-design/icons";
 import SearchPage from "../../pages/SearchPage";
+import Logout from "../Logout";
+import PaymentMethodPanel from "../PaymentMethodPanel";
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -23,9 +25,11 @@ function Home() {
             {/*        <Menu.Item key="home_header2"><UserIcon/></Menu.Item>*/}
             {/*    </Menu>*/}
             {/*</Header>*/}
+            <UserIcon/>
             <Routes>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
+                <Route path={'/logout'} element={<Logout/>}/>
                 <Route path={'/admin'} element={<AdminPanel/>}/>
                 {/* <Route path={'/error'} element={ErrorPage}/> */}
                 <Route path="/customer/*" element={<UserInfo/>}/>
@@ -33,6 +37,7 @@ function Home() {
                 {/* <Route path={'/goods/:goodsId'} render={({match}) => (<GoodsDetailsDisplay id={match.params.goodsId}/>)}/> */}
                 <Route path={'/goods'} element={<SearchPage/>}/>
                 <Route path={'/'} element={<HomePage/>}/>
+                <Route path={'/payment'} element={<PaymentMethodPanel/>}/>
             </Routes>
         </Layout>
 

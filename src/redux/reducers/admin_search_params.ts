@@ -5,9 +5,8 @@ import {AdminSearchParam} from "../../net/reqParam";
 const initState: AdminSearchParam= {
     category_id: 0,
     keyword: '',
-    brands: [],
-    price_low: -1,
-    price_high: -1,
+    price_low: 0,
+    price_high: 0,
     sort_type: 0,
     page: 1
 }

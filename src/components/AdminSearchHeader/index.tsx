@@ -21,9 +21,8 @@ const {Option} = Select
 const empty_header_params: AdminSearchParam = {
     category_id: 0,
     keyword: '',
-    brands: [],
-    price_low: -1,
-    price_high: -1,
+    price_low: 0,
+    price_high: 0,
     sort_type: 0,
     page: 1
 
@@ -47,7 +46,6 @@ function AdminSearchHeader() {
 
     const queryTree = async () => {
         const raw = await getCategoryTree()
-        console.log("raw=",raw)
         const resp: Resp = raw.data
         if (resp.code === 0){
             const tree: CategoryNode[] = resp.data as CategoryNode[];
@@ -158,10 +156,11 @@ function AdminSearchHeader() {
                     <Space size={250}>
                         <TreeSelect
                             style={{width: 200}}
-                            value={adminSearchParams.category_id}
+                            value={adminSearchParams.category_id as number}
                             dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                             placeholder="Please select"
                             allowClear
+                            onChange={onCategoryChange}
                         >
                             {renderTreeNode(categoryTree, false)}
                         </TreeSelect>
@@ -179,9 +178,9 @@ function AdminSearchHeader() {
                     </Space>
                     <Space size={100}>
                         <InputNumber prefix="$" placeholder="low bound" onChange={onPriceLowChange}
-                                     style={{width: 120}} value={adminSearchParams.price_low} min={-1} max={10000}/>
+                                     style={{width: 120}} value={adminSearchParams.price_low} min={0} max={10000}/>
                         <InputNumber prefix="$" placeholder="high bound" onChange={onPriceHighChange}
-                                     style={{width: 120}} value={adminSearchParams.price_high} min={-1} max={10000}/>
+                                     style={{width: 120}} value={adminSearchParams.price_high} min={0} max={10000}/>
                         <Select value={adminSearchParams.sort_type} bordered={true} onSelect={onSortTypeChange} style={{width: 200}}>
                             <Option key={0} value={0}>select sort type</Option>
                             <Option key={1} value={1}>price from low to high</Option>

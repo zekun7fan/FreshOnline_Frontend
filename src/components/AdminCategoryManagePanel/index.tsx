@@ -63,7 +63,6 @@ function AdminCategoryManagePanel(){
         resetSelectedNode()
         message.info(resp.msg)
         setVisible(false)
-        console.log("input=,", ref)
         ref.current!.input!.value = ''
     }
 
@@ -117,7 +116,6 @@ function AdminCategoryManagePanel(){
 
     const queryTree = async () => {
         const raw = await getCategoryTree()
-        console.log("raw=",raw)
         const resp: Resp = raw.data
         if (resp.code === 0){
             const tree: CategoryNode[] = resp.data as CategoryNode[];

@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {getUserInfo} from "../../utils/user";
-import {User} from "../../net/reqBody";
+import {
+    getUserId,
+    getUserInfo,
+    getUserName, getUserType,
+    user_id_key,
+    user_name_key,
+    user_token_key,
+    user_type_key
+} from "../../utils/user";
 import {Resp} from "../../net/resp";
 import {logout} from "../../net";
-import {message} from "antd";
+import {Button, message} from "antd";
 import { useNavigate } from "react-router-dom";
 
 function Logout() {
@@ -12,19 +19,33 @@ function Logout() {
 
     let timer: ReturnType<typeof setTimeout>;
 
-    const [status, setStatus] = useState<string>('attempt to logout')
+    const [status, setStatus] = useState<string>(`currently login user: 
+    Id:${getUserId()}, 
+    Name: ${getUserName()}, 
+    Type: ${getUserType()}
+    `)
 
     useEffect(() => {
-        const user = getUserInfo();
-        toLogout(user).catch()
         return () => {
             clearTimeout(timer)
         };
     },[])
 
-    const toLogout = async (user: User) => {
+
+    const toLogout = async () => {
+        const user = getUserInfo();
+        if (user == null){
+            message.warn("user alread logout")
+            return
+        }
         const raw = await logout(user)
         const resp : Resp = raw.data
+        if (resp.code === 0){
+            localStorage.removeItem(user_id_key)
+            localStorage.removeItem(user_name_key)
+            localStorage.removeItem(user_type_key)
+            localStorage.removeItem(user_token_key)
+        }
         message.info(resp.msg)
         setStatus('successfully logout')
         timer = setTimeout(() => {
@@ -35,6 +56,7 @@ function Logout() {
     return (
         <div>
             <h2>{status}</h2>
+            <Button onClick={toLogout}>LOGOUT</Button>
         </div>
     );
 }

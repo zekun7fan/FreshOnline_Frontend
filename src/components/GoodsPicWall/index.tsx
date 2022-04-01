@@ -1,26 +1,26 @@
 import React, {useEffect, useState} from 'react';
-// import {Modal, Upload} from "antd";
-// import {UploadFile} from "antd/lib/upload/interface";
-// import {PlusOutlined} from '@ant-design/icons';
-//
-//
-// interface GoodsPicWallProps {
-//     goods_id: number,
-//     url_list: Array<string>
-// }
-//
-//
-// function getBase64(file: UploadFile): string {
-//     return new Promise((resolve, reject) => {
-//         const reader = new FileReader();
-//         reader.readAsDataURL(file);
-//         reader.onload = () => resolve(reader.result);
-//         reader.onerror = error => reject(error);
-//     });
-// }
-//
-//
-//
+import {Modal, Upload} from "antd";
+import {RcFile, UploadFile} from "antd/lib/upload/interface";
+import {PlusOutlined} from '@ant-design/icons';
+
+
+interface GoodsPicWallProps {
+    goods_id: number,
+    url_list: Array<string>
+}
+
+
+function getBase64(file: RcFile): Promise<any> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
+
+
 // function GoodsPicWall(props: GoodsPicWallProps) {
 //
 //     const [previewVisible, setPreviewVisible] = useState<boolean>(false)
@@ -53,7 +53,7 @@ import React, {useEffect, useState} from 'react';
 //
 //     const handlePreview = async (file: UploadFile) => {
 //         if (!file.url && !file.preview) {
-//             file.preview = await getBase64(file.originFileObj);
+//             file.preview = await getBase64(file.originFileObj!);
 //         }
 //
 //
@@ -103,13 +103,13 @@ import React, {useEffect, useState} from 'react';
 //             <PlusOutlined/>
 //             <div style={{marginTop: 8}}>Upload</div>
 //         </div>
-//     );
-//
-//     return (
-//         <div>
-//             <Upload
-//                 action={`http://localhost:8080/goods/pic/${props.goods_id}`}
-//                 method={'POST'}
+{/*    );*/}
+
+{/*    return (*/}
+{/*        <div>*/}
+{/*            <Upload*/}
+{/*                action={`http://localhost:8080/goods/pic/${props.goods_id}`}*/}
+{/*                method={'POST'}*/}
 //                 listType="picture-card"
 //                 fileList={fileList}
 //                 onPreview={handlePreview}
@@ -130,8 +130,6 @@ import React, {useEffect, useState} from 'react';
 //         </div>
 //     );
 // }
-//
-// export default GoodsPicWall;
 
 
 function GoodsPicWall() {
@@ -144,4 +142,5 @@ function GoodsPicWall() {
 
 }
 
-export default GoodsPicWall
+export default GoodsPicWall;
+

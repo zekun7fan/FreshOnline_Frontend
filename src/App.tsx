@@ -11,6 +11,8 @@ import ExamplePanel from "./example/ExamplePanel";
 import SearchPage from "./pages/SearchPage";
 import WeeklySpeicalPanl from "./components/WeeklySpeicalPanl";
 import Home from "./components/Home";
+import UserIcon from "./components/UserIcon";
+import {Route, Routes} from "react-router-dom";
 
 
 
