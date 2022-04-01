@@ -34,7 +34,7 @@ function Home() {
                 <Route path={'/admin/*'} element={<AdminPanel/>}/>
                 {/* <Route path={'/error'} element={ErrorPage}/> */}
                 <Route path="/customer/*" element={<UserInfo/>}/>
-                <Route path={'/cart/*'} element={<GoodsOverviewDisplay/>}    />
+                <Route path={'/cart'} element={<GoodsOverviewDisplay/>}    />
                 <Route path={'/goods/:goodsId'} element={<GoodsDetailsDisplay/>}/>
                 <Route path={'/goods'} element={<SearchPage/>}/>
                 <Route path={'/'} element={<HomePage/>}/>

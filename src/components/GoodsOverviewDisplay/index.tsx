@@ -22,7 +22,6 @@ function GoodsOverviewDisplay() {
     const fetchData = async () => {
         let user_id = getUserId();
         if (!user_id){
-            console.log("esadads")
             set_redirect("/login");
             return
         }
@@ -42,7 +41,6 @@ function GoodsOverviewDisplay() {
         fetchData();
     }, [])
 
-    console.log(goods)
 
     if (redirect){
         return (<Navigate to={redirect}></Navigate>)
