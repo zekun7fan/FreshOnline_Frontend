@@ -12,10 +12,11 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
     const [data, setData] = useState<Array<StockedGoods>>([])
 
     const formatData = () => {
-        const rownum = 4
+        const rownum = 5
         if(data.length==0) return []
         const rows=[]
-        const rowlength =Math.floor(data.length/rownum)
+        const maxitem = Math.max(10,data.length)
+        const rowlength =Math.floor(maxitem/rownum)
         for(let i=0; i<rowlength; i++){
             const cols=[]
              rows.push(<Divider key={"div"+i} />)
@@ -67,7 +68,3 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
 }
 
 export default WeeklySpeicalPanl;
-
-{/* <GoodsOverviewCard id={data[xx].id} name={data[xx].name} rate={data[xx].rate} rate_count={data[xx].rateCount}
-price={data[xx].price} onsale={data[xx].onsale} type={data[xx].type} sale_price={data[xx].salePrice}
-pic={data[xx].pic}/>  */}
