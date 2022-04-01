@@ -11,7 +11,7 @@ import {update_search_params} from "../../redux/actions/search_params";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {update_search_brands} from "../../redux/actions/search_brands";
 import {update_search_results} from "../../redux/actions/search_results";
-
+import { Navigate,  useParams} from 'react-router-dom';
 
 const empty_search_params: AdminSearchParam = {
     category_id: [],
@@ -46,6 +46,7 @@ export async function onQuery(params: AdminSearchParam) {
 }
 
 export default function SearchHeader() {
+    
 
     const [category_tree, setCategoryTree] = useState<CategoryNode[]>([])
     const [keyword, setKeyword] = useState<string>("")
@@ -95,6 +96,15 @@ export default function SearchHeader() {
         onQuery(search_param).then(r => ChangeBrandsAndResults(r))
     }
 
+    // page redirection
+    const [redirect, set_redirect] = useState<string>("");
+    const switchto = (url:string) =>{
+        set_redirect(url);
+    }
+
+    if (redirect) {
+        return <Navigate to={redirect} />;
+    }
 
     return (
         <div className="logo">
@@ -114,8 +124,8 @@ export default function SearchHeader() {
                     />
                     <Button type="primary" onClick={onChangeKeyword}>Submit</Button>
                 </Menu.Item>
-                <Menu.Item key="header4"><Button>Login/Sign up</Button></Menu.Item>
-                <Menu.Item key="header5"><Button>Cart</Button></Menu.Item>
+                <Menu.Item key="header4"><Button onClick={()=>switchto('/login')}>Login/Sign up</Button></Menu.Item>
+                <Menu.Item key="header5"><Button onClick={()=>switchto('/cart')}>Cart</Button></Menu.Item>
             </Menu>
         </div>
     );
