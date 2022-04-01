@@ -18,4 +18,3 @@ deploy-prod:
     - echo "deply stage"
     - cp -rf ./ /root/front
     - cd /root/front
-    - npm run build
