@@ -1,10 +1,10 @@
 import { Divider,Card, Col, Row } from 'antd';
 import {getCategoryTree,queryCategoryGoods} from "../../net";
-//import GoodsOverviewCard from "../GoodsOverviewCard";
 import React, {useEffect, useRef, useState} from 'react';
 import {queryWeeklySpecial} from "../../net/";
 import {StockedGoods} from "../../utils/javamodel";
 import {CategoryNode} from "../../utils/utils";
+import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
 
 
 /**
@@ -37,8 +37,21 @@ function CatogoryGoodsPanel() {
                 const collen = Math.min(rownum,categoods.length-rownum*i)
                  for(let j=0; j<collen; j++){
                     const xx = rownum*i+j
+                    const card:OverviewCardProps = {
+                        id:categoods[xx].id!,
+                        name:categoods[xx].name!,
+                        rate:categoods[xx].rate!,
+                        rate_count:categoods[xx].rateCount!,
+                        price:categoods[xx].price!,
+                        onsale:categoods[xx].onsale?true:false,
+                        sale_price:categoods[xx].salePrice,
+                        type:categoods[xx].type!,
+                        pic:categoods[xx].pic!,
+                        show_button:false,
+                        in_cart:0
+                    }
                     cols.push(<Col span={6}>
-                        <Card title={categoods[xx].name} bordered={false} key={categoods[xx].id}>{categoods[xx].price}</Card>
+                        <GoodsOverviewCard {...card}/>
                     </Col>)
                  }
                  rows.push(<Row gutter={16}>{cols}</Row>)
@@ -90,9 +103,4 @@ function CatogoryGoodsPanel() {
     return element;
 
 }
-/* <GoodsOverviewCard id={categoods[xx].id} name={categoods[xx].name} rate={categoods[xx].rate} rate_count={categoods[xx].rateCount}
-price={categoods[xx].price} onsale={categoods[xx].onsale} type={categoods[xx].type} sale_price={categoods[xx].salePrice}
-pic={categoods[xx].pic}/> */
-
-
 export default CatogoryGoodsPanel;
