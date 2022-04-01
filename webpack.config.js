@@ -7,7 +7,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        include: path.resolve(__dirname, 'src'),
       },
     ],
   },
@@ -18,4 +18,11 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+
+  //...
+  watch: true,
+  watchOptions: {
+    ignored: /node_modules/,
+  },
+
 };
