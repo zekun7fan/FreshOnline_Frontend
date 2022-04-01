@@ -21,7 +21,7 @@ afterEach(() => {
     container = null;
 });
 
-it("render search header", () => {
+it("render login", () => {
     act(() => {
         render(
             <BrowserRouter>
@@ -31,4 +31,5 @@ it("render search header", () => {
             </BrowserRouter>,
             container);
     });
+    console.log(container.textContent)
 })
