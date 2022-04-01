@@ -2,7 +2,7 @@
 // Generated using typescript-generator version 2.9.456 on 2022-03-28 19:50:50.
 
 export interface StockedGoods extends Serializable {
-    id?: number;
+    id: number;
     name?: string;
     type?: number;
     price?: number;
