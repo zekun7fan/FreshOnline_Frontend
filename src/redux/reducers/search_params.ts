@@ -2,7 +2,7 @@ import {AdminSearchParam} from "../../net/reqParam";
 import {UPDATE_SEARCH_PARAMS} from "../action-types";
 
 const initState: AdminSearchParam= {
-    category_id: 0,
+    category_id: [],
     keyword: '',
     brands: [],
     price_low: 0,
