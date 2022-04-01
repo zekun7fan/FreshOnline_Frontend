@@ -30,8 +30,9 @@ function CatogoryGoodsPanel() {
             rows.push(<Divider key={"div"+k}/>)
             rows.push(<h1 key={"h1s"+k}>{data[k].name}</h1>)
             const categoods=data[k].goods
-            const rownum = 4
-            const rowlength = categoods.length/rownum
+            const rownum = 5
+            const maxitem = Math.max(5,categoods.length)
+            const rowlength = maxitem/rownum
             for(let i=0; i<rowlength; i++){
                 const cols=[]
                 const collen = Math.min(rownum,categoods.length-rownum*i)
