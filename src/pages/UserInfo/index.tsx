@@ -10,6 +10,7 @@ import PaymentMethodPanel from "../../components/PaymentMethodPanel";
 import { Route, Routes,Link,Navigate} from "react-router-dom";
 import { PageHeader } from 'antd';
 import {getUserId} from "../../utils/user";
+import {SearchFooter} from"../SearchPage"
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer,Sider } = Layout;
@@ -22,10 +23,6 @@ function UserInfo() {
         getUserId()?
         <div>
         <Layout>
-            <Header>
-                <HomepageHeader />
-                <Divider />
-            </Header>
                 <Layout style={{height: '600px'}}>
                 <Sider>
                     <Button type="link">
@@ -52,7 +49,7 @@ function UserInfo() {
                 </Content>
                 </Layout>
             <Footer>
-                <HomeFootPanel/>
+                <SearchFooter/>
             </Footer>
         </Layout>
         </div>:<Navigate replace to="/login" />
