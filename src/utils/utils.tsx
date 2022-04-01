@@ -15,20 +15,20 @@ export interface CategoryNode {
 
 
 interface PaymentDetails {
-    card_number: number,
-    cvv_code: number
+    cardNumber: number,
+    cvvCode: number
 
 }
 
 
 export function parseCardNumber(details: string): number {
     const paymentDetails: PaymentDetails = JSON.parse(details);
-    return paymentDetails.card_number;
+    return paymentDetails.cardNumber;
 }
 
 export function parseCvvCode(details: string): number {
     const paymentDetails: PaymentDetails = JSON.parse(details);
-    return paymentDetails.cvv_code;
+    return paymentDetails.cvvCode;
 }
 
 export function getFirstPicUrl(url: string | null): string | null {

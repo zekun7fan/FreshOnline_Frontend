@@ -3,8 +3,6 @@ import {Goods} from "../../net/reqBody";
 import {Divider, Button, Rate, Popconfirm, message, Empty, Card} from "antd";
 import { EditTwoTone, DeleteTwoTone} from '@ant-design/icons';
 import {getFirstPicUrl} from "../../utils/utils";
-import {deleteGoods} from "../../net";
-import {Resp} from "../../net/resp";
 import AdminEditGoodsPanel from "../AdminEditGoodsPanel";
 
 
@@ -35,17 +33,16 @@ function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
 
     const onDeleteConfirm = async () => {
         const id = props.goods.id;
-        const raw = await deleteGoods(id!)
-        const resp: Resp = raw.data
-        message.info(resp.msg)
-        if (resp.code === 0){
-            setPopconfirmVisible(false)
-            props.deleteItem(id);
-        }
+        setPopconfirmVisible(false)
+        props.deleteItem(id);
     };
 
     const onEdit = () => {
         setShowEditGoodsPanel(true);
+    };
+
+    const changeEditGoodsPanelVisible = (visible: boolean) => {
+        setShowEditGoodsPanel(visible)
     };
 
 
@@ -80,11 +77,11 @@ function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
                 >
                     <p>Goods Name: {props.goods.name}</p>
                     <Divider />
-                    <Rate allowHalf defaultValue={props.goods.rate} disabled={true}/>Rate Count:{props.goods.rate_count}
+                    <Rate allowHalf defaultValue={props.goods.rate} disabled={true}/>Rate Count:{props.goods.rateCount}
                     <Divider />
                     {props.goods.onsale===1?<p>Sale Price:{props.goods.salePrice}</p>:<p>Price:{props.goods.price}</p>}{price_symbol}
                 </Card>
-                <AdminEditGoodsPanel goods={props.goods} visible={showEditGoodsPanel}/>
+                <AdminEditGoodsPanel goods={props.goods} visible={showEditGoodsPanel} changeVisible={changeEditGoodsPanelVisible}/>
             </div>
 
         </div>

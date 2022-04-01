@@ -24,7 +24,6 @@ const layout = {
 
 function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
 
-    console.log("fcc")
 
     const categoryTree = useSelector((state: RootState) => {
         return state.category_tree;
@@ -38,7 +37,15 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
     };
 
     const submit = async (goods: Goods) => {
-        if (goods.salePrice != undefined && goods.salePrice >= goods.price){
+        if (goods.onsale == 0 && goods.salePrice != undefined){
+            message.warn("do not input sale price for this goods when onsale is inactive")
+            return;
+        }
+        if (goods.onsale == 1 && goods.salePrice == undefined){
+            message.warn("please input sale price for this goods when onsale is active")
+            return;
+        }
+        if (goods.onsale == 1 && goods.salePrice != undefined && goods.salePrice >= goods.price){
             message.warn("sale price can not be greater than original price")
             return;
         }
@@ -144,11 +151,6 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
                         <Form.Item
                             name="salePrice"
                             label="Sale price"
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
                         >
                             <InputNumber
                                 min="0"

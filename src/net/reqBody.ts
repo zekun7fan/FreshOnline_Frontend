@@ -16,7 +16,7 @@ export interface Goods extends ReqBody, Resp{
     onsale: number,
     salePrice?: number,
     rate?: number,
-    rate_count?: number,
+    rateCount?: number,
     brand: string,
     categoryId: number,
     isNew: number,

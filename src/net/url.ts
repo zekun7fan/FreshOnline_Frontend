@@ -21,8 +21,8 @@ export const paymentMethodByPid = (pid: number): string => {
 
 export const paymentMethodUrl = '/paymentMethod'
 
-export const loginUrl = '/login'
+export const loginUrl = '/toLogin'
 
-export const registerUrl = '/register'
+export const registerUrl = '/toRegister'
 
-export const logoutUrl = '/logout'
+export const logoutUrl = '/toLogout'

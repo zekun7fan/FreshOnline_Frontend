@@ -6,6 +6,7 @@ import {addGoods, getCategoryTree, updateGoods} from "../../net";
 import {Resp} from "../../net/resp";
 import {shallowEqual, useSelector} from "react-redux";
 import {RootState} from "../../redux/reducers";
+import {goods} from "../../net/url";
 
 
 
@@ -20,12 +21,13 @@ const layout = {
 interface AdminEditGoodsPanelProps {
     goods: Goods,
     visible: boolean
+    changeVisible: Function
 }
 
 
 function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
 
-    const [visible, setVisible] = useState<boolean>(props.visible)
+
     const categoryTree = useSelector((state: RootState) => {
         return state.category_tree;
     }, shallowEqual)
@@ -33,13 +35,21 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
     const ref = useRef<FormInstance>(null)
 
     const cancel = () => {
-        setVisible(false)
+        props.changeVisible(false)
     };
 
 
 
     const submit = async (goods: Goods) => {
-        if (goods.salePrice != undefined && goods.salePrice >= goods.price){
+        if (goods.onsale == 0 && goods.salePrice !== undefined){
+            message.warn("do not input sale price for this goods when onsale is inactive")
+            return;
+        }
+        if (goods.onsale == 1 && goods.salePrice === undefined){
+            message.warn("please input sale price for this goods when onsale is active")
+            return;
+        }
+        if (goods.onsale == 1 && goods.salePrice !== undefined && goods.salePrice >= goods.price){
             message.warn("sale price can not be greater than original price")
             return;
         }
@@ -58,7 +68,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
         <div>
                 <Modal
                     title={"EDIT GOODS"}
-                    visible={visible}
+                    visible={props.visible}
                     footer={[null, null]}
                     onCancel={cancel}
                 >
@@ -70,6 +80,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                             <Form.Item
                                 name="id"
                                 label="Id"
+                                initialValue={props.goods.id}
                             >
                                 <Input readOnly={true}/>
                             </Form.Item>
@@ -82,6 +93,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.name}
                         >
                             <Input/>
                         </Form.Item>
@@ -93,6 +105,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.type}
                         >
                             <Select>
                                 <Option value={0}>By quantity</Option>
@@ -107,6 +120,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.price}
                         >
                             <InputNumber
                                 min="0"
@@ -123,6 +137,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.storage}
                         >
                             <InputNumber
                                 min="0"
@@ -139,6 +154,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.sales}
                         >
                             <InputNumber
                                 min="0"
@@ -150,7 +166,9 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                         </Form.Item>
                         <Form.Item
                             name="description"
-                            label="Description">
+                            label="Description"
+                            initialValue={props.goods.description}
+                        >
                             <Input.TextArea/>
                         </Form.Item>
                         <Form.Item
@@ -161,6 +179,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.onsale}
                         >
                             <Select>
                                 <Option value={0}>not onsale</Option>
@@ -170,11 +189,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                         <Form.Item
                             name="salePrice"
                             label="Sale price"
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
+                            initialValue={props.goods.salePrice}
                         >
                             <InputNumber
                                 min="0"
@@ -191,6 +206,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.rate}
                         >
                             <Rate allowHalf disabled={true}/>
                         </Form.Item>
@@ -202,6 +218,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.rateCount}
                         >
                             <Input readOnly={true}/>
                         </Form.Item>
@@ -213,6 +230,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.brand}
                         >
                             <Input/>
                         </Form.Item>
@@ -224,6 +242,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.categoryId}
                         >
                             <TreeSelect
                                 showSearch
@@ -243,6 +262,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
+                            initialValue={props.goods.isNew}
                         >
                             <Select>
                                 <Option value={0}>not new</Option>

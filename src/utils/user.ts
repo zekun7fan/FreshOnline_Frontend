@@ -1,9 +1,9 @@
 import {User} from "../net/reqBody";
 
-const user_token_key = "token"
-const user_id_key = "id"
-const user_type_key = "type"
-const user_name_key = "name"
+export const user_token_key = "token"
+export const user_id_key = "id"
+export const user_type_key = "type"
+export const user_name_key = "name"
 
 
 
@@ -32,15 +32,20 @@ export function getUserType(): UserType | null {
 }
 
 
-export function getUserName(): string {
-    const uname = localStorage.getItem(user_name_key)
-    return uname !== null ? uname : 'NOT LOGIN';
+export function getUserName(): string| null {
+    return  localStorage.getItem(user_name_key)
 }
 
 
-export function getUserInfo(): User {
+export function getUserInfo(): User | null{
+    const id = localStorage.getItem(user_id_key)
+    if (id == null){
+        return  null;
+    }
     return {
-        id: getUserId()!,
-    };
+        id: parseInt(id),
+        name: localStorage.getItem(user_name_key) as string,
+        type: parseInt(localStorage.getItem(user_type_key) as string),
+    }
 }
 
