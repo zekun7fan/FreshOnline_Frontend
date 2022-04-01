@@ -1,5 +1,12 @@
 const path = require('path');
 
+const handler = (percentage, message, ...args) => {
+    // e.g. Output each progress message directly to the console:
+    console.info(percentage, message, ...args);
+  };
+  
+  
+
 module.exports = {
   entry: './src/index.ts',
   module: {
@@ -24,5 +31,9 @@ module.exports = {
   watchOptions: {
     ignored: /node_modules/,
   },
+  cache:{
+      type:"filesystem",
+  },
+  plugins:[new webpack.ProgressPlugin(handler)]
 
 };
