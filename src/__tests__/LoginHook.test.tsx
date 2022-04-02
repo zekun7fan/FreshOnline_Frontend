@@ -4,15 +4,7 @@ import SearchHeader from "../components/SearchHeader";
 import LoginUI from "../components/Login";
 import {BrowserRouter} from "react-router-dom";
 import {Login} from "../components/Login";
-import {Provider} from "react-redux";
-import store from "../redux/store";
 
-
-
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'), // use actual for all non-hook parts
-    useRouteMatch: () => ({ url: '/toLogin' }),
-}));
 
 test('render login using hook', () =>{
     const wrapper = ({ children }:{ children: any }) => (
