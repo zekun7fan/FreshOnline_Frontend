@@ -3,6 +3,7 @@ import { Divider,Card, Col, Row } from 'antd';
 import {queryWeeklySpecial} from "../../net/";
 import {StockedGoods} from "../../utils/javamodel";
 import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
+import "./index.css"
 
 /**
  * @author Zetian Huang
@@ -60,7 +61,9 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
     return (
         <div>
             <Divider />
-                <h1> Weekly Special !</h1>
+                <div id="weekly_special">
+                    <h1 id="text"> Weekly Special</h1>
+                </div>
                 {formatData()}
             <Divider />
         </div>
