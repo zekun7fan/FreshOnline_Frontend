@@ -7,8 +7,8 @@ import {StockedGoods} from "../utils/javamodel";
 import {queryWeeklySpecial} from "../net";
 import axios from "axios";
 
-// 需要对组件进行重构，大致分为工具类函数组件，负责存储状态和更新状态函数的函数组件，UI类函数组件
-// 我们测试的是工具类函数，以及负责存储状态的函数，UI类函数我不清楚怎么测试
+// 需要对组件进行重构，大致分为工具类函数，负责存储状态和更新状态函数的函数组件，UI类函数组件
+// 我们测试的是工具类函数，以及负责存储状态的函数，UI类函数
 // 具体例子 WeeklySpecialPanl函数组件的重构，这个组件原先和CategoryGoodsPanl是差不多的，可以对比来看我的重构思路
 // 重构之后拆解成不同的函数
 // PS：并不保证我的重构思路一定合理
@@ -36,6 +36,7 @@ test('test format functionality using hook', () => {
 // 测试负责存储状态和更新状态的函数组件
 // WeeklySpecialPanl -> queryWeeklySpecial() -> get('/weekly_special', {}) -> axios.get(url + toQueryString(param))
 // 核心是模拟axios 不然网络会报错
+// can work with interceptor, check api documents plz
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
