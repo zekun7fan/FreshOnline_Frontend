@@ -1,12 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { Rate, Card, Button } from 'antd';
-import index from './index.module.css'
-import { updateToCart, removeFromCart, getCartGoods, addToCart } from '../../net';
+
+import {  getCartGoods} from '../../net';
 import GoodsOverviewCard from '../GoodsOverviewCard';
-import { goods } from '../../net/url';
 import {getUserId} from "../../utils/user";
 import { StockedGoods } from '../../utils/javamodel';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface fetchDataEntry {
     goodsId:number,
@@ -17,16 +15,14 @@ interface fetchDataEntry {
 function GoodsOverviewDisplay() {
 
     const [goods, set_goods] = useState<Array<fetchDataEntry>>(new Array<fetchDataEntry>());
-    const [redirect, set_redirect] = useState<string>("");
-    
+    let navigate = useNavigate();
     const fetchData = async () => {
         let user_id = getUserId();
         if (!user_id){
-            set_redirect("/login");
+            navigate("/login");
             return
         }
         try {
-            console.log(user_id);
             const response = await getCartGoods(user_id!);
             set_goods( response.data.data )
         } catch (e) {
@@ -35,19 +31,17 @@ function GoodsOverviewDisplay() {
 
     }
 
-    
+    const goto = (to:string) =>{
+        navigate(to);
+    }
 
     useEffect(() => {
         fetchData();
     }, [])
 
-
-    if (redirect){
-        return (<Navigate to={redirect}></Navigate>)
+    if (goods.length == 0){
+        return (<div>There is nothing in the cart yet, Please browse our <a onClick={()=>goto("/")}>products</a></div>)
     }
-
-
-
 
     return (
         <div>

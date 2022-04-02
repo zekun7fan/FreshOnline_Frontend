@@ -6,7 +6,7 @@ import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css"
 import { Link } from 'react-router-dom'
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
-import { Navigate,  useParams} from 'react-router-dom';
+import { Navigate,  useParams, useNavigate} from 'react-router-dom';
 import { Interface } from 'readline';
 
 import {getUserId} from "../../utils/user";
@@ -31,13 +31,14 @@ function GoodsDetailsDisplay() {
     const [cart_count,set_cart_count] = useState<number>(0);
     const [like, set_like] =useState<boolean>(false);
     const [selected, set_selected] = useState<number>(0);
-    const [redirect, set_redirect] = useState<string>("");
+    // const [redirect, set_redirect] = useState<string>("");
     const [data, set_data] = useState<fetcehedData>();
+    let navigate = useNavigate();
     let user_id = getUserId();
 
     const updateToCartHandler = async () => {
         if (!user_id) {
-            set_redirect("/login");
+            navigate("/login");
             return 
         }
 
@@ -140,7 +141,7 @@ function GoodsDetailsDisplay() {
 
     const addToFavouriteHandler = async () => {
         if (!user_id) {
-            set_redirect("/login");
+            navigate("/login");
             return 
         }
         try {
@@ -159,7 +160,7 @@ function GoodsDetailsDisplay() {
     
     const removeFromFavouriteHandler = async () => {
         if (!user_id) {
-            set_redirect("/login");
+            navigate("/login");
             return 
         }
         try {
@@ -176,13 +177,18 @@ function GoodsDetailsDisplay() {
 
     }
 
-        if (redirect) {
-            return <Navigate to={redirect} />;
-        }
+        // if (redirect) {
+        //     return <Navigate to={redirect} />;
+        // }
 
         if (!get_success) {
             return (<div style={{ height: 700 }}></div>)
         }
+
+        if (!data){
+            return(<div><h1>Product is not found</h1></div>)
+        }
+
 
         let images = data!.pic!.split(",").map(url => {
             return { original: url, thumbnail: url, }
