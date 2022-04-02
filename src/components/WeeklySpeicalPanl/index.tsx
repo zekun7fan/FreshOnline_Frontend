@@ -8,55 +8,54 @@ import "./index.css"
 /**
  * @author Zetian Huang
  */
- function WeeklySpeicalPanl() {
 
+export function format(data: Array<StockedGoods>) {
+    if(data.length==0) return []
+
+    const card_list:OverviewCardProps[] = []
+    for (let good of data){
+        const card:OverviewCardProps = {
+            id:good.id!,
+            name:good.name!,
+            rate:good.rate!,
+            rate_count:good.rateCount!,
+            price:good.price!,
+            onsale:good.onsale?true:false,
+            sale_price:good.salePrice,
+            type:good.type!,
+            pic:good.pic!,
+            show_button:false,
+            in_cart:0
+        }
+        card_list.push(card)
+        if (card_list.length >= 10) return card_list
+    }
+    return card_list
+}
+
+export function WeeklySpecialPanl() {
     const [data, setData] = useState<Array<StockedGoods>>([])
 
-    const formatData = () => {
-        const rownum = 5
-        if(data.length==0) return []
-        const rows=[]
-        const maxitem = Math.min(10,data.length)
-        const rowlength =Math.floor(maxitem/rownum)
-        for(let i=0; i<rowlength; i++){
-            const cols=[]
-             // rows.push(<Divider key={"div"+i} />)
-             for(let j=0; j<rownum; j++){
-                const xx = rownum*i+j
-                const card:OverviewCardProps = {
-                    id:data[xx].id!,
-                    name:data[xx].name!,
-                    rate:data[xx].rate!,
-                    rate_count:data[xx].rateCount!,
-                    price:data[xx].price!,
-                    onsale:data[xx].onsale?true:false,
-                    sale_price:data[xx].salePrice,
-                    type:data[xx].type!,
-                    pic:data[xx].pic!,
-                    show_button:true,
-                    in_cart:0
-                }
-                cols.push(<Col key={"entry"+i*rownum+j} span={4.5}>
-                <GoodsOverviewCard {...card}/>  
-                                   </Col>)
-             }
-             rows.push(<Row key={"row"+i} gutter={16} justify={"center"}>{cols}</Row>)
-         }
-        return rows
-    }
-
     useEffect(() => {
-        update()
+        update().then()
         return () => {
         };
     }, [])
+
     const update = async () => {
         const resp = await queryWeeklySpecial()
         const res = resp.data
         if (res.code === 0){
-            setData(res.data);
-         }
+            setData(res.data)
+        }
     }
+
+    return { data, update }
+}
+
+ export default function WeeklySpeicalPanlUI() {
+
+    const { data } = WeeklySpecialPanl()
 
     return (
         <div>
@@ -64,10 +63,16 @@ import "./index.css"
                 <div id="weekly_special">
                     <h1 id="text"> WEEKLY SPECIALS</h1>
                 </div>
-                {formatData()}
+                <Row key={"row"} gutter={16} justify={"center"}>
+                    {
+                        format(data).map(item => (
+                            <Col key={"entry"+item.id} span={4.5}>
+                                <GoodsOverviewCard {...item}/>
+                            </Col>
+                        ))
+                    }
+                </Row>
             <Divider />
         </div>
     );
 }
-
-export default WeeklySpeicalPanl;

@@ -5,7 +5,7 @@ import HomepageHeader from "../../components/HomepageHeader";
 import SearchHeader from "../../components/SearchHeader";
 import HomeFootPanel from "../../components/HomeFootPanel";
 import CatogoryGoodsPanel from "../../components/CatogoryGoodsPanel";
-import WeeklySpeicalPanl from "../../components/WeeklySpeicalPanl";
+import WeeklySpeicalPanlUI from "../../components/WeeklySpeicalPanl";
 import UserIcon from "../../components/UserIcon";
 import {SearchFooter} from"../SearchPage"
 
@@ -15,7 +15,7 @@ import { PageHeader } from 'antd';
 
 const { Header, Content, Footer } = Layout;
 
-const HomeContent = () => <div><WeeklySpeicalPanl/><CatogoryGoodsPanel/></div>
+const HomeContent = () => <div><WeeklySpeicalPanlUI/><CatogoryGoodsPanel/></div>
 
 /**
  * Zetian Huang

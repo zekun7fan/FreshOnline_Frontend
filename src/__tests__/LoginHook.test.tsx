@@ -6,15 +6,13 @@ import {BrowserRouter} from "react-router-dom";
 
 
 test('render login using hook', () =>{
-    const re = renderHook(() => {
+    const { result } = renderHook(() => {
         return (
             <BrowserRouter>
                 <Login />
             </BrowserRouter>
         )
     })
-    console.log(re)
-    const { result } = re
-    console.log(result)
+    // console.log(result.current)
     console.log(result.current.props.children)
 })
