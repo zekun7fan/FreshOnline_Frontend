@@ -39,8 +39,8 @@ function AdminPanel() {
                     <Content style={{margin: '0 16px'}}>
                         <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
                             <Routes>
-                                <Route path={'/admin/goods_management'} element={<AdminGoodsManagePanel/>}/>
-                                <Route path={'/admin/category_management'} element={<AdminCategoryManagePanel/>}/>
+                                <Route path={'/goods_management'} element={<AdminGoodsManagePanel/>}/>
+                                <Route path={'/category_management'} element={<AdminCategoryManagePanel/>}/>
                             </Routes>
                         </div>
                     </Content>

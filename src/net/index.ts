@@ -8,11 +8,12 @@ import {
     paymentMethodByPid,
     paymentMethodByUserId,
     paymentMethodUrl, registerUrl
-    , cartUrl, goodsDetailsUrl, favoriteUrl
+    , cartUrl, goodsDetailsUrl, favoriteUrl, goodsPictureUrl,
 } from "./url";
 import {AdminSearchParam} from "./reqParam";
 import {Category, Goods, PaymentMethod, User} from "./reqBody";
 import {CategoryNode} from "../utils/utils";
+import {GoodsPicInfo} from "./resp";
 
 
 export function getCategoryTree() {
@@ -133,4 +134,8 @@ export function addToFav(userId :number, goodsId: number) {
 
 export function removeFromFav(userId :number, goodsId: number) {
     return del(favoriteUrl, {}, { userId: userId, goodsID: goodsId })
+}
+
+export function deleteGoodsPicture(id: number, info: GoodsPicInfo) {
+    return del(goodsPictureUrl(id), {}, info)
 }

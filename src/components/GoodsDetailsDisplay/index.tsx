@@ -2,12 +2,12 @@ import React, {useEffect, useRef, useState} from 'react';
 import { Rate, Button, InputNumber, Tabs } from 'antd';
 import index from './index.module.css'
 import { addToCart, updateToCart, removeFromCart, getGoodsDetails, getCartEntry, getFavEntry, addToFav, removeFromFav } from '../../net';
-import ImageGallery from 'react-image-gallery';
-import "react-image-gallery/styles/css/image-gallery.css"
 import { Link } from 'react-router-dom'
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { Navigate,  useParams} from 'react-router-dom';
 import { Interface } from 'readline';
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css"
 
 import {getUserId} from "../../utils/user";
 import { Category, StockedGoods } from '../../utils/javamodel';

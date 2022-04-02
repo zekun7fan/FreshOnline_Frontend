@@ -50,6 +50,14 @@ export function convertUrlToUrlList(url: string | null): Array<string> {
     return url.split(',');
 }
 
+export function convertUrlListToUrl(list: Array<string>) {
+    let pic: string = '';
+    list.forEach((item) => {
+        pic += item + ",";
+    })
+    return pic.substring(0, pic.length-1);
+}
+
 
 export function renderTreeNode(data: Array<CategoryNode>, onlySelectLeaf: boolean): Array<ReactElement> {
     return (
