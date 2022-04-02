@@ -1,5 +1,4 @@
 import { renderHook, act, cleanup } from '@testing-library/react-hooks';
-import { render, waitFor } from '@testing-library/react';
 import React from "react";
 import { jest } from '@jest/globals';
 
@@ -60,10 +59,13 @@ test('render Weekly Special Panel using hook', async () => {
 
 test('render Weekly Special Panel UI using hook', async () => {
     mockedAxios.get.mockResolvedValueOnce({data: { code:0, data:[{id:1},{id:2},{id:3}] }})
+
     // const { getByTestId, asFragment } = render(<WeeklySpeicalPanlUI />);
     // //copy from https://stackoverflow.com/questions/60115885/how-to-solve-the-update-was-not-wrapped-in-act-warning-in-testing-library-re
     // const listNode = await waitFor(() => getByTestId('weekly-test'));
     // console.log(listNode)
+    // not gonna work ..
+
     const { result, waitForNextUpdate } = renderHook(() => WeeklySpeicalPanlUI())
     await waitForNextUpdate()
     expect(typeof result.current.props.children[0].type).toBe("function")
