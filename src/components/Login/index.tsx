@@ -6,8 +6,8 @@ import {LoginedUserInfo, Resp} from "../../net/resp";
 import { useNavigate } from 'react-router';
 import {user_id_key, user_name_key, user_token_key, user_type_key} from "../../utils/user";
 
-function Login() {
 
+export function Login() {
     let navigate = useNavigate();
 
     const onFinish = async (user: User) => {
@@ -25,7 +25,12 @@ function Login() {
         navigate(`/`);
     };
 
+    return { localStorage, onFinish }
+}
 
+export default function LoginUI() {
+
+    const { onFinish } = Login()
 
     return (
         <div>
@@ -63,7 +68,3 @@ function Login() {
         </div>
     );
 }
-
-
-
-export default Login;

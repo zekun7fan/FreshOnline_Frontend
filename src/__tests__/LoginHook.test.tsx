@@ -1,19 +1,16 @@
 import {renderHook, act, cleanup} from '@testing-library/react-hooks';
 
 import SearchHeader from "../components/SearchHeader";
-import Login from "../components/Login";
+import LoginUI from "../components/Login";
 import {BrowserRouter} from "react-router-dom";
+import login from "../components/Login";
 
 
 test('render login using hook', () =>{
-    const { result } = renderHook(() => {
-        return (
-            <BrowserRouter>
-                <Login />
-            </BrowserRouter>
-        )
-    })
+    const { result } = renderHook(() => login())
+
+    console.log(result.current)
+    // don't touch result.current, then it succeeds
+
     cleanup()
-    // console.log(result.current)
-    // console.log(result.current.props.children)
 })

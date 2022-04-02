@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
 import UserIcon from "../UserIcon";
 import {Route, Routes} from "react-router-dom";
-import Login from "../Login";
+import LoginUI from "../Login";
 import Register from "../Register";
 import AdminPanel from "../../pages/AdminPanel";
 // import ErrorPage from "../ErrorPage";
@@ -32,7 +32,7 @@ function Home() {
                 <SearchHeader />
             </Header>
             <Routes>
-                <Route path={'/login'} element={<Login/>}/>
+                <Route path={'/login'} element={<LoginUI/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/logout'} element={<Logout/>}/>
                 <Route path={'/admin/*'} element={<AdminPanel/>}/>

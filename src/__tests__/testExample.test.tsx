@@ -2,7 +2,7 @@ import {sum} from "../example/testExample/testExample";
 import ReactDOM, {render, unmountComponentAtNode} from "react-dom";
 import {BrowserRouter, Router} from 'react-router-dom'
 import {act} from "react-dom/test-utils";
-import Login from "../components/Login";
+import LoginUI from "../components/Login";
 import {Provider} from "react-redux";
 import store from "../redux/store";
 import App from "../App";
