@@ -1,16 +1,14 @@
 import {renderHook, act, cleanup} from '@testing-library/react-hooks';
 
+import SearchSider from "../components/SearchSider";
+import SearchContent from "../components/SearchContent";
+import SearchPage from "../pages/SearchPage";
 import SearchHeader from "../components/SearchHeader";
-import LoginUI from "../components/Login";
-import {BrowserRouter} from "react-router-dom";
 import store from "../redux/store";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 
-
-/**
- * failed
- */
-test('render search header using hook', () =>{
+test('render search sider using hook', () => {
     const wrapper = ({ children }:{ children: any }) => (
         <Provider store={store}>
             <BrowserRouter>
@@ -18,7 +16,7 @@ test('render search header using hook', () =>{
             </BrowserRouter>
         </Provider>
     )
-    const { result } = renderHook(() => SearchHeader(), { wrapper })
+    const { result } = renderHook(() => SearchSider(), { wrapper })
     console.log(result.current)
 })
 

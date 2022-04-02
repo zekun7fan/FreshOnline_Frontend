@@ -1,0 +1,1 @@
+jest.mock('antd/es/tree-select', () => ({}));
