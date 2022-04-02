@@ -20,7 +20,7 @@ import "./index.css"
         const rowlength =Math.floor(maxitem/rownum)
         for(let i=0; i<rowlength; i++){
             const cols=[]
-             rows.push(<Divider key={"div"+i} />)
+             // rows.push(<Divider key={"div"+i} />)
              for(let j=0; j<rownum; j++){
                 const xx = rownum*i+j
                 const card:OverviewCardProps = {
@@ -62,7 +62,7 @@ import "./index.css"
         <div>
             <Divider />
                 <div id="weekly_special">
-                    <h1 id="text"> Weekly Special</h1>
+                    <h1 id="text"> WEEKLY SPECIALS</h1>
                 </div>
                 {formatData()}
             <Divider />

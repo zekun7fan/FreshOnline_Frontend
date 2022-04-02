@@ -27,8 +27,12 @@ function CatogoryGoodsPanel() {
     const formatData = () => {
         const rows=[]
         for(let k=0;k<data.length;k++){
-            rows.push(<Divider key={"div"+k}/>)
-            rows.push(<h1 key={"h1s"+k}>{data[k].name}</h1>)
+            // rows.push(<Divider key={"div"+k}/>)
+            rows.push(
+                <div id="category_goods">
+                    <h1 key={"h1s"+k} id="text_category">{data[k].name.toLocaleUpperCase()}</h1>
+                </div>
+            )
             const categoods=data[k].goods
             const rownum = 5
             const maxitem = Math.min(5,categoods.length)
@@ -95,9 +99,7 @@ function CatogoryGoodsPanel() {
 
     const element = (
         <div>
-            <Divider />
-            <h1> Goods by category</h1>
-                {formatData()}
+            {formatData()}
             <Divider />
         </div>)
 

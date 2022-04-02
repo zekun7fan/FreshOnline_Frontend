@@ -8,15 +8,14 @@ import {Provider} from "react-redux";
 
 
 test('render searchheader using hook', () =>{
-    const re = renderHook(() => {
+    const { result } = renderHook(() => {
         return (
             <Provider store={store}>
                 SearchHeader()
             </Provider>
         )
     })
-    console.log(re)
-    const { result } = re
     console.log(result)
-    console.log(result.current)
+    console.log(result.current.props.children)
+    expect(typeof result.current.props.store.dispatch).toBe('function')
 })

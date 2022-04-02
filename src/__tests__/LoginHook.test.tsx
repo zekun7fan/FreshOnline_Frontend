@@ -9,12 +9,12 @@ test('render login using hook', () =>{
     const re = renderHook(() => {
         return (
             <BrowserRouter>
-                Login()
+                <Login />
             </BrowserRouter>
         )
     })
     console.log(re)
     const { result } = re
     console.log(result)
-    console.log(result.current)
+    console.log(result.current.props.children)
 })
