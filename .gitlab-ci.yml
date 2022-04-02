@@ -5,18 +5,22 @@ build-job:
     - echo "Hello, $GITLAB_USER_LOGIN!"
   environment:
     name: Dev
-
+  only:
+    - master
 
 test-job1:
   stage: test
   script:
     - echo "This job tests something"
-
+  only:
+    - master
+    
 deploy-prod:
   stage: deploy
   script:
     - echo "deply stage"
     - cp -rf ./ /root/front
     - cd /root/front
-    - npm install
-    - sudo systemctl restart  ecefront.service
+    - sed -i 's/localhost/137.184.8.39/' ./src/net/http.ts
+  only:
+    - master

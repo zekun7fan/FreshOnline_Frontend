@@ -59,7 +59,7 @@ function CustomerOrders(){
       <h3>Your Orders</h3>
       <List
         className="order-list"
-        loading={position==0}
+        loading={loading}
         itemLayout="horizontal"
         loadMore={loadMore}
         dataSource={list}

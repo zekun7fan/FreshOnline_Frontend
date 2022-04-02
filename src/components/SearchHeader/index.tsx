@@ -11,7 +11,8 @@ import {update_search_params} from "../../redux/actions/search_params";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {update_search_brands} from "../../redux/actions/search_brands";
 import {update_search_results} from "../../redux/actions/search_results";
-
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
+import UserIcon from "../UserIcon";
 
 const empty_search_params: AdminSearchParam = {
     category_id: [],
@@ -46,6 +47,7 @@ export async function onQuery(params: AdminSearchParam) {
 }
 
 export default function SearchHeader() {
+    
 
     const [category_tree, setCategoryTree] = useState<CategoryNode[]>([])
     const [keyword, setKeyword] = useState<string>("")
@@ -53,6 +55,7 @@ export default function SearchHeader() {
     const cur_search_param = useSelector((state: RootState) => {
         return state.search_params
     }, shallowEqual)
+    let navigate = useNavigate();
 
     useEffect( () => {
         (async function loadCategoryTree() {
@@ -63,6 +66,7 @@ export default function SearchHeader() {
                 setCategoryTree(parseCategoryTree(tree))
             }
         })();
+        console.log('searchHeader useeffect monut categorytree')
     }, [])
 
     const ChangeBrandsAndResults = (goodsInfo: GoodsInfoBySearch | undefined) => {
@@ -81,8 +85,12 @@ export default function SearchHeader() {
             }
             dispatch(update_search_params(search_param))
             setKeyword("")
-            onQuery(search_param).then(r => ChangeBrandsAndResults(r))
+            onQuery(search_param).then(r => {
+                ChangeBrandsAndResults(r)
+                navigate("/goods")
+            })
         }
+        dispatch(update_search_params(empty_search_params))
     }
 
     const onChangeKeyword = () => {
@@ -92,14 +100,27 @@ export default function SearchHeader() {
             keyword: keyword
         }
         dispatch(update_search_params(search_param))
-        onQuery(search_param).then(r => ChangeBrandsAndResults(r))
+        onQuery(search_param).then(r => {
+            ChangeBrandsAndResults(r)
+            navigate("/goods")
+        })
     }
 
+    // page redirection
+    // const [redirect, set_redirect] = useState<string>("");
+    // const switchto = (url:string) =>{
+    //     set_redirect(url);
+    // }
+    //
+    // if (redirect) {
+    //     return <Navigate to={redirect} />;
+    // }
 
     return (
         <div className="logo">
             <Menu theme="dark" mode="horizontal">
-                <Menu.Item key="header1">FreshOnline <BulbOutlined/></Menu.Item>
+                <Menu.Item key="header1">FreshOnline<BulbOutlined/></Menu.Item>
+                <Menu.Item key="header6"><Button onClick={()=>navigate("/")}>Home</Button></Menu.Item>
                 <Menu.Item key="header2">
                     <Cascader options={category_tree}
                               onChange={onChangeCategory}
@@ -114,8 +135,8 @@ export default function SearchHeader() {
                     />
                     <Button type="primary" onClick={onChangeKeyword}>Submit</Button>
                 </Menu.Item>
-                <Menu.Item key="header4"><Button>Login/Sign up</Button></Menu.Item>
-                <Menu.Item key="header5"><Button>Cart</Button></Menu.Item>
+                <Menu.Item key="header4"><UserIcon/></Menu.Item>
+                <Menu.Item key="header5"><Button onClick={()=>navigate("/cart")}>Cart</Button></Menu.Item>
             </Menu>
         </div>
     );

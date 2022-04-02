@@ -13,7 +13,7 @@ function UserIcon() {
                 return (
                     <Menu>
                         <Menu.Item key="1">
-                            <NavLink to={`/user/${id}`}>user center</NavLink>
+                            <NavLink to={`/customer`}>user center</NavLink>
                         </Menu.Item>
                         <Menu.Item key="2">
                             <NavLink to={'/logout'}>logout</NavLink>

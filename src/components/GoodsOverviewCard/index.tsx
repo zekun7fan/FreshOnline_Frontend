@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {getUserId} from "../../utils/user";
 import {addToCart, removeFromCart} from "../../net";
 // sample usage <GoodsOverviewCard id={1} in_cart={0} name="统华小厨片皮鸭(全只)组合套餐" rate={4.5} rate_count={20} price={20.99} onsale={false} type={1} pic="https://www.tntsupermarket.com/media/catalog/product/cache/1b10eb595fa02731ea0609dbbcedd549/5/0/50959201.jpg" show_button={true}/>
-interface OverviewCardProps {
+export interface OverviewCardProps {
     key?: number,
     id: number,
     name: string,
