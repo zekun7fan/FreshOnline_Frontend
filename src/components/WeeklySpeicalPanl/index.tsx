@@ -3,7 +3,6 @@ import { Divider,Card, Col, Row } from 'antd';
 import {queryWeeklySpecial} from "../../net/";
 import {StockedGoods} from "../../utils/javamodel";
 import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
-import "./index.css"
 
 /**
  * @author Zetian Huang

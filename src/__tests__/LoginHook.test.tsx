@@ -14,5 +14,5 @@ test('render login using hook', () =>{
         )
     })
     // console.log(result.current)
-    console.log(result.current.props.children)
+    // console.log(result.current.props.children)
 })
