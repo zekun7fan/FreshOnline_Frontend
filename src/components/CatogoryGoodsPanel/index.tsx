@@ -27,11 +27,16 @@ function CatogoryGoodsPanel() {
     const formatData = () => {
         const rows=[]
         for(let k=0;k<data.length;k++){
-            rows.push(<Divider key={"div"+k}/>)
-            rows.push(<h1 key={"h1s"+k}>{data[k].name}</h1>)
+            // rows.push(<Divider key={"div"+k}/>)
+            rows.push(
+                <div id="category_goods">
+                    <h1 key={"h1s"+k} id="text_category">{data[k].name.toLocaleUpperCase()}</h1>
+                </div>
+            )
             const categoods=data[k].goods
-            const rownum = 4
-            const rowlength = categoods.length/rownum
+            const rownum = 5
+            const maxitem = Math.min(5,categoods.length)
+            const rowlength = maxitem/rownum
             for(let i=0; i<rowlength; i++){
                 const cols=[]
                 const collen = Math.min(rownum,categoods.length-rownum*i)
@@ -50,11 +55,11 @@ function CatogoryGoodsPanel() {
                         show_button:true,
                         in_cart:0
                     }
-                    cols.push(<Col key = {"entry"+(i+data.length*k)*rownum+j} span={6}>
+                    cols.push(<Col key = {"entry"+(i+data.length*k)*rownum+j} span={4.5}>
                         <GoodsOverviewCard {...card}/>
                     </Col>)
                  }
-                 rows.push(<Row key={"row"+i+data.length*k} gutter={16}>{cols}</Row>)
+                 rows.push(<Row key={"row"+i+data.length*k} gutter={16} justify={"center"}>{cols}</Row>)
              }
          }
         return rows
@@ -94,9 +99,7 @@ function CatogoryGoodsPanel() {
 
     const element = (
         <div>
-            <Divider />
-            <h1> Goods by category</h1>
-                {formatData()}
+            {formatData()}
             <Divider />
         </div>)
 

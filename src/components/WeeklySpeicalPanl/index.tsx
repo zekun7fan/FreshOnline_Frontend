@@ -3,6 +3,7 @@ import { Divider,Card, Col, Row } from 'antd';
 import {queryWeeklySpecial} from "../../net/";
 import {StockedGoods} from "../../utils/javamodel";
 import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
+import "./index.css"
 
 /**
  * @author Zetian Huang
@@ -12,13 +13,14 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
     const [data, setData] = useState<Array<StockedGoods>>([])
 
     const formatData = () => {
-        const rownum = 4
+        const rownum = 5
         if(data.length==0) return []
         const rows=[]
-        const rowlength =Math.floor(data.length/rownum)
+        const maxitem = Math.min(10,data.length)
+        const rowlength =Math.floor(maxitem/rownum)
         for(let i=0; i<rowlength; i++){
             const cols=[]
-             rows.push(<Divider key={"div"+i} />)
+             // rows.push(<Divider key={"div"+i} />)
              for(let j=0; j<rownum; j++){
                 const xx = rownum*i+j
                 const card:OverviewCardProps = {
@@ -34,11 +36,11 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
                     show_button:true,
                     in_cart:0
                 }
-                cols.push(<Col key={"entry"+i*rownum+j} span={6}>
+                cols.push(<Col key={"entry"+i*rownum+j} span={4.5}>
                 <GoodsOverviewCard {...card}/>  
                                    </Col>)
              }
-             rows.push(<Row key={"row"+i} gutter={16}>{cols}</Row>)
+             rows.push(<Row key={"row"+i} gutter={16} justify={"center"}>{cols}</Row>)
          }
         return rows
     }
@@ -59,7 +61,9 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
     return (
         <div>
             <Divider />
-                <h1> Weekly Special !</h1>
+                <div id="weekly_special">
+                    <h1 id="text"> WEEKLY SPECIALS</h1>
+                </div>
                 {formatData()}
             <Divider />
         </div>
@@ -67,7 +71,3 @@ import GoodsOverviewCard,{OverviewCardProps} from "../GoodsOverviewCard";
 }
 
 export default WeeklySpeicalPanl;
-
-{/* <GoodsOverviewCard id={data[xx].id} name={data[xx].name} rate={data[xx].rate} rate_count={data[xx].rateCount}
-price={data[xx].price} onsale={data[xx].onsale} type={data[xx].type} sale_price={data[xx].salePrice}
-pic={data[xx].pic}/>  */}

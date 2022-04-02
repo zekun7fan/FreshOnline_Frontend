@@ -32,3 +32,7 @@ export const cartUrl = '/cart'
 export const goodsDetailsUrl = '/goodsdetails'
 
 export const favoriteUrl = '/favourite'
+
+export const goodsPictureUrl = (id: number) => {
+    return `/goods/picture/${id}`
+};

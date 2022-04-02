@@ -1,0 +1,30 @@
+#weekly_special{
+    background-color: #33CC66;
+    margin: 0 4% 10px 4%;
+    height: 72px;
+}
+
+#text {
+    font-size: 48px;
+    font-weight: bold;
+    font-family: "Lucida Console", "Courier New", monospace;
+    text-align: left;
+    margin-left: 16px;
+    margin-bottom: 8px;
+}
+
+#category_goods {
+    background-color: #0074D9;
+    margin: 0 4% 10px 4%;
+    height: 64px;
+}
+
+#text_category {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Lucida Console", "Courier New", monospace;
+    text-align: left;
+    margin-left: 48px;
+    margin-top: 20px;
+    color: white;
+}

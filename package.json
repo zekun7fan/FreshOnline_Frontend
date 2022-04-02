@@ -15,6 +15,7 @@
     "rc-select": "^14.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-image-gallery": "^1.2.7",
     "react-redux": "^7.2.6",
     "react-route": "^1.0.3",
     "react-router": "^6.2.2",
@@ -24,16 +25,14 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "save": "^2.4.0",
-    "web-vitals": "^2.1.4",
-    "react-image-gallery": "^1.2.7"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test1": "jest",
     "test2": "react-scripts test",
-    "eject": "react-scripts eject",
-    "watch": "webpack --watch"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +54,6 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
-    "@types/react-image-gallery": "^1.0.5",
     "customize-cra": "^1.0.0",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",

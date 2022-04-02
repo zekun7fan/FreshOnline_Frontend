@@ -90,6 +90,7 @@ export default function SearchHeader() {
                 navigate("/goods")
             })
         }
+        dispatch(update_search_params(empty_search_params))
     }
 
     const onChangeKeyword = () => {
@@ -118,7 +119,8 @@ export default function SearchHeader() {
     return (
         <div className="logo">
             <Menu theme="dark" mode="horizontal">
-                <Menu.Item key="header1"><Button onClick={()=>navigate("/")}>FreshOnline</Button><BulbOutlined/></Menu.Item>
+                <Menu.Item key="header1">FreshOnline<BulbOutlined/></Menu.Item>
+                <Menu.Item key="header6"><Button onClick={()=>navigate("/")}>Home</Button></Menu.Item>
                 <Menu.Item key="header2">
                     <Cascader options={category_tree}
                               onChange={onChangeCategory}

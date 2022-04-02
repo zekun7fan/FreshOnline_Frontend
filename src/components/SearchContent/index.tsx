@@ -61,7 +61,6 @@ export default function SearchContent() {
                     ? (search_results).map(item => (
                         <Col span={6} key={item.id}>
                             <GoodsOverviewCard {...item}/>
-                            {item.id}
                         </Col>
                     ))
                     : <div>No Goods</div>
