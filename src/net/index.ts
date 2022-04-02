@@ -40,6 +40,10 @@ export function deleteGoods(id: number) {
     return del(goodsById(id));
 }
 
+export function checkOut(user_id: number, location:string) {
+    return post("/checkout",{},{id:user_id, location:location});
+}
+
 
 export function getPaymentMethodByUserId(id: number) {
     return get(paymentMethodByUserId(id))

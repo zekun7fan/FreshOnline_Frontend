@@ -83,13 +83,17 @@ function GoodsDetailsDisplay() {
 
     const fetchData = async () => {
         try {
+            
             const response = await getGoodsDetails(id);
             if (response.data.code != 0) {
                 console.log(response.data.code)
                 return
             }
             set_data(response.data.data);
-            set_get_success(!user_id);
+            if (user_id){
+                set_get_success(false);
+                fetchUserData();
+            }
         } catch (e) {
             console.log(e)
         }
@@ -128,9 +132,6 @@ function GoodsDetailsDisplay() {
 
     useEffect(() => {
         fetchData();
-        if (user_id) {
-            fetchUserData();
-        }
     }, [])
 
 
@@ -180,7 +181,6 @@ function GoodsDetailsDisplay() {
         // if (redirect) {
         //     return <Navigate to={redirect} />;
         // }
-
         if (!get_success) {
             return (<div style={{ height: 700 }}></div>)
         }
@@ -201,9 +201,9 @@ function GoodsDetailsDisplay() {
         return (
             <div style={{ textAlign: "left" }}>
                 <div className={index.cate_navigator}>
-                    <Link to="" ><h3 className={index.cate_navigator_element}> {data!.cate1.name} </h3></Link> <h3 className={index.cate_navigator_element}> &nbsp; &#62; &nbsp; </h3>
-                    <Link to="" ><h3 className={index.cate_navigator_element}> {data!.cate2.name} </h3></Link> <h3 className={index.cate_navigator_element}> &nbsp; &#62; &nbsp; </h3>
-                    <Link to="" ><h3 className={index.cate_navigator_element}> {data!.cate3.name} </h3></Link> <h3 className={index.cate_navigator_element}> &nbsp; &#62; &nbsp; </h3>
+                    <h3 className={index.cate_navigator_element}> {data!.cate1.name} </h3><h3 className={index.cate_navigator_element}> &nbsp; &#62; &nbsp; </h3>
+                    <h3 className={index.cate_navigator_element}> {data!.cate2.name} </h3> <h3 className={index.cate_navigator_element}> &nbsp; &#62; &nbsp; </h3>
+                    <h3 className={index.cate_navigator_element}> {data!.cate3.name} </h3> <h3 className={index.cate_navigator_element}> &nbsp; &#62; &nbsp; </h3>
                     <h3 className={index.cate_navigator_element}> {data!.name} </h3>
                 </div>
                 <div className={index.carousel_div}>
