@@ -1,4 +1,5 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act, cleanup } from '@testing-library/react-hooks';
+import { render, waitFor } from '@testing-library/react';
 import React from "react";
 import { jest } from '@jest/globals';
 
@@ -50,4 +51,27 @@ test('render Weekly Special Panel using hook', async () => {
     mockedAxios.get.mockResolvedValueOnce({data: { code:0, data:[{id:1}, {id:2}] }})
     await act(() => update())
     expect(result.current.data).toEqual([{id:1}, {id:2}])
+
+    mockedAxios.get.mockResolvedValueOnce({data: { code:1}})
+    // 里面有判断code是否为0的分支 提升分支覆盖率
+    await act(() => update())
+    expect(result.current.data).toEqual([{id:1}, {id:2}])
 })
+
+test('render Weekly Special Panel UI using hook', async () => {
+    mockedAxios.get.mockResolvedValueOnce({data: { code:0, data:[{id:1},{id:2},{id:3}] }})
+    // const { getByTestId, asFragment } = render(<WeeklySpeicalPanlUI />);
+    // //copy from https://stackoverflow.com/questions/60115885/how-to-solve-the-update-was-not-wrapped-in-act-warning-in-testing-library-re
+    // const listNode = await waitFor(() => getByTestId('weekly-test'));
+    // console.log(listNode)
+    const { result, waitForNextUpdate } = renderHook(() => WeeklySpeicalPanlUI())
+    await waitForNextUpdate()
+    expect(typeof result.current.props.children[0].type).toBe("function")
+    expect(typeof result.current.props.children[1].type).toBe("string")
+    expect(result.current.props.children[2].key).toEqual("row")
+    expect(result.current.props.children[2].props.children.length).toEqual(3)
+    expect(typeof result.current.props.children[3].type).toBe("function")
+    // 强行把这个UI组件拆解出来 一层一层看 xswl
+})
+
+afterEach(cleanup)

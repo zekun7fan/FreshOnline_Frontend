@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import {renderHook, act, cleanup} from '@testing-library/react-hooks';
 
 import SearchHeader from "../components/SearchHeader";
 import Login from "../components/Login";
@@ -13,6 +13,7 @@ test('render login using hook', () =>{
             </BrowserRouter>
         )
     })
+    cleanup()
     // console.log(result.current)
     // console.log(result.current.props.children)
 })
