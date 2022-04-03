@@ -94,10 +94,10 @@ function AddressBook() {
             return (
                 <Row key = {ele.row} gutter={16}>
                     <Col span={8}>
-                        <Input defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
+                        <Input key = {"input"+ele.row} defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
                     </Col>
                     <Col span={8}>
-                        <Button type="link" onClick={()=>{ApplyChange(ele.row)}}>Apply</Button>
+                        <Button key = {"apply"+ele.row} type="link" onClick={()=>{ApplyChange(ele.row)}}>Apply</Button>
                     </Col>
                 </Row>)
             else if(ele.alive) return (
@@ -106,13 +106,13 @@ function AddressBook() {
                         <h2>{ele.text}</h2>
                     </Col>
                     <Col span={8}>
-                        <Button type="link" onClick={()=>{EditLocation(ele.row)}} >Edit</Button>
-                        <Button type="link" onClick={()=>{deleteLocation(ele.row)}} >Delete</Button>
+                        <Button  key = {"edit"+ele.row} type="link" onClick={()=>{EditLocation(ele.row)}} >Edit</Button>
+                        <Button  key = {"del"+ele.row} type="link" onClick={()=>{deleteLocation(ele.row)}} >Delete</Button>
                     </Col>
                 </Row>)
             else return (<div/>)
         })
-        lines = lines.concat(<Button onClick={addLine}>Add</Button>)
+        lines = lines.concat(<Button key = {"add"} onClick={addLine}>Add</Button>)
         setContent(lines)
     }
    

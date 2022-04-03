@@ -19,10 +19,10 @@ function Login() {
             localStorage.setItem(user_name_key, info.name)
             localStorage.setItem(user_type_key, String(info.type))
             localStorage.setItem(user_token_key, info.token)
+            //huang added code here
+             navigate(`/`);
         }
         message.info(resp.msg)
-        //huang added code here
-        navigate(`/`);
     };
 
 
