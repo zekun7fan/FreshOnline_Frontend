@@ -31,7 +31,7 @@ function AddressBook() {
                 const user:User = res.data
                 setUser(user)
                 let location =new String(user.location)
-                var array = location.split(";")
+                var array = location.split(",")
                 var lindex=-1
                 var arrays = array.map(
                     (ele)=>{lindex=lindex+1; return {text:ele,editing:false,row:lindex,alive:true}})
@@ -61,7 +61,7 @@ function AddressBook() {
 
     const pushUpdate = async ()=>{
         var location=""
-        data.map((ele)=>{location=location+( ele.alive? (ele.text+";"):"")})
+        data.map((ele)=>{location=location+( ele.alive? (ele.text+","):"")})
         location=location.slice(0,-1)
         const resp = await updateAddress(user.id,location)
         const res = resp.data
