@@ -7,6 +7,7 @@ import { StockedGoods } from '../../utils/javamodel';
 import { useNavigate } from 'react-router-dom';
 import { Button, Modal, Input, Radio, Space } from 'antd';
 import { User } from "../../utils/javamodel";
+import { mkdirSync } from 'fs';
 
 interface fetchDataEntry {
     goodsId: number,
@@ -72,48 +73,71 @@ function GoodsOverviewDisplay() {
         setVisible(true);
     };
 
-    const handleOk = () => {
+    const handleOk = async () => {
         let user_id = getUserId();
+        
+        const response = await checkOut(user_id!, selected_address == "" ? new_address : selected_address);
+        if (response.data.code != 0) {
+            console.log(response.data.code);
+            const msg = response.data.msg;
+            console.log(msg);
+            if (Array.isArray(msg)) {
+                let alertString: string = "Sorry the following products in your cart has a shortage:"
+                for (let i = 0; i < msg.length; i++) {
+                    let id: number = msg[i];
+                    for (let j = 0; j < goods.length; j++) {
+                        if (goods[j].goodsId == id) {
+                            alertString += " \"" + goods[j].stockedGoods.name + "\" ";
+                        }
+                    }
+
+                }
+                alert(alertString);
+                return
+            }
+        }
         setConfirmLoading(true);
-        checkOut(user_id!, selected_address ==""?new_address:selected_address);
-        console.log(user_id, selected_address);
         setTimeout(() => {
             navigate("/customer/orders");
         }, 2000);
     };
 
     const handleCancel = () => {
-        console.log('Clicked cancel button');
         setVisible(false);
     };
+
+    let total: number = 0;
+    for (let i = 0; i < goods.length; i++) {
+        total += goods[i].stockedGoods.onsale ? goods[i].stockedGoods.salePrice! * goods[i].count : goods[i].stockedGoods.price! * goods[i].count;
+    }
 
 
     return (
         <div >
-            <div style={{textAlign:"left"}}>
-            {goods.map(
-                (good => {
-                    return (
-                        <GoodsOverviewCard key={good.goodsId}
-                            id={good.goodsId}
-                            name={good.stockedGoods.name!}
-                            rate={good.stockedGoods.rate!}
-                            rate_count={good.stockedGoods.rateCount!}
-                            price={good.stockedGoods.price!}
-                            onsale={good.stockedGoods.onsale ? true : false}
-                            sale_price={good.stockedGoods.salePrice}
-                            type={good.stockedGoods.type!}
-                            pic={good.stockedGoods.pic!}
-                            show_button={true}
-                            in_cart={good.count} />)
-                })
-            )}
+            <div style={{ textAlign: "left" }}>
+                {goods.map(
+                    (good => {
+                        return (
+                            <GoodsOverviewCard key={good.goodsId}
+                                id={good.goodsId}
+                                name={good.stockedGoods.name!}
+                                rate={good.stockedGoods.rate!}
+                                rate_count={good.stockedGoods.rateCount!}
+                                price={good.stockedGoods.price!}
+                                onsale={good.stockedGoods.onsale ? true : false}
+                                sale_price={good.stockedGoods.salePrice}
+                                type={good.stockedGoods.type!}
+                                pic={good.stockedGoods.pic!}
+                                show_button={true}
+                                in_cart={good.count} />)
+                    })
+                )}
             </div>
-            <div style={{textAlign:"center", marginTop:100,marginBottom:100,height:100}}>
-                <Button type="primary" onClick={showModal}>Checkout</Button><br/>
+            <div style={{ textAlign: "center", marginTop: 100, marginBottom: 100, height: 100 }}>
+                Total: $ {total} <Button type="primary" onClick={showModal}>Checkout</Button><br />
             </div>
             <Modal title="Checkout confirmation" visible={visible} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
-                <Radio.Group onChange={(e)=>{set_selected_address(e.target.value)}} value={selected_address}>
+                <Radio.Group onChange={(e) => { set_selected_address(e.target.value) }} value={selected_address}>
                     <Space direction="vertical">
                         {address.map(
                             (address) => {
@@ -121,8 +145,8 @@ function GoodsOverviewDisplay() {
                             }
                         )}
                         <Radio value={""}>
-                            New Address: 
-                            {selected_address == "" ? <Input onChange={(e)=>{console.log(e.target.value);set_new_address(e.target.value)}} style={{ width: 400, marginLeft: 10 }} /> : null}
+                            New Address:
+                            {selected_address == "" ? <Input onChange={(e) => { console.log(e.target.value); set_new_address(e.target.value) }} style={{ width: 400, marginLeft: 10 }} /> : null}
                         </Radio>
                     </Space>
                 </Radio.Group>
