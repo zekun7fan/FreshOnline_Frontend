@@ -17,7 +17,7 @@ test('render search sider using hook', () => {
         </Provider>
     )
     const { result } = renderHook(() => SearchSider(), { wrapper })
-    console.log(result.current)
+    // console.log(result.current)
 })
 
 afterEach(cleanup)

@@ -14,7 +14,7 @@ test('render search header using hook', () =>{
         </Provider>
     )
     const { result } = renderHook(() => SearchHeader(), { wrapper })
-    console.log(result.current)
+    // expect(result.current).toMatchSnapshot()
 })
 
 afterEach(cleanup)

@@ -1,20 +1,36 @@
 import {renderHook, act, cleanup} from '@testing-library/react-hooks';
 
-import SearchHeader from "../components/SearchHeader";
 import LoginUI from "../components/Login";
 import {BrowserRouter} from "react-router-dom";
 import {Login} from "../components/Login";
+import {User} from "../net/reqBody";
+import {jest} from "@jest/globals";
+import axios from "axios";
 
 
-test('render login using hook', () =>{
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+test('render login using hook', async () =>{
     const wrapper = ({ children }:{ children: any }) => (
         <BrowserRouter>
             {children}
         </BrowserRouter>
     )
     const { result } = renderHook(() => Login(), { wrapper })
+    // expect(result.current).toMatchSnapshot()
+    const { localStorage, onFinish } = result.current
 
-    console.log(result.current)
+    mockedAxios.put.mockResolvedValueOnce({data: { code:1, msg:"hello", data: {}}})
+    const user: User = {}
+    await act(() => onFinish(user))
+    expect(typeof localStorage).toBe('object')
+    expect(localStorage.length).toEqual(0)
+
+    mockedAxios.put.mockResolvedValueOnce({data: { code:0, msg:"hello", data: {}}})
+    await act(() => onFinish(user))
+    expect(typeof localStorage).toBe('object')
+    expect(localStorage.length).toEqual(4)
 })
 
 test('render loginUI using hook', () =>{
@@ -23,9 +39,10 @@ test('render loginUI using hook', () =>{
             {children}
         </BrowserRouter>
     )
-
     const { result } = renderHook(() => LoginUI(), { wrapper })
-    console.log(result)
+    // expect(result.current).toMatchSnapshot() 偷懒的做法 但是如果改前端 这个也会变化
+    expect(result.current.props.children[0].props.children).toEqual('Login')
+    expect(result.current.props.children[1].props.children.length).toEqual(3)
 })
 
 afterEach(cleanup)
