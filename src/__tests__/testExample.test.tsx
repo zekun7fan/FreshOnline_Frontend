@@ -7,6 +7,11 @@ import {Provider} from "react-redux";
 import store from "../redux/store";
 import App from "../App";
 import React, {ReactChild, ReactNode} from "react";
+import {cleanup} from "@testing-library/react-hooks";
+
+afterEach(() => {
+    cleanup().then()
+})
 
 it('1 + 1 = 2', () => {
     expect(sum(1, 1)).toBe(2);

@@ -25,7 +25,7 @@ const empty_search_params: AdminSearchParam = {
 
 }
 
-function parseCategoryTree(tree:any) {
+export function parseCategoryTree(tree:any) {
     for(let i = 0; i < tree.length; i++){
         tree[i]["value"] = tree[i].id
         tree[i]["label"] = tree[i].name
@@ -57,6 +57,7 @@ export function SearchHeader() {
 
     useEffect( () => {
         (async function loadCategoryTree() {
+            console.log('loading category tree')
             const raw = await getCategoryTree()
             const resp = raw.data
             if (resp.code === 0) {
@@ -64,7 +65,6 @@ export function SearchHeader() {
                 setCategoryTree(parseCategoryTree(tree))
             }
         })();
-        console.log('searchHeader use effect, category tree')
     }, [])
 
     const ChangeBrandsAndResults = (goodsInfo: GoodsInfoBySearch | undefined) => {

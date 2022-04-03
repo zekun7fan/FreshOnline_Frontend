@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render search sider UI using hook 1`] = `
+<Content
+  className="sider-content"
+  style={
+    Object {
+      "background": "white",
+      "minHeight": 1710,
+    }
+  }
+>
+  <Menu
+    defaultOpenKeys={
+      Array [
+        "sub1",
+        "sub2",
+        "sub3",
+      ]
+    }
+    mode="inline"
+    style={
+      Object {
+        "borderRight": 0,
+        "height": "100%",
+      }
+    }
+  >
+    <SubMenu
+      icon={<ForwardRef(UserOutlined) />}
+      title="Brands"
+    >
+      <Memo
+        onChange={[Function]}
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+        value={Array []}
+      >
+        <Row />
+      </Memo>
+    </SubMenu>
+    <SubMenu
+      icon={<ForwardRef(UserOutlined) />}
+      title="Price Selection"
+    >
+      <Row>
+        <Col
+          offset={4}
+        >
+          <ForwardRef
+            addonBefore="Min"
+            max={9999}
+            min={0}
+            onChange={[Function]}
+            precision={0}
+            value={0}
+          />
+        </Col>
+        <Col
+          offset={4}
+        >
+          <ForwardRef
+            addonBefore="Max"
+            max={9999}
+            min={0}
+            onChange={[Function]}
+            precision={0}
+            value={0}
+          />
+        </Col>
+      </Row>
+    </SubMenu>
+    <SubMenu
+      icon={<ForwardRef(UserOutlined) />}
+      title="Sort Type"
+    >
+      <Memo
+        onChange={[Function]}
+        value={0}
+      >
+        <Row
+          gutter={
+            Array [
+              0,
+              8,
+            ]
+          }
+        >
+          <Col
+            offset={4}
+            span={20}
+          >
+            <Radio
+              value={1}
+            >
+              Price: Low to High
+            </Radio>
+          </Col>
+          <Col
+            offset={4}
+            span={20}
+          >
+            <Radio
+              value={2}
+            >
+              Price: High to Low
+            </Radio>
+          </Col>
+          <Col
+            offset={4}
+            span={20}
+          >
+            <Radio
+              value={4}
+            >
+              Top Sellers
+            </Radio>
+          </Col>
+        </Row>
+      </Memo>
+    </SubMenu>
+  </Menu>
+  <Divider
+    dashed={true}
+  />
+  <Row
+    justify="center"
+  >
+    <Button
+      onClick={[Function]}
+      type="primary"
+    >
+      Apply Filter
+    </Button>
+  </Row>
+</Content>
+`;

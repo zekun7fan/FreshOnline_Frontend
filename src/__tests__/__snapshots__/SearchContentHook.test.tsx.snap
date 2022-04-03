@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render search content UI using hook 1`] = `
+<Layout>
+  <Row>
+    <div>
+      No Goods
+    </div>
+  </Row>
+  <Layout>
+    <Row
+      align="middle"
+      justify="center"
+    >
+      <Col>
+        <Pagination
+          defaultCurrent={1}
+          onChange={[Function]}
+          pageSize={20}
+          total={0}
+        />
+      </Col>
+    </Row>
+  </Layout>
+</Layout>
+`;

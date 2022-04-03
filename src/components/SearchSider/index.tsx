@@ -11,8 +11,7 @@ import {update_search_results} from "../../redux/actions/search_results";
 const { SubMenu } = Menu;
 const { Content} = Layout;
 
-export default function SearchSider() {
-
+export function SearchSider() {
     const [selected_brands, setSelected_brands] = useState<string[]>([])
     const [min_price, setMin_price] = useState<number>(0)
     const [max_price, setMax_price] = useState<number>(0)
@@ -48,6 +47,15 @@ export default function SearchSider() {
             dispatch(update_search_results(r.goods_list))
         })
     }
+
+    return { search_brands, selected_brands, setSelected_brands, min_price, setMin_price,
+        max_price, setMax_price, sort_type, setSort_Type, onQueryFilterResult }
+}
+
+export default function SearchSiderUI() {
+
+    const { search_brands, selected_brands, setSelected_brands, min_price, setMin_price,
+        max_price, setMax_price, sort_type, setSort_Type, onQueryFilterResult } = SearchSider()
 
     return (
         <Content

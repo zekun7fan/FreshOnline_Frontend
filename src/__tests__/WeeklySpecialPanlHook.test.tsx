@@ -17,6 +17,11 @@ import axios from "axios";
 
 // renderHook函数用来挂载想要挂载的函数组件
 // 首先把测试独立的工具类函数组件
+
+afterEach(() => {
+    cleanup().then()
+})
+
 test('render format using hook', () => {
     const { result } = renderHook(() => format([]))
     expect(typeof result.current).toBe('object')
@@ -76,5 +81,3 @@ test('render Weekly Special Panel UI using hook', async () => {
     expect(typeof result.current.props.children[3].type).toBe("function")
     // 强行把这个UI组件拆解出来 一层一层看 xswl
 })
-
-afterEach(cleanup)

@@ -11,6 +11,10 @@ import axios from "axios";
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+afterEach(() => {
+    cleanup().then()
+})
+
 test('render login using hook', async () =>{
     const wrapper = ({ children }:{ children: any }) => (
         <BrowserRouter>
