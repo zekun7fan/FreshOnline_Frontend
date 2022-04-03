@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Layout, Breadcrumb} from 'antd';
 
-import SearchHeader from "../../components/SearchHeader";
+import SearchHeaderUI from "../../components/SearchHeader";
 import SearchSider from "../../components/SearchSider";
 import SearchContent from "../../components/SearchContent";
 import {Link} from "react-router-dom";

@@ -1,6 +1,6 @@
 import {renderHook, act, cleanup} from '@testing-library/react-hooks';
 
-import SearchHeader from "../components/SearchHeader";
+import SearchHeaderUI from "../components/SearchHeader";
 import {BrowserRouter} from "react-router-dom";
 import store from "../redux/store";
 import {Provider} from "react-redux";
@@ -13,7 +13,7 @@ test('render search header using hook', () =>{
             </BrowserRouter>
         </Provider>
     )
-    const { result } = renderHook(() => SearchHeader(), { wrapper })
+    const { result } = renderHook(() => SearchHeaderUI(), { wrapper })
     // expect(result.current).toMatchSnapshot()
 })
 

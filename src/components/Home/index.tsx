@@ -15,7 +15,7 @@ import Logout from "../Logout";
 import PaymentMethodPanel from "../PaymentMethodPanel";
 import GoodsOverviewDisplay from '../GoodsOverviewDisplay';
 import GoodsDetailsDisplay from '../GoodsDetailsDisplay';
-import SearchHeader from "../SearchHeader";
+import SearchHeaderUI from "../SearchHeader";
 const { Header, Content, Sider, Footer } = Layout;
 
 function Home() {
@@ -29,7 +29,7 @@ function Home() {
             {/*</Header>*/}
             {/* <UserIcon/> */}
             <Header className="header">
-                <SearchHeader />
+                <SearchHeaderUI />
             </Header>
             <Routes>
                 <Route path={'/login'} element={<LoginUI/>}/>

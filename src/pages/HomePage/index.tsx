@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {BackTop , Layout, Button ,Divider} from 'antd';
 import HomepageHeader from "../../components/HomepageHeader";
-import SearchHeader from "../../components/SearchHeader";
+import SearchHeaderUI from "../../components/SearchHeader";
 import HomeFootPanel from "../../components/HomeFootPanel";
 import CatogoryGoodsPanel from "../../components/CatogoryGoodsPanel";
 import WeeklySpeicalPanlUI from "../../components/WeeklySpeicalPanl";

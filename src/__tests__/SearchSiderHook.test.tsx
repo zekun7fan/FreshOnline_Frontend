@@ -3,7 +3,7 @@ import {renderHook, act, cleanup} from '@testing-library/react-hooks';
 import SearchSider from "../components/SearchSider";
 import SearchContent from "../components/SearchContent";
 import SearchPage from "../pages/SearchPage";
-import SearchHeader from "../components/SearchHeader";
+import SearchHeaderUI from "../components/SearchHeader";
 import store from "../redux/store";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
