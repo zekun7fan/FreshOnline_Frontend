@@ -11,6 +11,7 @@ import { Route, Routes,Link,Navigate} from "react-router-dom";
 import { PageHeader } from 'antd';
 import {getUserId} from "../../utils/user";
 import {SearchFooter} from"../SearchPage"
+import OrderDetailModal from '../../components/OrderDetailModal';
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer,Sider } = Layout;

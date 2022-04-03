@@ -13,6 +13,7 @@ import {
 import {AdminSearchParam} from "./reqParam";
 import {Category, Goods, PaymentMethod, User} from "./reqBody";
 import {CategoryNode} from "../utils/utils";
+import { Order } from "../utils/javamodel";
 import {GoodsPicInfo} from "./resp";
 
 
@@ -140,6 +141,12 @@ export function removeFromFav(userId :number, goodsId: number) {
     return del(favoriteUrl, {}, { userId: userId, goodsID: goodsId })
 }
 
+export function payOrder(order:Order) {
+    return post("/payOrder", {}, order)
+}
+export function cancelOrder(order:Order) {
+    return post("/cancelOrder", {}, order)
+}
 export function deleteGoodsPicture(id: number, info: GoodsPicInfo) {
     return del(goodsPictureUrl(id), {}, info)
 }

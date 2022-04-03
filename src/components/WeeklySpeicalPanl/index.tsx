@@ -23,7 +23,7 @@ export function format(data: Array<StockedGoods>) {
             sale_price:good.salePrice,
             type:good.type!,
             pic:good.pic!,
-            show_button:false,
+            show_button:true,
             in_cart:0
         }
         card_list.push(card)

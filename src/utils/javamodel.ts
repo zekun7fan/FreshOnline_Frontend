@@ -58,11 +58,13 @@ export interface Category extends Serializable {
 
 export interface OrderDetail extends Order {
     goodsList?: SaledGoodsDetail[];
+    total?:number
 }
 
 export interface SaledGoodsDetail extends SaledGoods {
     name?: string;
     pic?: string;
+    storage?: number;
 }
 
 export interface Serializable {

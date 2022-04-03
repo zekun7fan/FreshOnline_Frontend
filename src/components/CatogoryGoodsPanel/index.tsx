@@ -29,7 +29,7 @@ function CatogoryGoodsPanel() {
         for(let k=0;k<data.length;k++){
             // rows.push(<Divider key={"div"+k}/>)
             rows.push(
-                <div id="category_goods">
+                <div id="category_goods" key = {"div"+k}>
                     <h1 key={"h1s"+k} id="text_category">{data[k].name.toLocaleUpperCase()}</h1>
                 </div>
             )
@@ -98,7 +98,7 @@ function CatogoryGoodsPanel() {
 
 
     const element = (
-        <div>
+        <div key="cat div">
             {formatData()}
             <Divider />
         </div>)
