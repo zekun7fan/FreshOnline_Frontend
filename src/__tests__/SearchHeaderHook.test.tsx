@@ -4,6 +4,7 @@ import SearchHeaderUI, {SearchHeader} from "../components/SearchHeader";
 import {BrowserRouter} from "react-router-dom";
 import store from "../redux/store";
 import {Provider} from "react-redux";
+import exp from "constants";
 
 jest.mock('antd/es/tree-select', () => ({}));
 
@@ -33,6 +34,7 @@ test('render search header UI using hook', () =>{
     )
     const { result } = renderHook(() => SearchHeaderUI(), { wrapper })
     // expect(result.current).toMatchSnapshot()
+    expect(result.current.type).toBe('div')
 })
 
 afterEach(cleanup)

@@ -27,6 +27,8 @@ test('render login using hook', async () =>{
     expect(typeof localStorage).toBe('object')
     expect(localStorage.length).toEqual(0)
 
+    await cleanup()
+
     mockedAxios.put.mockResolvedValueOnce({data: { code:0, msg:"hello", data: {}}})
     await act(() => onFinish(user))
     expect(typeof localStorage).toBe('object')
