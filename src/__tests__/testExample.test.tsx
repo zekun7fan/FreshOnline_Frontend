@@ -12,15 +12,15 @@ it('1 + 1 = 2', () => {
     expect(sum(1, 1)).toBe(2);
 });
 
-const e1 = (<Provider store={store}>
-    <BrowserRouter>
-        <div id={"testRoot"}/>
-    </BrowserRouter>
-</Provider>)
-
-
-const g = document.createElement('div');
-g.setAttribute("id", "testRoot");
+// const e1 = (<Provider store={store}>
+//     <BrowserRouter>
+//         <div id={"testRoot"}/>
+//     </BrowserRouter>
+// </Provider>)
+//
+//
+// const g = document.createElement('div');
+// g.setAttribute("id", "testRoot");
 
 
 // ReactDOM.render(
