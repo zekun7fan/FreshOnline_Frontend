@@ -58,13 +58,13 @@ export function SearchHeader() {
     useEffect( () => {
         (async function loadCategoryTree() {
             const raw = await getCategoryTree()
-            const resp: Resp = raw.data
+            const resp = raw.data
             if (resp.code === 0) {
                 const tree = resp.data as CategoryNode[]
                 setCategoryTree(parseCategoryTree(tree))
             }
         })();
-        console.log('searchHeader useeffect monut categorytree')
+        console.log('searchHeader use effect, category tree')
     }, [])
 
     const ChangeBrandsAndResults = (goodsInfo: GoodsInfoBySearch | undefined) => {

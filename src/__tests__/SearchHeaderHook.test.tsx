@@ -16,12 +16,12 @@ test('render search header using hook', () =>{
             </BrowserRouter>
         </Provider>
     )
-    // const { result } = renderHook(() => SearchHeader(), { wrapper })
-    // const { category_tree, setCategoryTree, onChangeCategory,
-    //     keyword, setKeyword, onChangeKeyword } = result.current
-    // act(() => setKeyword("meat"))
-    // act(() => onChangeKeyword())
-    // setTimeout(() => expect(keyword).toEqual("meat"), 3000)
+    const { result } = renderHook(() => SearchHeader(), { wrapper })
+    const { category_tree, setCategoryTree, onChangeCategory,
+        keyword, setKeyword, onChangeKeyword } = result.current
+    act(() => setKeyword("meat"))
+    act(() => onChangeKeyword())
+    setTimeout(() => expect(keyword).toEqual("meat"), 3000)
 })
 
 test('render search header UI using hook', () =>{
