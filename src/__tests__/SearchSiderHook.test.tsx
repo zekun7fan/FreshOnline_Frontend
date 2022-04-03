@@ -8,6 +8,8 @@ import store from "../redux/store";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 
+jest.mock('antd/es/tree-select', () => ({}));
+
 test('render search sider using hook', () => {
     const wrapper = ({ children }:{ children: any }) => (
         <Provider store={store}>
