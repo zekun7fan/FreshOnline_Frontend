@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {Layout, Breadcrumb} from 'antd';
 
-import SearchHeader from "../../components/SearchHeader";
+import SearchHeaderUI from "../../components/SearchHeader";
 import SearchSider from "../../components/SearchSider";
 import SearchContent from "../../components/SearchContent";
+import {Link} from "react-router-dom";
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -16,7 +17,7 @@ export default function SearchPage() {
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to='/'>Home</Link></Breadcrumb.Item>
                         <Breadcrumb.Item>Search</Breadcrumb.Item>
                     </Breadcrumb>
                     <Content className="site-layout-background"

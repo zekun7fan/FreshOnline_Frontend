@@ -31,6 +31,10 @@ export function getUserType(): UserType | null {
     }
 }
 
+export function getUserToken(): string | null {
+    return localStorage.getItem(user_token_key);
+}
+
 
 export function getUserName(): string| null {
     return  localStorage.getItem(user_name_key)

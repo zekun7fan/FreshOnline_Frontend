@@ -1,4 +1,4 @@
-import {Goods} from "./reqBody";
+import {Goods, ReqBody} from "./reqBody";
 
 
 export interface Resp {
@@ -27,6 +27,12 @@ export interface LoginedUserInfo extends RespContent{
     name: string,
     type: number,
     token: string
+}
+
+export interface GoodsPicInfo extends RespContent, ReqBody{
+    url: string,
+    uid?: string,
+    name?: string
 }
 
 

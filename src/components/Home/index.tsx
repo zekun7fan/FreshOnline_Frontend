@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
 import UserIcon from "../UserIcon";
 import {Route, Routes} from "react-router-dom";
-import Login from "../Login";
+import LoginUI from "../Login";
 import Register from "../Register";
 import AdminPanel from "../../pages/AdminPanel";
 // import ErrorPage from "../ErrorPage";
@@ -15,7 +15,7 @@ import Logout from "../Logout";
 import PaymentMethodPanel from "../PaymentMethodPanel";
 import GoodsOverviewDisplay from '../GoodsOverviewDisplay';
 import GoodsDetailsDisplay from '../GoodsDetailsDisplay';
-import SearchHeader from "../SearchHeader";
+import SearchHeaderUI from "../SearchHeader";
 const { Header, Content, Sider, Footer } = Layout;
 
 function Home() {
@@ -29,10 +29,10 @@ function Home() {
             {/*</Header>*/}
             {/* <UserIcon/> */}
             <Header className="header">
-                <SearchHeader />
+                <SearchHeaderUI />
             </Header>
             <Routes>
-                <Route path={'/login'} element={<Login/>}/>
+                <Route path={'/login'} element={<LoginUI/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/logout'} element={<Logout/>}/>
                 <Route path={'/admin/*'} element={<AdminPanel/>}/>

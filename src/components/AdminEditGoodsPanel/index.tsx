@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Goods} from "../../net/reqBody";
 import {Button, Form, FormInstance, Input, InputNumber, message, Modal, Rate, Select, TreeSelect} from "antd";
-import {CategoryNode, renderTreeNode} from "../../utils/utils";
-import {addGoods, getCategoryTree, updateGoods} from "../../net";
+import {convertUrlListToUrl, convertUrlToUrlList, renderTreeNode} from "../../utils/utils";
+import { updateGoods} from "../../net";
 import {Resp} from "../../net/resp";
 import {shallowEqual, useSelector} from "react-redux";
 import {RootState} from "../../redux/reducers";
-import {goods} from "../../net/url";
+import GoodsPicWall from "../GoodsPicWall";
 
 
 
@@ -41,7 +41,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
 
 
     const submit = async (goods: Goods) => {
-        if (goods.onsale == 0 && goods.salePrice !== undefined){
+        if (goods.onsale == 0 && (goods.salePrice !== undefined)){
             message.warn("do not input sale price for this goods when onsale is inactive")
             return;
         }
@@ -58,8 +58,14 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
         message.info(resp.msg)
         if (resp.code === 0){
             ref.current?.resetFields()
+            props.changeVisible(false)
         }
     };
+
+    // const onGoodsPicWallChange = (urlList: [string]): string => {
+    //     console.log("onGoodsPicWallChange=",urlList)
+    //     return convertUrlListToUrl(urlList);
+    // };
 
 
 
@@ -189,7 +195,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                         <Form.Item
                             name="salePrice"
                             label="Sale price"
-                            initialValue={props.goods.salePrice}
+                            initialValue={props.goods.salePrice == null ? undefined : props.goods.salePrice}
                         >
                             <InputNumber
                                 min="0"
@@ -206,7 +212,7 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                                     required: true,
                                 },
                             ]}
-                            initialValue={props.goods.rate}
+                            initialValue={props.goods.rate == null ? 0 : props.goods.rate}
                         >
                             <Rate allowHalf disabled={true}/>
                         </Form.Item>
@@ -271,16 +277,15 @@ function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
                         </Form.Item>
 
                         {/*<Form.Item*/}
-                        {/*    name="pic"*/}
+                        {/*    name="wall"*/}
                         {/*    label="Pictures"*/}
-                        {/*    rules={[*/}
-                        {/*        {*/}
-                        {/*            required: false,*/}
-                        {/*        },*/}
-                        {/*    ]}*/}
-                        {/*    getValueFromEvent={this.getPictures}*/}
+                        {/*    // getValueFromEvent={onGoodsPicWallChange}*/}
                         {/*>*/}
-                        {/*    <GoodsPicWall goodsId={goods_id} urlList={urlList}/>*/}
+                            <GoodsPicWall
+                                goods_id={props.goods.id!}
+                                url_list={convertUrlToUrlList(props.goods.pic)}
+                                // onChange={onGoodsPicWallChange}
+                            />
                         {/*</Form.Item>*/}
 
 

@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { Rate, Card, Button } from 'antd';
-import index from './index.module.css'
+import index from './index.module.css';
 import { useNavigate } from 'react-router-dom';
 import {getUserId} from "../../utils/user";
 import {addToCart, removeFromCart} from "../../net";

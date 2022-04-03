@@ -22,7 +22,5 @@ deploy-prod:
     - cp -rf ./ /root/front
     - cd /root/front
     - sed -i 's/localhost/137.184.8.39/' ./src/net/http.ts
-    - npm install
-    - sudo systemctl restart  ecefront.service
   only:
     - master
