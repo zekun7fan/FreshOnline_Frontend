@@ -70,8 +70,11 @@ function GoodsOverviewCard(props: OverviewCardProps) {
 
 
 
-
-    let image = props.pic.split(",")[0];
+    let image = "";
+    if (props.pic){
+        image = props.pic.split(",")[0];
+    }
+     
     let cartinfo = "selected: ";
     let price = props.onsale && props.sale_price? props.sale_price : props.price;
     let price_total = in_cart * price;
@@ -89,7 +92,7 @@ function GoodsOverviewCard(props: OverviewCardProps) {
         <Card
             hoverable
             style={{ width: 240, height: card_height, display: "inline-block", margin: 5, borderRadius: 10, overflow: "hidden" }}
-            cover={<img alt={props.name} src={image} onClick={redirectGoodsDetails} />}
+            cover={<img style={{width:240,height:240}} alt={"image of: "+props.name} src={image} onClick={redirectGoodsDetails} />}
         >
             <div className={index.meta} onClick={redirectGoodsDetails}> <strong>{props.name}</strong></div>
             <Rate className={index.rate} allowHalf={true} disabled={true} defaultValue={0} value={props.rate} />

@@ -30,12 +30,10 @@ function Logout() {
         }
         const raw = await logout(user)
         const resp : Resp = raw.data
-        if (resp.code === 0){
-            localStorage.removeItem(user_id_key)
-            localStorage.removeItem(user_name_key)
-            localStorage.removeItem(user_type_key)
-            localStorage.removeItem(user_token_key)
-        }
+        localStorage.removeItem(user_id_key)
+        localStorage.removeItem(user_name_key)
+        localStorage.removeItem(user_type_key)
+        localStorage.removeItem(user_token_key)
         message.info(resp.msg)
         setStatus('successfully logout')
         navigate('/home')
