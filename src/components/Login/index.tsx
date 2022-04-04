@@ -66,6 +66,12 @@ export default function LoginUI() {
                     </Form.Item>
                 </Form>
 
+                <Col span={24}>
+                    <Button type="primary" htmlType="submit">
+                        LOGIN
+                    </Button>
+                </Col>
+
             </Row>
         </div>
     );
