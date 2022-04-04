@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {queryUser,updateAddress} from "../../net";
-import { Form,Input,Divider,Col, Row,Button ,  Cascader,InputNumber,
-                                               Select,
-                                               Checkbox} from 'antd';
+import { Form,Input,Divider,Col, Row,Button } from 'antd';
 import {User} from "../../utils/javamodel";
 import {getUserId} from "../../utils/user";
 
@@ -22,29 +20,31 @@ export function AddressBook() {
     const [user, setUser] = useState<User>({})
     const [content, setContent] = useState<Array<JSX.Element>>([])
 
-    const componentDidMount = async ()=> {
-        const userId = getUserId()
-        if(userId==null) return
-        else{
-            const resp = await queryUser(userId)
-            const res = resp.data
-            if (res.code === 0){
-                const user:User = res.data
-                setUser(user)
-                let location =new String(user.location)
-                var array = location.split(",")
-                var lindex=-1
-                var arrays = array.map(
-                    (ele)=>{lindex=lindex+1; return {text:ele,editing:false,row:lindex,alive:true}})
-                setData(arrays)
+    const componentDidMount = async () => {
+        try {
+            const userId = getUserId()
+            if( userId == null ) return
+            else{
+                console.log('here in resp')
+                const resp = await queryUser(userId)
+                const res = resp.data
+                if (res.code === 0){
+                    const user:User = res.data
+                    setUser(user)
+                    let location =new String(user.location)
+                    var array = location.split(",")
+                    var lindex=-1
+                    var arrays = array.map(
+                        (ele)=>{lindex=lindex+1; return {text:ele,editing:false,row:lindex,alive:true}})
+                    setData(arrays)
+                }
             }
-        }
+        } catch (e) {}
     }
 
     useEffect(() => {
-        componentDidMount()
-        return () => {
-        };
+        componentDidMount().then()
+        return () => {};
     }, [])
 
     useEffect(() => {
