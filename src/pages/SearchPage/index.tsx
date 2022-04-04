@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Layout, Breadcrumb} from 'antd';
+import {Layout, Breadcrumb, Divider} from 'antd';
 
 import SearchHeaderUI from "../../components/SearchHeader";
 import SearchSiderUI from "../../components/SearchSider";
@@ -30,7 +30,6 @@ export default function SearchPage() {
                     </Content>
                 </Layout>
             </Layout>
-            <SearchFooter/>
         </Layout>
     );
 }
@@ -38,6 +37,7 @@ export default function SearchPage() {
 export function SearchFooter() {
     return (
         <Layout>
+            <Divider />
             <Footer style={{ textAlign: 'center' }}>FreshOnline ©2022 Created by Team FreshOnline</Footer>
         </Layout>
     )

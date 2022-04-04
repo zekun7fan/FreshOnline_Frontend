@@ -46,9 +46,7 @@ test('render loginUI using hook', () =>{
         </BrowserRouter>
     )
     const { result } = renderHook(() => LoginUI(), { wrapper })
-    // expect(result.current).toMatchSnapshot() 偷懒的做法 但是如果改前端 这个也会变化
-    expect(result.current.props.children[0].props.children).toEqual('Login')
-    expect(result.current.props.children[1].props.children.length).toEqual(3)
+    expect(result.current).toMatchSnapshot()
 })
 
 afterEach(cleanup)

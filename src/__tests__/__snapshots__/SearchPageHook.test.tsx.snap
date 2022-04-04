@@ -2,6 +2,7 @@
 
 exports[`render search footer UI using hook 1`] = `
 <Layout>
+  <Divider />
   <Footer
     style={
       Object {
@@ -62,6 +63,5 @@ exports[`render search page UI using hook 1`] = `
       </Content>
     </Layout>
   </Layout>
-  <SearchFooter />
 </Layout>
 `;

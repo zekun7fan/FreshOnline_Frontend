@@ -10,7 +10,7 @@ import HomePage from "../../pages/HomePage";
 import UserInfo from "../../pages/UserInfo";
 //import GoodsDetailsDisplay from '../GoodsDetailsDisplay';
 import {BulbOutlined} from "@ant-design/icons";
-import SearchPage from "../../pages/SearchPage";
+import SearchPage, {SearchFooter} from "../../pages/SearchPage";
 import Logout from "../Logout";
 import PaymentMethodPanel from "../PaymentMethodPanel";
 import GoodsOverviewDisplay from '../GoodsOverviewDisplay';
@@ -44,6 +44,7 @@ function Home() {
                 <Route path={'/'} element={<HomePage/>}/>
                 <Route path={'/payment/*'} element={<PaymentMethodPanel/>}/>
             </Routes>
+            <SearchFooter/>
         </Layout>
 
     )
