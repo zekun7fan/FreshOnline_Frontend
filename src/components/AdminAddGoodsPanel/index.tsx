@@ -24,7 +24,6 @@ const layout = {
 
 function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
 
-
     const categoryTree = useSelector((state: RootState) => {
         return state.category_tree;
     }, shallowEqual)
@@ -56,6 +55,19 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
             ref.current?.resetFields()
         }
     };
+
+
+    return {categoryTree, submit, ref, cancel}
+
+
+
+
+}
+
+
+function AdminAddGoodsPanelUI(props: AdminAddGoodsPanelProps) {
+
+    const {categoryTree, submit, ref, cancel} = AdminAddGoodsPanel(props)
 
 
     return (
@@ -218,4 +230,4 @@ function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
 }
 
 
-export default AdminAddGoodsPanel;
+export default AdminAddGoodsPanelUI;

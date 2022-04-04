@@ -12,8 +12,8 @@ const {Option} = Select;
 const {Panel} = Collapse;
 
 
-function PaymentMethodPanel() {
 
+function PaymentMethodPanel() {
 
     const [type, setType] = useState<number | undefined>();
     const [cardNumber, setCardNumber] = useState<number | undefined>();
@@ -135,6 +135,15 @@ function PaymentMethodPanel() {
     };
 
 
+    return {cardNumber, cvvCode, onCvvCodeChange, onCardNumberChange, del, onTypeChange, onAdd, data, columns, type}
+
+}
+
+
+function PaymentMethodPanelUI() {
+
+    const {cardNumber, cvvCode, onCvvCodeChange, onCardNumberChange,type ,onTypeChange, onAdd, data, columns} = PaymentMethodPanel();
+
 
     return (
         <div>
@@ -160,4 +169,4 @@ function PaymentMethodPanel() {
     );
 }
 
-export default PaymentMethodPanel;
+export default PaymentMethodPanelUI;

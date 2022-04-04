@@ -12,6 +12,7 @@ import {deleteGoods, getGoods} from "../../net";
 import {GoodsInfoBySearch, Resp} from "../../net/resp";
 
 
+
 function AdminGoodsDisplay() {
 
     const dispatch = useDispatch();
@@ -43,13 +44,21 @@ function AdminGoodsDisplay() {
     const onPaginationChange = async (page: number) => {
         dispatch(update_admin_pagination_params({...adminPaginationParams, page}));
         const searchParams: AdminSearchParam = {...adminSearchParams, page}
-       const raw = await getGoods(searchParams)
+        const raw = await getGoods(searchParams)
         const resp : Resp = raw.data
         if (resp.code === 0){
             const {goods_list} = resp.data as GoodsInfoBySearch
             dispatch(update_admin_goods_data(goods_list))
         }
     };
+
+    return {dispatch, deleteItem, deleteGoods, adminSearchParams, adminPaginationParams, adminGoodsData, onPaginationChange}
+}
+
+
+function AdminGoodsDisplayUI() {
+
+    const {dispatch, deleteItem, deleteGoods, adminSearchParams, adminPaginationParams, adminGoodsData, onPaginationChange} = AdminGoodsDisplay()
 
     return (
         <div>
@@ -86,4 +95,4 @@ function AdminGoodsDisplay() {
     );
 }
 
-export default AdminGoodsDisplay;
+export default AdminGoodsDisplayUI;

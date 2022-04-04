@@ -13,8 +13,9 @@ interface AdminGoodsOverviewCardProps {
 
 }
 
-function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
 
+
+function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
 
     const firstUrl = getFirstPicUrl(props.goods.pic)
     const price_symbol = props.goods.type === 0 ? ("$") : ("$/lb")
@@ -45,6 +46,15 @@ function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
         setShowEditGoodsPanel(visible)
     };
 
+    return {onAttemptToDelete, onDeleteCancel, onDeleteConfirm, onEdit, changeEditGoodsPanelVisible, firstUrl, price_symbol, popconfirm_visible, showEditGoodsPanel}
+
+
+
+}
+
+function AdminGoodsOverviewCardUI(props: AdminGoodsOverviewCardProps) {
+
+    const {onAttemptToDelete, onDeleteCancel, onDeleteConfirm, onEdit, changeEditGoodsPanelVisible, firstUrl, price_symbol, popconfirm_visible, showEditGoodsPanel} = AdminGoodsOverviewCard(props)
 
     return (
         <div>
@@ -88,4 +98,4 @@ function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
     );
 }
 
-export default AdminGoodsOverviewCard;
+export default AdminGoodsOverviewCardUI;

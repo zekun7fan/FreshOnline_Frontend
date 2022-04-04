@@ -13,24 +13,14 @@ import {logout} from "../../net";
 import {Button, message} from "antd";
 import { useNavigate } from "react-router-dom";
 
+
 function Logout() {
-
     const navigate = useNavigate();
-
-    let timer: ReturnType<typeof setTimeout>;
-
     const [status, setStatus] = useState<string>(`currently login user: 
     Id:${getUserId()}, 
     Name: ${getUserName()}, 
     Type: ${getUserType()}
     `)
-
-    useEffect(() => {
-        return () => {
-            clearTimeout(timer)
-        };
-    },[])
-
 
     const toLogout = async () => {
         const user = getUserInfo();
@@ -48,10 +38,15 @@ function Logout() {
         }
         message.info(resp.msg)
         setStatus('successfully logout')
-        timer = setTimeout(() => {
-            navigate('/')
-        }, 2000)
+        navigate('/home')
     };
+
+    return {status, toLogout}
+}
+
+function LogoutUI() {
+
+    const {status, toLogout} = Logout();
 
     return (
         <div>
@@ -61,4 +56,4 @@ function Logout() {
     );
 }
 
-export default Logout;
+export default LogoutUI;

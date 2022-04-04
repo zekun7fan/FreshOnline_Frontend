@@ -9,7 +9,9 @@ import {update_category} from "../../redux/actions/category_tree";
 import {Category} from "../../net/reqBody";
 
 
-function AdminCategoryManagePanel(){
+
+
+function AdminCategoryManagePanel() {
 
     const dispatch = useDispatch();
 
@@ -127,6 +129,20 @@ function AdminCategoryManagePanel(){
         queryTree().catch()
     },[])
 
+
+
+    return {onSelect, onClear, onAddCategory, onDelCategory, onCancelAdd, onChange, onConfirmAdd, categoryTree, visible, selectedNode, ref}
+
+
+}
+
+
+function AdminCategoryManagePanelUI(){
+
+    const {onSelect, onClear, onAddCategory, onDelCategory, onCancelAdd, onChange, onConfirmAdd, categoryTree, visible, selectedNode, ref} = AdminCategoryManagePanel();
+
+
+
     return (
             <div>
                 <TreeSelect
@@ -155,4 +171,4 @@ function AdminCategoryManagePanel(){
 };
 
 
-export default AdminCategoryManagePanel;
+export default AdminCategoryManagePanelUI;

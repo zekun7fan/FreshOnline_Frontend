@@ -7,6 +7,7 @@ import {Resp} from "../../net/resp";
 import Text from "antd/es/typography/Text";
 import TextArea from "antd/es/input/TextArea";
 import  "./index.css"
+import {useNavigate} from "react-router";
 
 const {Option} = Select
 
@@ -23,10 +24,8 @@ interface UserInfo {
 
 
 function Register() {
-
-
+    const navigate = useNavigate();
     const ref = useRef<FormInstance>(null)
-
 
     const onFinish = async (userinfo: UserInfo) => {
         const pwd : string = userinfo.password
@@ -40,8 +39,18 @@ function Register() {
         const resp: Resp = raw.data
         message.info(resp.msg)
         ref.current!.resetFields()
+        if (resp.code === 0){
+            navigate('/login')
+        }
     };
 
+    return {ref, onFinish}
+
+}
+
+function RegisterUI() {
+
+    const {ref, onFinish} = Register();
 
     return (
         <div id="login_div">
@@ -129,4 +138,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default RegisterUI;

@@ -28,7 +28,6 @@ const empty_header_params: AdminSearchParam = {
 
 }
 
-
 function AdminSearchHeader() {
 
     const dispatch = useDispatch()
@@ -99,7 +98,7 @@ function AdminSearchHeader() {
             ...adminSearchParams,
             price_low,
         }
-       dispatch(update_admin_search_header_params(header_params))
+        dispatch(update_admin_search_header_params(header_params))
 
     };
 
@@ -149,6 +148,19 @@ function AdminSearchHeader() {
         setShowAddGoodsPanel(visible)
     };
 
+    return {dispatch, adminSearchParams, categoryTree, showAddGoodsPanel, changeVisible, onApplyFilter,
+        onCategoryChange, onPriceLowChange, onPriceHighChange, onSortTypeChange, onKeywordChange, onKeywordSearch, onAddGoods}
+
+
+}
+
+
+function AdminSearchHeaderUI() {
+
+    const {dispatch, adminSearchParams, categoryTree, showAddGoodsPanel, changeVisible, onApplyFilter,
+        onCategoryChange, onPriceLowChange, onPriceHighChange, onSortTypeChange, onKeywordChange, onKeywordSearch, onAddGoods} = AdminSearchHeader()
+
+
 
     return (
         <div>
@@ -195,4 +207,4 @@ function AdminSearchHeader() {
     );
 }
 
-export default AdminSearchHeader;
+export default AdminSearchHeaderUI;
