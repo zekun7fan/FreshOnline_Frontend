@@ -1,11 +1,11 @@
 import React from 'react';
-import {Form, Input, Button, Checkbox, message, Row, Col} from 'antd';
+import {Button, Col, Form, Input, message, Row} from 'antd';
 import {User} from "../../net/reqBody";
 import {login} from "../../net";
 import {LoginedUserInfo, Resp} from "../../net/resp";
-import { useNavigate } from 'react-router';
-import {user_id_key, user_name_key, user_token_key, user_type_key} from "../../utils/user";
-import  "./index.css"
+import {useNavigate} from 'react-router';
+import {getUserType, user_id_key, user_name_key, user_token_key, user_type_key, UserType} from "../../utils/user";
+import "./index.css"
 
 
 export function Login() {
@@ -21,7 +21,13 @@ export function Login() {
             localStorage.setItem(user_type_key, String(info.type))
             localStorage.setItem(user_token_key, info.token)
             //huang added code here
-             navigate(`/`);
+            const type = getUserType()
+            if (type === UserType.CUSTOMER){
+                navigate(`/home`);
+            }else{
+                navigate(`/admin`);
+            }
+
         }
         message.info(resp.msg)
     };
