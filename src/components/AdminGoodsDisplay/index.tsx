@@ -13,7 +13,7 @@ import {GoodsInfoBySearch, Resp} from "../../net/resp";
 
 
 
-function AdminGoodsDisplay() {
+export function AdminGoodsDisplay() {
 
     const dispatch = useDispatch();
 

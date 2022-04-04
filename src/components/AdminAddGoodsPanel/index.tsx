@@ -9,7 +9,7 @@ import {RootState} from "../../redux/reducers";
 
 
 
-interface AdminAddGoodsPanelProps {
+export interface AdminAddGoodsPanelProps {
     visible: boolean,
     changeVisible: Function
 }
@@ -22,7 +22,7 @@ const layout = {
 };
 
 
-function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
+export function AdminAddGoodsPanel(props: AdminAddGoodsPanelProps) {
 
     const categoryTree = useSelector((state: RootState) => {
         return state.category_tree;

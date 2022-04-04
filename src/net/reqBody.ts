@@ -1,11 +1,11 @@
-import {Resp} from "./resp";
+import {Resp, RespContent} from "./resp";
 
 
 export interface ReqBody {
 
 }
 
-export interface Goods extends ReqBody, Resp{
+export interface Goods extends ReqBody, RespContent{
     id?: number,
     name: string,
     type: number,

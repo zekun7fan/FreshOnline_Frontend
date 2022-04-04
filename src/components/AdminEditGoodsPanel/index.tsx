@@ -17,14 +17,14 @@ const layout = {
     wrapperCol: {span: 16},
 };
 
-interface AdminEditGoodsPanelProps {
+export interface AdminEditGoodsPanelProps {
     goods: Goods,
     visible: boolean
     changeVisible: Function
 }
 
 
-function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
+export function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
 
     const categoryTree = useSelector((state: RootState) => {
         return state.category_tree;

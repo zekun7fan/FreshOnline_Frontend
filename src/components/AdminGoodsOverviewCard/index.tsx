@@ -7,7 +7,7 @@ import AdminEditGoodsPanel from "../AdminEditGoodsPanel";
 
 
 
-interface AdminGoodsOverviewCardProps {
+export interface AdminGoodsOverviewCardProps {
     goods: Goods,
     deleteItem: Function
 
@@ -15,7 +15,7 @@ interface AdminGoodsOverviewCardProps {
 
 
 
-function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
+export function AdminGoodsOverviewCard(props: AdminGoodsOverviewCardProps) {
 
     const firstUrl = getFirstPicUrl(props.goods.pic)
     const price_symbol = props.goods.type === 0 ? ("$") : ("$/lb")
