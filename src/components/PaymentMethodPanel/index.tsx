@@ -45,7 +45,6 @@ function PaymentMethodPanel() {
             key: 'action',
             render: (item: PaymentMethod) => (
                 <Space size="middle">
-                    <a>dett={item.details}</a>
                     <Button onClick={() => {del(item.id!)}}>DELETE</Button>
                 </Space>
             ),
