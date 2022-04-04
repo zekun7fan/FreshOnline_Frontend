@@ -130,7 +130,7 @@ function GoodsPicWall(props: GoodsPicWallProps) {
         <div>
             <Upload
                 action={`http://137.184.8.39:8080/goods/pictures/${props.goods_id}`}
-                headers={{'token': getUserToken()!}}
+                // headers={{'token': getUserToken()!}}
                 method={'POST'}
                 listType="picture-card"
                 fileList={fileList}
