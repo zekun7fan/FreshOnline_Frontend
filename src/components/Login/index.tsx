@@ -64,13 +64,16 @@ export default function LoginUI() {
                     >
                         <Input.Password allowClear/>
                     </Form.Item>
+
+                    <Form.Item wrapperCol={{ offset: 0, span: 24 }}>
+                        <Button type="primary" htmlType="submit">
+                            LOGIN
+                        </Button>
+                    </Form.Item>
+
+
                 </Form>
 
-                <Col span={24}>
-                    <Button type="primary" htmlType="submit">
-                        LOGIN
-                    </Button>
-                </Col>
 
             </Row>
         </div>

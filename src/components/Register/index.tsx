@@ -125,13 +125,13 @@ function RegisterUI() {
                         <TextArea/>
                     </Form.Item>
 
-                </Form>
+                    <Form.Item wrapperCol={{ offset: 0, span: 24 }}>
+                        <Button type="primary" htmlType="submit">
+                            REGISTER
+                        </Button>
+                    </Form.Item>
 
-                <Col span={24}>
-                    <Button type="primary" htmlType="submit">
-                        REGISTER
-                    </Button>
-                </Col>
+                </Form>
 
             </Row>
         </div>
