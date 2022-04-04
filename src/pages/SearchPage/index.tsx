@@ -36,9 +36,9 @@ export default function SearchPage() {
 
 export function SearchFooter() {
     return (
-        <Layout>
+        <Layout >
             <Divider />
-            <Footer style={{ textAlign: 'center' }}>FreshOnline ©2022 Created by Team FreshOnline</Footer>
+            <Footer style={{ textAlign: 'center',position: "absolute",  bottom: 0, width: "100%" }}>FreshOnline ©2022 Created by Team FreshOnline</Footer>
         </Layout>
     )
 }
