@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render loginUI using hook 1`] = `
+<div
+  id="login_div"
+>
+  <Row
+    align="middle"
+    justify="center"
+    style={
+      Object {
+        "minHeight": "30vh",
+      }
+    }
+  >
+    <Col
+      span={24}
+    >
+      <h2>
+        Login
+      </h2>
+    </Col>
+    <ForwardRef(InternalForm)
+      autoComplete="off"
+      id="login_form"
+      initialValues={
+        Object {
+          "remember": true,
+        }
+      }
+      labelCol={
+        Object {
+          "span": 8,
+        }
+      }
+      name="user"
+      onFinish={[Function]}
+      wrapperCol={
+        Object {
+          "span": 16,
+        }
+      }
+    >
+      <FormItem
+        label="Email"
+        name="email"
+        rules={
+          Array [
+            Object {
+              "message": "Please input your email!",
+              "required": true,
+              "type": "email",
+            },
+          ]
+        }
+      >
+        <ForwardRef
+          allowClear={true}
+        />
+      </FormItem>
+      <FormItem
+        label="Password"
+        name="password"
+        rules={
+          Array [
+            Object {
+              "message": "Please input your password!",
+              "required": true,
+            },
+          ]
+        }
+      >
+        <Password
+          action="click"
+          allowClear={true}
+          iconRender={[Function]}
+          visibilityToggle={true}
+        />
+      </FormItem>
+    </ForwardRef(InternalForm)>
+    <Col
+      span={24}
+    >
+      <Button
+        htmlType="submit"
+        type="primary"
+      >
+        LOGIN
+      </Button>
+    </Col>
+  </Row>
+</div>
+`;

@@ -49,7 +49,7 @@ function Logout() {
         message.info(resp.msg)
         setStatus('successfully logout')
         timer = setTimeout(() => {
-            navigate('/home')
+            navigate('/')
         }, 2000)
     };
 

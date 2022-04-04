@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render search footer UI using hook 1`] = `
+<Layout>
+  <Divider />
+  <Footer
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
+  >
+    FreshOnline ©2022 Created by Team FreshOnline
+  </Footer>
+</Layout>
+`;
+
+exports[`render search page UI using hook 1`] = `
+<Layout>
+  <Layout>
+    <Sider
+      className="site-layout-background"
+      width={200}
+    >
+      <SearchSiderUI />
+    </Sider>
+    <Layout
+      style={
+        Object {
+          "padding": "0 24px 24px",
+        }
+      }
+    >
+      <Breadcrumb
+        style={
+          Object {
+            "margin": "16px 0",
+          }
+        }
+      >
+        <BreadcrumbItem>
+          <Link
+            to="/"
+          >
+            Home
+          </Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          Search
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <Content
+        className="site-layout-background"
+        style={
+          Object {
+            "margin": 0,
+            "minHeight": 280,
+            "padding": 24,
+          }
+        }
+      >
+        <SearchContentUI />
+      </Content>
+    </Layout>
+  </Layout>
+</Layout>
+`;

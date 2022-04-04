@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {queryUser,updateAddress} from "../../net";
-import { Form,Input,Divider,Col, Row,Button ,  Cascader,InputNumber,
-                                               Select,
-                                               Checkbox} from 'antd';
+import { Form,Input,Divider,Col, Row,Button } from 'antd';
 import {User} from "../../utils/javamodel";
 import {getUserId} from "../../utils/user";
 
@@ -15,35 +13,38 @@ interface addressLines{
     row:number,
     alive:boolean
 }
-function AddressBook() {
+
+export function AddressBook() {
 
     const [data, setData] = useState<Array<addressLines>>([])
     const [user, setUser] = useState<User>({})
     const [content, setContent] = useState<Array<JSX.Element>>([])
 
-    const componentDidMount = async ()=> {
-        const userId = getUserId()
-        if(userId==null) return
-        else{
-            const resp = await queryUser(userId)
-            const res = resp.data
-            if (res.code === 0){
-                const user:User = res.data
-                setUser(user)
-                let location =new String(user.location)
-                var array = location.split(";")
-                var lindex=-1
-                var arrays = array.map(
-                    (ele)=>{lindex=lindex+1; return {text:ele,editing:false,row:lindex,alive:true}})
-                setData(arrays)
+    const componentDidMount = async () => {
+        try {
+            const userId = getUserId()
+            if( userId == null ) return
+            else{
+                console.log('here in resp')
+                const resp = await queryUser(userId)
+                const res = resp.data
+                if (res.code === 0){
+                    const user:User = res.data
+                    setUser(user)
+                    let location =new String(user.location)
+                    var array = location.split(",")
+                    var lindex=-1
+                    var arrays = array.map(
+                        (ele)=>{lindex=lindex+1; return {text:ele,editing:false,row:lindex,alive:true}})
+                    setData(arrays)
+                }
             }
-         }
+        } catch (e) {}
     }
 
     useEffect(() => {
-        componentDidMount()
-        return () => {
-        };
+        componentDidMount().then()
+        return () => {};
     }, [])
 
     useEffect(() => {
@@ -51,7 +52,6 @@ function AddressBook() {
         return () => {
         };
     }, [data])
-
 
     const ApplyChange= (row:number)=>{
         data[row].editing=false
@@ -61,7 +61,7 @@ function AddressBook() {
 
     const pushUpdate = async ()=>{
         var location=""
-        data.map((ele)=>{location=location+( ele.alive? (ele.text+";"):"")})
+        data.map((ele)=>{location=location+( ele.alive? (ele.text+","):"")})
         location=location.slice(0,-1)
         const resp = await updateAddress(user.id,location)
         const res = resp.data
@@ -69,6 +69,7 @@ function AddressBook() {
             alert("Update fail!")
         }
     }
+
     const EditLocation=(row:number)=>{
         data[row].editing=true
         getElements()
@@ -80,44 +81,55 @@ function AddressBook() {
         getElements()
     }
 
-    const addLine=()=>{
+    const addLine = () => {
         const id=data[data.length-1].row+1
         data.push({text:"",editing:true,row:id,alive:true})
         getElements()
     }
+
     const textChange=(id: number,obj: { target: { value: any; }; })=>{
         data[id].text=obj.target.value
     }
+
     const getElements = () =>{
         var lines = data.map( (ele)=>{
             if(ele.editing&&ele.alive)
-            return (
-                <Row key = {ele.row} gutter={16}>
-                    <Col span={8}>
-                        <Input defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
-                    </Col>
-                    <Col span={8}>
-                        <Button type="link" onClick={()=>{ApplyChange(ele.row)}}>Apply</Button>
-                    </Col>
-                </Row>)
+                return (
+                    <Row key = {ele.row} gutter={16}>
+                        <Col span={8}>
+                            <Input key = {"input"+ele.row} defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
+                        </Col>
+                        <Col span={8}>
+                            <Button key = {"apply"+ele.row} type="link" onClick={()=>{ApplyChange(ele.row)}}>Apply</Button>
+                        </Col>
+                    </Row>)
             else if(ele.alive) return (
                 <Row key = {ele.row} gutter={16}>
                     <Col span={8}>
                         <h2>{ele.text}</h2>
                     </Col>
                     <Col span={8}>
-                        <Button type="link" onClick={()=>{EditLocation(ele.row)}} >Edit</Button>
-                        <Button type="link" onClick={()=>{deleteLocation(ele.row)}} >Delete</Button>
+                        <Button  key = {"edit"+ele.row} type="link" onClick={()=>{EditLocation(ele.row)}} >Edit</Button>
+                        <Button  key = {"del"+ele.row} type="link" onClick={()=>{deleteLocation(ele.row)}} >Delete</Button>
                     </Col>
                 </Row>)
             else return (<div/>)
         })
-        lines = lines.concat(<Button onClick={addLine}>Add</Button>)
+        lines = lines.concat(<Button key = {"add"} onClick={addLine}>Add</Button>)
         setContent(lines)
     }
-   
-    return (<div>
-        {content}
-    </div>);
+
+    return { content, setData, componentDidMount, ApplyChange,
+        pushUpdate, EditLocation, deleteLocation, addLine, textChange, getElements }
 }
-export default AddressBook;
+
+export default function AddressBookUI() {
+
+    const { content } = AddressBook()
+   
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}

@@ -11,7 +11,7 @@ import {update_search_params} from "../../redux/actions/search_params";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {update_search_brands} from "../../redux/actions/search_brands";
 import {update_search_results} from "../../redux/actions/search_results";
-import {Navigate, useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import UserIcon from "../UserIcon";
 
 const empty_search_params: AdminSearchParam = {
@@ -25,7 +25,7 @@ const empty_search_params: AdminSearchParam = {
 
 }
 
-function parseCategoryTree(tree:any) {
+export function parseCategoryTree(tree:any) {
     for(let i = 0; i < tree.length; i++){
         tree[i]["value"] = tree[i].id
         tree[i]["label"] = tree[i].name
@@ -46,9 +46,7 @@ export async function onQuery(params: AdminSearchParam) {
     }
 }
 
-export default function SearchHeader() {
-    
-
+export function SearchHeader() {
     const [category_tree, setCategoryTree] = useState<CategoryNode[]>([])
     const [keyword, setKeyword] = useState<string>("")
     const dispatch = useDispatch()
@@ -59,14 +57,14 @@ export default function SearchHeader() {
 
     useEffect( () => {
         (async function loadCategoryTree() {
+            console.log('loading category tree')
             const raw = await getCategoryTree()
-            const resp: Resp = raw.data
+            const resp = raw.data
             if (resp.code === 0) {
                 const tree = resp.data as CategoryNode[]
                 setCategoryTree(parseCategoryTree(tree))
             }
         })();
-        console.log('searchHeader useeffect monut categorytree')
     }, [])
 
     const ChangeBrandsAndResults = (goodsInfo: GoodsInfoBySearch | undefined) => {
@@ -90,10 +88,13 @@ export default function SearchHeader() {
                 navigate("/goods")
             })
         }
-        dispatch(update_search_params(empty_search_params))
+        else{
+            dispatch(update_search_params(empty_search_params))
+        }
     }
 
     const onChangeKeyword = () => {
+        console.log('onChangeKeyword:cur_search_param:', cur_search_param)
         const search_param = {
             ...empty_search_params,
             category_id: cur_search_param.category_id,
@@ -106,15 +107,13 @@ export default function SearchHeader() {
         })
     }
 
-    // page redirection
-    // const [redirect, set_redirect] = useState<string>("");
-    // const switchto = (url:string) =>{
-    //     set_redirect(url);
-    // }
-    //
-    // if (redirect) {
-    //     return <Navigate to={redirect} />;
-    // }
+    return { category_tree, setCategoryTree, onChangeCategory, keyword, setKeyword, onChangeKeyword }
+}
+
+export default function SearchHeaderUI() {
+
+    let navigate = useNavigate();
+    const { category_tree, onChangeCategory, keyword, setKeyword, onChangeKeyword } = SearchHeader();
 
     return (
         <div className="logo">

@@ -20,8 +20,13 @@ interface PaymentDetails {
 
 }
 
+export function getPaytype(status:number){
+    const paytype = ["CREDIT CARD"]
+    return status<paytype.length?paytype[status]:""
+}
 
 export function parseCardNumber(details: string): number {
+    if(details==undefined) return 0;
     const paymentDetails: PaymentDetails = JSON.parse(details);
     return paymentDetails.cardNumber;
 }
@@ -132,9 +137,15 @@ function retrieveAllLeaf(item: CategoryNode, res_list: Array<number>): void {
     }
 }
 
+export enum order_status{
+    CREATE=0,
+    CANCEL=1,
+    PAID=2,
+    IN_DELIVERY=3,
+    FINISHED=4
+}
 
-
-export function getOrderStatus(status?:number){
-    const order_status = ["","Paid","Delivering","Delivered","Canceled"]
-    return status&&status<5?order_status[status]:""
+export function getOrderStatus(status:number){
+    const order_status = ["CREATE","CANCEL","PAID","IN_DELIVERY","FINISHED"]
+    return status<5?order_status[status]:""
 }

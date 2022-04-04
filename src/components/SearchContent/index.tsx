@@ -9,8 +9,7 @@ import {update_search_results} from "../../redux/actions/search_results";
 import GoodsOverviewCard, {OverviewCardProps} from "../GoodsOverviewCard";
 import {Goods} from "../../net/reqBody";
 
-export default function SearchContent() {
-
+export function SearchContent() {
     const [search_results, setSearch_results] = useState<OverviewCardProps[]>([])
     const dispatch = useDispatch()
     const cur_search_results = useSelector((state:RootState) => {
@@ -53,6 +52,13 @@ export default function SearchContent() {
             dispatch(update_search_results(r.goods_list))
         })
     }
+
+    return { search_results, onChange, cur_search_results }
+}
+
+export default function SearchContentUI() {
+
+    const { search_results, onChange, cur_search_results } = SearchContent()
 
     return (
         <Layout>

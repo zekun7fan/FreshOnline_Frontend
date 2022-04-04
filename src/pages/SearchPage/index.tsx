@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import {Layout, Breadcrumb} from 'antd';
+import {Layout, Breadcrumb, Divider} from 'antd';
 
-import SearchHeader from "../../components/SearchHeader";
-import SearchSider from "../../components/SearchSider";
-import SearchContent from "../../components/SearchContent";
+import SearchHeaderUI from "../../components/SearchHeader";
+import SearchSiderUI from "../../components/SearchSider";
+import SearchContentUI from "../../components/SearchContent";
 import {Link} from "react-router-dom";
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -13,7 +13,7 @@ export default function SearchPage() {
         <Layout>
             <Layout>
                 <Sider width={200} className="site-layout-background">
-                    <SearchSider />
+                    <SearchSiderUI />
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
@@ -26,11 +26,10 @@ export default function SearchPage() {
                             margin: 0,
                             minHeight: 280,
                         }}>
-                        <SearchContent/>
+                        <SearchContentUI/>
                     </Content>
                 </Layout>
             </Layout>
-            <SearchFooter/>
         </Layout>
     );
 }
@@ -38,6 +37,7 @@ export default function SearchPage() {
 export function SearchFooter() {
     return (
         <Layout>
+            <Divider />
             <Footer style={{ textAlign: 'center' }}>FreshOnline ©2022 Created by Team FreshOnline</Footer>
         </Layout>
     )
