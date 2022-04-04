@@ -165,7 +165,7 @@ function AdminSearchHeaderUI() {
     return (
         <div>
                 <Space direction="vertical">
-                    <Space size={250}>
+                    <Space size={100}>
                         <TreeSelect
                             style={{width: 200}}
                             value={adminSearchParams.category_id as number}
@@ -190,9 +190,9 @@ function AdminSearchHeaderUI() {
                     </Space>
                     <Space size={100}>
                         <InputNumber prefix="$" placeholder="low bound" onChange={onPriceLowChange}
-                                     style={{width: 120}} value={adminSearchParams.price_low} min={0} max={10000}/>
+                                     style={{width: 150}} value={adminSearchParams.price_low} min={0} max={10000}/>
                         <InputNumber prefix="$" placeholder="high bound" onChange={onPriceHighChange}
-                                     style={{width: 120}} value={adminSearchParams.price_high} min={0} max={10000}/>
+                                     style={{width: 150}} value={adminSearchParams.price_high} min={0} max={10000}/>
                         <Select value={adminSearchParams.sort_type} bordered={true} onSelect={onSortTypeChange} style={{width: 200}}>
                             <Option key={0} value={0}>select sort type</Option>
                             <Option key={1} value={1}>price from low to high</Option>

@@ -245,10 +245,7 @@ function GoodsDetailsDisplay() {
 
                 </div>
                 <Tabs type="card">
-                    <TabPane tab="comments" key="1">
-                        Comments goes here
-                    </TabPane>
-                    <TabPane tab="details" key="2">
+                        <TabPane tab="details" key="2">
                         {data!.description}
                     </TabPane>
                 </Tabs>,

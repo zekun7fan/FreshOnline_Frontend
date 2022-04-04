@@ -49,7 +49,7 @@ function UserIcon() {
         <div>
             <div>
                 <Dropdown overlay={menu}>
-                    <Avatar style ={{width:200}} shape={'square'}>{getUserName()}</Avatar>
+                    <Avatar style ={{width:100}} shape={'square'}>{getUserName()}</Avatar>
                 </Dropdown>
             </div>
         </div>

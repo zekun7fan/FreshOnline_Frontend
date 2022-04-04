@@ -23,7 +23,7 @@ function AdminPanel() {
 
     return (
         <div>
-            <Layout style={{minHeight: '100vh', minWidth: '200vh'}}>
+            <Layout style={{minHeight: '100vh'}}>
                 <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
                     <div className="logo"/>
                     <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
@@ -36,8 +36,8 @@ function AdminPanel() {
                     </Menu>
                 </Sider>
                 <Layout className="site-layout">
-                    <Content style={{margin: '0 16px'}}>
-                        <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
+                    <Content style={{}}>
+                        <div className="site-layout-background" style={{padding: 12, minHeight: 360}}>
                             <Routes>
                                 <Route path={'/goods_management'} element={<AdminGoodsManagePanel/>}/>
                                 <Route path={'/category_management'} element={<AdminCategoryManagePanel/>}/>
