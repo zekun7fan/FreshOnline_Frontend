@@ -118,8 +118,8 @@ export default function SearchHeaderUI() {
     return (
         <div className="logo">
             <Menu theme="dark" mode="horizontal">
-                <Menu.Item key="header1" onClick={()=>navigate("/")} >FreshOnline<BulbOutlined/></Menu.Item>
-                {/* <Menu.Item key="header6"><Button onClick={()=>navigate("/")}>Home</Button></Menu.Item> */}
+                <Menu.Item key="header1">FreshOnline<BulbOutlined/></Menu.Item>
+                <Menu.Item key="header6" onClick={()=>navigate("/")}>Home</Menu.Item>
                 <Menu.Item key="header2">
                     <Cascader options={category_tree}
                               onChange={onChangeCategory}
@@ -134,8 +134,8 @@ export default function SearchHeaderUI() {
                     />
                     <Button type="primary" onClick={onChangeKeyword}>Submit</Button>
                 </Menu.Item>
+                <Menu.Item key="header5"style={{width:100, textAlign:"center"}} onClick={()=>navigate("/cart")}>Cart</Menu.Item>
                 <Menu.Item key="header4"><UserIcon/></Menu.Item>
-                <Menu.Item key="header5"><Button style={{width:100}} onClick={()=>navigate("/cart")}>Cart</Button></Menu.Item>
             </Menu>
         </div>
     );
