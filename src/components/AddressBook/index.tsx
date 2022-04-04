@@ -15,7 +15,8 @@ interface addressLines{
     row:number,
     alive:boolean
 }
-function AddressBook() {
+
+export function AddressBook() {
 
     const [data, setData] = useState<Array<addressLines>>([])
     const [user, setUser] = useState<User>({})
@@ -37,7 +38,7 @@ function AddressBook() {
                     (ele)=>{lindex=lindex+1; return {text:ele,editing:false,row:lindex,alive:true}})
                 setData(arrays)
             }
-         }
+        }
     }
 
     useEffect(() => {
@@ -51,7 +52,6 @@ function AddressBook() {
         return () => {
         };
     }, [data])
-
 
     const ApplyChange= (row:number)=>{
         data[row].editing=false
@@ -69,6 +69,7 @@ function AddressBook() {
             alert("Update fail!")
         }
     }
+
     const EditLocation=(row:number)=>{
         data[row].editing=true
         getElements()
@@ -80,26 +81,28 @@ function AddressBook() {
         getElements()
     }
 
-    const addLine=()=>{
+    const addLine = () => {
         const id=data[data.length-1].row+1
         data.push({text:"",editing:true,row:id,alive:true})
         getElements()
     }
+
     const textChange=(id: number,obj: { target: { value: any; }; })=>{
         data[id].text=obj.target.value
     }
+
     const getElements = () =>{
         var lines = data.map( (ele)=>{
             if(ele.editing&&ele.alive)
-            return (
-                <Row key = {ele.row} gutter={16}>
-                    <Col span={8}>
-                        <Input key = {"input"+ele.row} defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
-                    </Col>
-                    <Col span={8}>
-                        <Button key = {"apply"+ele.row} type="link" onClick={()=>{ApplyChange(ele.row)}}>Apply</Button>
-                    </Col>
-                </Row>)
+                return (
+                    <Row key = {ele.row} gutter={16}>
+                        <Col span={8}>
+                            <Input key = {"input"+ele.row} defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
+                        </Col>
+                        <Col span={8}>
+                            <Button key = {"apply"+ele.row} type="link" onClick={()=>{ApplyChange(ele.row)}}>Apply</Button>
+                        </Col>
+                    </Row>)
             else if(ele.alive) return (
                 <Row key = {ele.row} gutter={16}>
                     <Col span={8}>
@@ -115,9 +118,18 @@ function AddressBook() {
         lines = lines.concat(<Button key = {"add"} onClick={addLine}>Add</Button>)
         setContent(lines)
     }
-   
-    return (<div>
-        {content}
-    </div>);
+
+    return { content, setData, componentDidMount, ApplyChange,
+        pushUpdate, EditLocation, deleteLocation, addLine, textChange, getElements }
 }
-export default AddressBook;
+
+export default function AddressBookUI() {
+
+    const { content } = AddressBook()
+   
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}

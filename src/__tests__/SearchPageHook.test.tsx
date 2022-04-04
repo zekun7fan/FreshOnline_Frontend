@@ -7,6 +7,10 @@ import {BrowserRouter} from "react-router-dom";
 
 jest.mock('antd/es/tree-select', () => ({}));
 
+afterEach(() => {
+    cleanup().then()
+})
+
 test('render search page UI using hook', () => {
     const wrapper = ({children}: { children: any }) => (
         <Provider store={store}>

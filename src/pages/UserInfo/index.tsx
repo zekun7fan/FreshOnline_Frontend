@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Layout, Button ,Divider,Menu } from 'antd';
 import CustomerAccount from "../../components/CustomerAccount";
 import CustomerOrders from "../../components/CustomerOrders";
-import AddressBook from "../../components/AddressBook";
+import AddressBookUI from "../../components/AddressBook";
 import HomeFootPanel from "../../components/HomeFootPanel";
 import HomepageHeader from "../../components/HomepageHeader";
 import PaymentMethodPanel from "../../components/PaymentMethodPanel";
@@ -42,7 +42,7 @@ function UserInfo() {
                 <Content>
                     <Routes>
                         <Route path="account/*" element={<CustomerAccount />} />
-                        <Route path="address" element={<AddressBook/>}/>
+                        <Route path="address" element={<AddressBookUI/>}/>
                         <Route path="orders" element={<CustomerOrders/>}/>
                         <Route path="payment" element={<PaymentMethodPanel/>}/>
                         <Route path="favorite" />
