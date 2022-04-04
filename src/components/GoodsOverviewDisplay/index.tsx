@@ -47,7 +47,7 @@ function GoodsOverviewDisplay() {
 
 
     if (goods.length == 0) {
-        return (<div>There is nothing in the cart yet, Please browse our <a onClick={() => navigate("/")}>products</a></div>)
+        return (<div style={{height:500, paddingTop:250}}><h2>There is nothing in the cart yet, Please browse our <a onClick={() => navigate("/")}>products</a></h2></div>)
     }
 
 

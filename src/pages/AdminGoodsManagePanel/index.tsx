@@ -6,12 +6,12 @@ import AdminGoodsDisplay from "../../components/AdminGoodsDisplay";
 
 function AdminGoodsManagePanel() {
     return (
-        <div>
+        <div id="123">
             <Layout >
                 <Header style={{height: 150}}>
                     <AdminSearchHeader/>
                 </Header>
-                <Content style={{height: 650}}>
+                <Content style={{}}>
                     <AdminGoodsDisplay/>
                 </Content>
             </Layout>
