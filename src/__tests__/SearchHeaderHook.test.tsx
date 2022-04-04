@@ -6,7 +6,6 @@ import store from "../redux/store";
 import {Provider} from "react-redux";
 import {AdminSearchParam} from "../net/reqParam";
 import {jest} from "@jest/globals";
-import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 
 jest.mock('antd/es/tree-select', () => ({}));

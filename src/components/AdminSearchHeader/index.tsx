@@ -28,7 +28,7 @@ const empty_header_params: AdminSearchParam = {
 
 }
 
-function AdminSearchHeader() {
+export function AdminSearchHeader() {
 
     const dispatch = useDispatch()
 

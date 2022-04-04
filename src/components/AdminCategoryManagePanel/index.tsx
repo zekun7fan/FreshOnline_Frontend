@@ -11,7 +11,7 @@ import {Category} from "../../net/reqBody";
 
 
 
-function AdminCategoryManagePanel() {
+export function AdminCategoryManagePanel() {
 
     const dispatch = useDispatch();
 
