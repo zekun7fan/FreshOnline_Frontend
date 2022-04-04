@@ -23,7 +23,7 @@ export function Login() {
             //huang added code here
             const type = getUserType()
             if (type === UserType.CUSTOMER){
-                navigate(`/home`);
+                navigate(`/`);
             }else{
                 navigate(`/admin`);
             }
