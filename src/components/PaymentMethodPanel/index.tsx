@@ -57,7 +57,6 @@ function PaymentMethodPanel() {
             const raw_resp = await getPaymentMethodByUserId(userId);
             const resp: Resp = raw_resp.data
             if (resp.code === 0){
-                console.log("resp====",resp)
                 setData(resp.data as Array<PaymentMethod>)
             }
         }
@@ -66,7 +65,6 @@ function PaymentMethodPanel() {
     useEffect( () => {
         queryPaymentMethods().catch(console.error);
     }, [])
-
 
 
 
@@ -149,14 +147,16 @@ function PaymentMethodPanelUI() {
             <h2>USER PAYMENT METHOD</h2>
             <Collapse defaultActiveKey={['1']}>
                 <Panel header="ADD NEW PAYMENT METHOD" key="1">
-                    <Select style={{width: '100%'}} placeholder={"please select"} onSelect={onTypeChange} value={type}>
-                        <Option value={0}>
-                            CREDIT CARD
-                        </Option>
-                    </Select>
-                    <Input type={"number"} placeholder={"input credit card number"} onChange={onCardNumberChange} value={cardNumber}/>
-                    <Input type={"number"} placeholder={"input cvv code"} onChange={onCvvCodeChange} value={cvvCode}/>
-                    <Button onClick={onAdd}>ADD</Button>
+                    <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                        <Select style={{width: '100%'}} placeholder={"please select"} onSelect={onTypeChange} value={type}>
+                            <Option value={0}>
+                                CREDIT CARD
+                            </Option>
+                        </Select>
+                        <Input type={"number"} placeholder={"input credit card number"} onChange={onCardNumberChange} value={cardNumber}/>
+                        <Input type={"number"} placeholder={"input cvv code"} onChange={onCvvCodeChange} value={cvvCode}/>
+                        <Button onClick={onAdd} style={{float: 'right'}}>ADD</Button>
+                    </Space>
                 </Panel>
             </Collapse>
             {

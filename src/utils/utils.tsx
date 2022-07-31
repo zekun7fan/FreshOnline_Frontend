@@ -4,6 +4,7 @@ import {Resp} from "../net/resp";
 import {getCategoryTree} from "../net";
 import {useDispatch} from "react-redux";
 import {update_category} from "../redux/actions/category_tree";
+import {baseURL} from "../net/http";
 
 
 export interface CategoryNode {
@@ -137,6 +138,17 @@ function retrieveAllLeaf(item: CategoryNode, res_list: Array<number>): void {
     }
 }
 
+
+
+export function getFullPicUrl(shorturl: string) {
+    return `${baseURL}/goods/pictures/${shorturl}`;
+}
+
+export function getShortPicUrl(fullurl: string) {
+    const idx = fullurl.lastIndexOf('/');
+    return fullurl.substring(idx+1);
+}
+
 export enum order_status{
     CREATE=0,
     CANCEL=1,
@@ -146,6 +158,6 @@ export enum order_status{
 }
 
 export function getOrderStatus(status:number){
-    const order_status = ["CREATE","CANCEL","PAID","IN_DELIVERY","FINISHED"]
+    const order_status = ["CREATED","CANCELLED","PAID","IN_DELIVERY","FINISHED"]
     return status<5?order_status[status]:""
 }

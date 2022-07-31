@@ -31,6 +31,16 @@ export function getUserType(): UserType | null {
     }
 }
 
+
+export function getUserTypeStr() {
+    const utype = localStorage.getItem(user_type_key);
+    const t = parseInt(utype!)
+    if (t == 0) {
+        return 'CUSTOMER';
+    }
+    return 'ADMINISTRATOR'
+}
+
 export function getUserToken(): string | null {
     return localStorage.getItem(user_token_key);
 }

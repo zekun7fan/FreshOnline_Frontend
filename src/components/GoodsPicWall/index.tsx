@@ -5,6 +5,8 @@ import {PlusOutlined} from '@ant-design/icons';
 import {GoodsPicInfo, Resp} from "../../net/resp";
 import {deleteGoodsPicture} from "../../net";
 import {getUserToken} from "../../utils/user";
+import {getFullPicUrl, getShortPicUrl} from "../../utils/utils";
+import {baseURL} from "../../net/http";
 
 
 interface GoodsPicWallProps {
@@ -39,12 +41,11 @@ function GoodsPicWall(props: GoodsPicWallProps) {
                 uid: String(index),
                 name: String(index),
                 status: 'done',
-                url: url,
+                url: getFullPicUrl(url),
             })
         })
         setFileList(tempFileList)
         setUrlList(props.url_list)
-        console.log("tempFileList==",tempFileList)
 
     }, [])
 
@@ -74,17 +75,17 @@ function GoodsPicWall(props: GoodsPicWallProps) {
             return;
         }
         const info : GoodsPicInfo = {
-            url: file.url
+            url: getShortPicUrl(file.url)
         }
         const raw = await deleteGoodsPicture(props.goods_id, info);
         const resp = raw.data as Resp
         if (resp.code === 0){
             const goodsPicInfo: GoodsPicInfo = resp.data as GoodsPicInfo
             const newFileList = fileList.filter((item) => {
-                return item.url !== goodsPicInfo.url;
+                return item.url !== getFullPicUrl(goodsPicInfo.url);
             })
             const newUrlList = newFileList.map((item) => {
-                return item.url!
+                return getShortPicUrl(item.url!)
             })
             setFileList(newFileList)
             setUrlList(newUrlList)
@@ -103,18 +104,17 @@ function GoodsPicWall(props: GoodsPicWallProps) {
             const newFileList = fileList
             newFileList.forEach((item) => {
                 if (item.uid === file.uid) {
-                    item.url = data.url
+                    item.url = getFullPicUrl(data.url)
                     item.uid = data.uid!
                     item.name = data.name!
                 }
             })
             const newUrlList = newFileList.map((item) => {
-                return item.url!
+                return getShortPicUrl(item.url!)
             })
             setFileList(newFileList)
             setUrlList(newUrlList)
         }
-
 
     }
 
@@ -129,8 +129,8 @@ function GoodsPicWall(props: GoodsPicWallProps) {
     return (
         <div>
             <Upload
-                action={`http://137.184.8.39:8080/goods/pictures/${props.goods_id}`}
-                // headers={{'token': getUserToken()!}}
+                action={`${baseURL}/goods/pictures/${props.goods_id}`}
+                headers={{'token': getUserToken()!}}
                 method={'POST'}
                 listType="picture-card"
                 fileList={fileList}
@@ -139,7 +139,7 @@ function GoodsPicWall(props: GoodsPicWallProps) {
                 beforeUpload={beforeUpload}
                 onRemove={onRemove}
             >
-                {fileList.length >= 8 ? null : uploadButton}
+                {fileList.length >= 3 ? null : uploadButton}
             </Upload>
             <Modal
                 visible={previewVisible}

@@ -10,56 +10,58 @@ axios.defaults.withCredentials = true;
 
 // axios.defaults.baseURL = 'http://localhost:8080'
 
-const baseURL = 'http://137.184.8.39:8080'
+export const baseURL = 'http://localhost:8080';
+
+
 axios.defaults.baseURL = baseURL
 
 const history = createBrowserHistory();
 
 
-// axios.interceptors.request.use(
-//     function (config) {
-//         const token = localStorage.getItem(user_token_key)
-//         if (token != null){
-//             const oldHeader: AxiosRequestHeaders = config.headers as AxiosRequestHeaders
-//             config.headers = {...oldHeader, "token": token}
-//         }
-//         return config
-//     },
-//     function (error) {
-//         return Promise.reject(error)
-//     }
-// )
-//
-//
-// axios.interceptors.response.use(
-//     function (response) {
-//         const token = response.headers[user_token_key]
-//         if (token != null) {
-//             localStorage.setItem(user_token_key, token)
-//         }
-//         return response
-//     },
-//     function (error) {
-//         const status = error.response?.status
-//         switch (status) {
-//             case 401:
-//                 const res: Resp = error.response.data as Resp
-//                 const {code} = res
-//                 switch (code) {
-//                     case -2:
-//                         history.replace("/login");
-//                         break
-//                     case -3:
-//                         history.replace("/home");
-//                         break;
-//                 }
-//                 break;
-//             default:
-//                 history.replace("/error");
-//                 break;
-//         }
-//         return Promise.reject(error);
-//     })
+axios.interceptors.request.use(
+    function (config) {
+        const token = localStorage.getItem(user_token_key)
+        if (token != null){
+            const oldHeader: AxiosRequestHeaders = config.headers as AxiosRequestHeaders
+            config.headers = {...oldHeader, "token": token}
+        }
+        return config
+    },
+    function (error) {
+        return Promise.reject(error)
+    }
+)
+
+
+axios.interceptors.response.use(
+    function (response) {
+        const token = response.headers[user_token_key]
+        if (token != null) {
+            localStorage.setItem(user_token_key, token)
+        }
+        return response
+    },
+    function (error) {
+        const status = error.response?.status
+        switch (status) {
+            case 401:
+                const res: Resp = error.response.data as Resp
+                const {code} = res
+                switch (code) {
+                    case -2:
+                        history.replace("/login");
+                        break
+                    case -3:
+                        history.replace("/home");
+                        break;
+                }
+                break;
+            default:
+                history.replace("/error");
+                break;
+        }
+        return Promise.reject(error);
+    })
 
 
 export function toQueryString(param: any = {}): string {

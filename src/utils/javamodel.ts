@@ -47,6 +47,8 @@ export interface SaledGoods {
     count?: number;
     rate?: number;
     comment?: string;
+    reviewed? : boolean
+    reviewTime? : Date
 }
 
 export interface Category extends Serializable {
@@ -62,9 +64,10 @@ export interface OrderDetail extends Order {
 }
 
 export interface SaledGoodsDetail extends SaledGoods {
-    name?: string;
-    pic?: string;
-    storage?: number;
+    name?: string
+    pic?: string
+    storage?: number
+    reviewed: boolean
 }
 
 export interface Serializable {

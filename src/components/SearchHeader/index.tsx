@@ -37,10 +37,8 @@ export function parseCategoryTree(tree:any) {
 }
 
 export async function onQuery(params: AdminSearchParam) {
-    console.log('search params:', params)
     const raw = await getGoods(params)
     const resp: Resp = raw.data
-    console.log('resp:', resp)
     if (resp.code === 0) {
         return resp.data as GoodsInfoBySearch
     }
@@ -57,7 +55,6 @@ export function SearchHeader() {
 
     useEffect( () => {
         (async function loadCategoryTree() {
-            console.log('loading category tree')
             const raw = await getCategoryTree()
             const resp = raw.data
             if (resp.code === 0) {
@@ -94,7 +91,6 @@ export function SearchHeader() {
     }
 
     const onChangeKeyword = () => {
-        console.log('onChangeKeyword:cur_search_param:', cur_search_param)
         const search_param = {
             ...empty_search_params,
             category_id: cur_search_param.category_id,

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Goods} from "../../net/reqBody";
 import {Divider, Button, Rate, Popconfirm, message, Empty, Card} from "antd";
 import { EditTwoTone, DeleteTwoTone} from '@ant-design/icons';
-import {getFirstPicUrl} from "../../utils/utils";
+import {getFirstPicUrl, getFullPicUrl} from "../../utils/utils";
 import AdminEditGoodsPanel from "../AdminEditGoodsPanel";
 
 
@@ -63,8 +63,9 @@ function AdminGoodsOverviewCardUI(props: AdminGoodsOverviewCardProps) {
                     cover={
                         firstUrl ?
                             <img
+                                style={{minWidth: '200px', minHeight: '200px', maxWidth: '200px', maxHeight: '200px'}}
                                 alt={props.goods.name}
-                                src={firstUrl}
+                                src={getFullPicUrl(firstUrl)}
                             /> : <Empty/>
                     }
                     actions={[

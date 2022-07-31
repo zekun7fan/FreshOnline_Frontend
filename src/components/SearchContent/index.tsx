@@ -41,7 +41,6 @@ export function SearchContent() {
     }, [cur_search_results])
 
     const onChange = (pageNumber: number) => {
-        console.log('pageNumber:', pageNumber)
         const search_param = {
             ...cur_search_param,
             page: pageNumber

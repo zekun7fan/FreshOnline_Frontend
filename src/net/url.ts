@@ -33,6 +33,8 @@ export const goodsDetailsUrl = '/goodsdetails'
 
 export const favoriteUrl = '/favourite'
 
+export const saledGoodsUrl = '/saledGoods'
+
 export const goodsPictureUrl = (id: number) => {
     return `/goods/pictures/${id}`
 };

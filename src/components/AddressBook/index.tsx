@@ -1,135 +1,122 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {queryUser,updateAddress} from "../../net";
-import { Form,Input,Divider,Col, Row,Button } from 'antd';
+import {Form, Input, Divider, Col, Row, Button, Collapse, message, List, Space} from 'antd';
 import {User} from "../../utils/javamodel";
 import {getUserId} from "../../utils/user";
+import {Resp} from "../../net/resp";
+import {queryUser, updateAddress} from "../../net";
 
-/**
- * @author Zetian Huang
- */
-interface addressLines{
-    text:string,
-    editing: boolean,
-    row:number,
-    alive:boolean
-}
 
-export function AddressBook() {
 
-    const [data, setData] = useState<Array<addressLines>>([])
+const {Panel} = Collapse;
+
+
+export default function AddressBook() {
+
     const [user, setUser] = useState<User>({})
-    const [content, setContent] = useState<Array<JSX.Element>>([])
+    const [addr, setAddr] = useState<string | undefined>()
 
-    const componentDidMount = async () => {
-        try {
-            const userId = getUserId()
-            if( userId == null ) return
-            else{
-                console.log('here in resp')
-                const resp = await queryUser(userId)
-                const res = resp.data
-                if (res.code === 0){
-                    const user:User = res.data
-                    setUser(user)
-                    let location =new String(user.location)
-                    var array = location.split(",")
-                    var lindex=-1
-                    var arrays = array.map(
-                        (ele)=>{lindex=lindex+1; return {text:ele,editing:false,row:lindex,alive:true}})
-                    setData(arrays)
-                }
+    const [list, setList] = useState<Array<string>>([])
+
+
+    const setup = async () => {
+        const userId = getUserId()
+        if (userId == null) return
+        const raw = await queryUser(userId)
+        const resp: Resp = raw.data
+        if (resp.code === 0) {
+            const u: User = resp.data as User
+            setUser(u)
+            const loc = u.location
+            if (loc != null && loc != "") {
+                const arr: Array<string> = loc.split(',');
+                setList(arr)
             }
-        } catch (e) {}
-    }
-
-    useEffect(() => {
-        componentDidMount().then()
-        return () => {};
-    }, [])
-
-    useEffect(() => {
-        getElements()
-        return () => {
-        };
-    }, [data])
-
-    const ApplyChange= (row:number)=>{
-        data[row].editing=false
-        pushUpdate()
-        getElements()
-    }
-
-    const pushUpdate = async ()=>{
-        var location=""
-        data.map((ele)=>{location=location+( ele.alive? (ele.text+","):"")})
-        location=location.slice(0,-1)
-        const resp = await updateAddress(user.id,location)
-        const res = resp.data
-        if (res.code !== 0){
-            alert("Update fail!")
         }
     }
 
-    const EditLocation=(row:number)=>{
-        data[row].editing=true
-        getElements()
-    }
+    useEffect(() => {
+        setup().catch()
+    }, [])
 
-    const deleteLocation=(row:number)=>{
-        data[row].alive=false
-        pushUpdate()
-        getElements()
-    }
 
-    const addLine = () => {
-        const id=data[data.length-1].row+1
-        data.push({text:"",editing:true,row:id,alive:true})
-        getElements()
-    }
+    const onAddrChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAddr(e.target.value)
+    };
 
-    const textChange=(id: number,obj: { target: { value: any; }; })=>{
-        data[id].text=obj.target.value
-    }
+    const addAddr = async () => {
+        if (addr == null || addr == "") {
+            message.warn("empty address is not acceptable")
+            return;
+        }
+        let oldAddr = user.location
+        let newAddr = '';
+        if (oldAddr == null || oldAddr.length == 0) {
+            newAddr = addr;
+        } else {
+            newAddr = oldAddr.concat(',').concat(addr)
+        }
+        const u : User = {...user, location: newAddr}
+        const raw = await updateAddress(u)
+        const resp: Resp = raw.data
+        if (resp.code == 0) {
+            setAddr(undefined)
+            setUser(u)
+            setList([...list, addr])
+        }
+        message.info(resp.msg)
+    };
 
-    const getElements = () =>{
-        var lines = data.map( (ele)=>{
-            if(ele.editing&&ele.alive)
-                return (
-                    <Row key = {ele.row} gutter={16}>
-                        <Col span={8}>
-                            <Input key = {"input"+ele.row} defaultValue={ele.text} onChange={(obj)=>{textChange(ele.row,obj)}}/>
-                        </Col>
-                        <Col span={8}>
-                            <Button key = {"apply"+ele.row} type="link" onClick={()=>{ApplyChange(ele.row)}}>Apply</Button>
-                        </Col>
-                    </Row>)
-            else if(ele.alive) return (
-                <Row key = {ele.row} gutter={16}>
-                    <Col span={8}>
-                        <h2>{ele.text}</h2>
-                    </Col>
-                    <Col span={8}>
-                        <Button  key = {"edit"+ele.row} type="link" onClick={()=>{EditLocation(ele.row)}} >Edit</Button>
-                        <Button  key = {"del"+ele.row} type="link" onClick={()=>{deleteLocation(ele.row)}} >Delete</Button>
-                    </Col>
-                </Row>)
-            else return (<div/>)
+
+    const deleteLoc = async (val: string) => {
+        const newlist = list.filter((item) => {
+            return item != val;
         })
-        lines = lines.concat(<Button key = {"add"} onClick={addLine}>Add</Button>)
-        setContent(lines)
-    }
+        let str = '';
+        newlist.forEach((item) => {
+            str.concat(item).concat(',')
+        })
+        const newloc = str.length > 0 ? str.slice(0, -1) : "";
+        const u: User = {...user, location: newloc};
+        const raw = await updateAddress(u)
+        const resp: Resp = raw.data
+        if (resp.code == 0){
+            setUser(u)
+            setList(newlist)
+        }
+    };
 
-    return { content, setData, componentDidMount, ApplyChange,
-        pushUpdate, EditLocation, deleteLocation, addLine, textChange, getElements }
-}
 
-export default function AddressBookUI() {
-
-    const { content } = AddressBook()
-   
     return (
-        <div>
-            {content}
+        <div style={{paddingLeft: '60px', paddingTop: '40px', paddingRight: '60px'}}>
+            <Collapse defaultActiveKey={['1']}>
+                <Panel header="ADD NEW ADDR" key="1">
+                    <Space>
+                        <Input
+                            placeholder={"input new addr"}
+                            onChange={onAddrChange}
+                            required={true}
+                            value={addr}
+                            style={{minWidth: '500px'}}
+                        />
+                        <Button onClick={addAddr}>Confirm</Button>
+                    </Space>
+                </Panel>
+            </Collapse>
+            <List
+                className="demo-loadmore-list"
+                itemLayout="horizontal"
+                dataSource={list}
+                renderItem={item => (
+                    <List.Item
+                        actions={[<Button onClick={() => {deleteLoc(item) .catch()}}>Delete</Button>]}
+                    >
+                        <h1>{item}</h1>
+                    </List.Item>
+                )}
+            />
         </div>
-    );
+
+
+    )
 }
+

@@ -8,12 +8,12 @@ import {
     paymentMethodByPid,
     paymentMethodByUserId,
     paymentMethodUrl, registerUrl
-    , cartUrl, goodsDetailsUrl, favoriteUrl, goodsPictureUrl,
+    , cartUrl, goodsDetailsUrl, favoriteUrl, goodsPictureUrl, saledGoodsUrl,
 } from "./url";
 import {AdminSearchParam} from "./reqParam";
 import {Category, Goods, PaymentMethod, User} from "./reqBody";
 import {CategoryNode} from "../utils/utils";
-import { Order } from "../utils/javamodel";
+import {Order, SaledGoods, SaledGoodsDetail} from "../utils/javamodel";
 import {GoodsPicInfo} from "./resp";
 
 
@@ -79,11 +79,13 @@ export function logout(user: User){
     return put(logoutUrl, {}, user)
 }
 
-export function updatePass(userId?:number, old_pass?:string, new_pass?:string) {
-    return get('/user/update_password', { 'user_id': userId, "old_pass": old_pass, "new_pass": new_pass })
+export function updatePwd(user: User) {
+    return put('/user/update_password', {}, user)
 }
-export function updateAddress(userId?:number, address?:string) {
-    return get('/user/update_address', { 'user_id': userId, "address": address })
+
+
+export function updateAddress(user: User) {
+    return put('/user/update_address', { }, user)
 }
 
 export function queryOrderByUser(userId?:number, startPo?:number) {
@@ -109,15 +111,15 @@ export function getCartEntry(userId :number, goodsId: number) {
 }
 
 export function updateToCart(userId :number, goodsId:number, count:number = 1) {
-    return post(cartUrl, {}, { userId: userId, goodsID: goodsId, count: count })
+    return post(cartUrl, {}, { userId: userId, goodsId: goodsId, count: count })
 }
 
 export function addToCart(userId :number, goodsId:number, count:number = 1) {
-    return put(cartUrl, {}, { userId: userId, goodsID: goodsId, count: count })
+    return put(cartUrl, {}, { userId: userId, goodsId: goodsId, count: count })
 }
 
 export function removeFromCart(userId :number, goodsId: number) {
-    return del(cartUrl, {}, { userId: userId, goodsID: goodsId })
+    return del(cartUrl, {}, { userId: userId, goodsId: goodsId })
 }
 
 
@@ -134,11 +136,11 @@ export function getFavEntry(userId :number, goodsId: number) {
 
 
 export function addToFav(userId :number, goodsId: number) {
-    return put(favoriteUrl, {}, { userId: userId, goodsID: goodsId })
+    return put(favoriteUrl, {}, { userId: userId, goodsId: goodsId })
 }
 
 export function removeFromFav(userId :number, goodsId: number) {
-    return del(favoriteUrl, {}, { userId: userId, goodsID: goodsId })
+    return del(favoriteUrl, {}, { userId: userId, goodsId: goodsId })
 }
 
 export function payOrder(order:Order) {
@@ -149,4 +151,15 @@ export function cancelOrder(order:Order) {
 }
 export function deleteGoodsPicture(id: number, info: GoodsPicInfo) {
     return del(goodsPictureUrl(id), {}, info)
+}
+
+
+export function updateSaledGoods(goods: SaledGoods) {
+    return put(saledGoodsUrl, {}, goods)
+
+}
+
+export function getFeedBack(goodsId: number) {
+    return get(saledGoodsUrl, {'goodsId': goodsId})
+
 }

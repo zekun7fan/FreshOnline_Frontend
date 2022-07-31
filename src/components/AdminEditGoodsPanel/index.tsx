@@ -36,6 +36,7 @@ export function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
         props.changeVisible(false)
     };
 
+    const [originalStorage, setOriginalStorage] = useState<number>(props.goods.storage)
 
     const submit = async (goods: Goods) => {
         if (goods.onsale == 0 && (goods.salePrice !== undefined)) {
@@ -48,6 +49,10 @@ export function AdminEditGoodsPanel(props: AdminEditGoodsPanelProps) {
         }
         if (goods.onsale == 1 && goods.salePrice !== undefined && goods.salePrice >= goods.price) {
             message.warn("sale price can not be greater than original price")
+            return;
+        }
+        if (goods.storage < originalStorage) {
+            message.warn("can not decrease storage from admin account");
             return;
         }
         const raw = await updateGoods(goods)

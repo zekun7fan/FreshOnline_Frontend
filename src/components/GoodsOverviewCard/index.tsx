@@ -1,9 +1,11 @@
-import React, { Component, useState } from 'react';
-import { Rate, Card, Button } from 'antd';
+import React, {Component, useState} from 'react';
+import {Rate, Card, Button, Empty} from 'antd';
 import index from './index.module.css';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {getUserId} from "../../utils/user";
 import {addToCart, removeFromCart} from "../../net";
+import {getFullPicUrl} from "../../utils/utils";
+
 // sample usage <GoodsOverviewCard id={1} in_cart={0} name="统华小厨片皮鸭(全只)组合套餐" rate={4.5} rate_count={20} price={20.99} onsale={false} type={1} pic="https://www.tntsupermarket.com/media/catalog/product/cache/1b10eb595fa02731ea0609dbbcedd549/5/0/50959201.jpg" show_button={true}/>
 export interface OverviewCardProps {
     key?: number,
@@ -22,80 +24,76 @@ export interface OverviewCardProps {
 
 function GoodsOverviewCard(props: OverviewCardProps) {
 
+
     const [in_cart, set_in_cart] = useState<number>(props.in_cart);
     let navigate = useNavigate();
 
-
-
     const addToCartHandler = async () => {
         const user_id = getUserId()
-            if(user_id == null) return
-        try {
-            let response = await addToCart(user_id, props.id, 1)
-            if (response.data.code != 0) {
-                console.log(response.data.code)
-                console.log(response.data.msg)
-                return
-            }
-            set_in_cart(1)
+        if (user_id == null) return
+        const response = await addToCart(user_id, props.id, 1)
+        if (response.data.code != 0) {
+            return
         }
-        catch (e) {
-            console.log(e)
-        }
+        set_in_cart(1)
     }
 
     const removeFromCartHandler = async () => {
         const user_id = getUserId()
-            if(user_id == null) return
-        try {
-            let response = await removeFromCart(user_id, props.id)
-            if (response.data.code != 0) {
-                console.log(response.data.code)
-                console.log(response.data.msg)
-                return
-            }
-            set_in_cart(0);
+        if (user_id == null) {
+            navigate('/login')
+            return;
         }
-        catch (e) {
-            console.log(e)
+        let response = await removeFromCart(user_id, props.id)
+        if (response.data.code != 0) {
+            return
         }
-
+        set_in_cart(0);
     }
 
     const redirectGoodsDetails = () => {
-        
         navigate("/goods/" + props.id);
     }
 
 
-
-
     let image = "";
-    if (props.pic){
-        image = props.pic.split(",")[0];
+    if (props.pic) {
+        image = getFullPicUrl(props.pic.split(",")[0]);
     }
-     
+
     let cartinfo = "selected: ";
-    let price = props.onsale && props.sale_price? props.sale_price : props.price;
+    let price = props.onsale && props.sale_price ? props.sale_price : props.price;
     let price_total = in_cart * price;
     cartinfo += props.type == 1 ? in_cart.toFixed(2) + "/lb" : in_cart.toFixed(0);
     cartinfo += "   total: $" + price_total.toFixed(2);
 
     let card_height = 420;
-    let button_display = in_cart ? <div>{cartinfo}<Button className={index.button} onClick={removeFromCartHandler}> Remove From Cart </Button></div> : <Button onClick={addToCartHandler} className={index.button}> add To Cart </Button>
+    let button_display = in_cart ?
+        <div>{cartinfo}<Button className={index.button} onClick={removeFromCartHandler}> Remove From Cart </Button>
+        </div> : <Button onClick={addToCartHandler} className={index.button}> add To Cart </Button>
     if (!props.show_button) {
         button_display = <></>;
         card_height = 370
     }
-    return (
 
+    return (
         <Card
             hoverable
-            style={{ width: 240, height: card_height, display: "inline-block", margin: 5, borderRadius: 10, overflow: "hidden" }}
-            cover={<img style={{width:240,height:240}} alt={"image of: "+props.name} src={image} onClick={redirectGoodsDetails} />}
+            style={{
+                width: 240,
+                height: card_height,
+                display: "inline-block",
+                margin: 5,
+                borderRadius: 10,
+                overflow: "hidden"
+            }}
+            cover={
+                image != "" ? <img style={{width: 240, height: 240}} alt={"image of: " + props.name} src={image}
+                                   onClick={redirectGoodsDetails}/> : <Empty description={"no image"}/>
+            }
         >
-            <div className={index.meta} onClick={redirectGoodsDetails}> <strong>{props.name}</strong></div>
-            <Rate className={index.rate} allowHalf={true} disabled={true} defaultValue={0} value={props.rate} />
+            <div className={index.meta} onClick={redirectGoodsDetails}><strong>{props.name}</strong></div>
+            <Rate className={index.rate} allowHalf={true} disabled={true} defaultValue={0} value={props.rate}/>
             &nbsp;&nbsp;({props.rate_count})
             {props.onsale ?
                 <div>
@@ -107,8 +105,6 @@ function GoodsOverviewCard(props: OverviewCardProps) {
                 </div>
             }
             {button_display}
-
-
         </Card>
 
     );

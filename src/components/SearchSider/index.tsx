@@ -29,7 +29,6 @@ export function SearchSider() {
         setMin_price(0)
         setMax_price(0)
         setSort_Type(0)
-        console.log('reset selected sider')
     }, [cur_search_param.category_id, cur_search_param.keyword])
 
     const onQueryFilterResult = () => {

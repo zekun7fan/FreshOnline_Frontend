@@ -37,16 +37,14 @@ export function WeeklySpecialPanl() {
     const [data, setData] = useState<Array<StockedGoods>>([])
 
     useEffect(() => {
-        update().then()
-        return () => {
-        };
+        update().catch()
     }, [])
 
     const update = async () => {
         const resp = await queryWeeklySpecial()
         const res = resp.data
         if (res.code === 0){
-            setData(res.data)
+            setData(res.data as Array<StockedGoods>)
         }
     }
 
@@ -56,6 +54,10 @@ export function WeeklySpecialPanl() {
  export default function WeeklySpeicalPanlUI() {
 
     const { data } = WeeklySpecialPanl()
+
+     if (data.length == 0) {
+         return null;
+     }
 
     return (
         <div>

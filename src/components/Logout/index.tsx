@@ -15,12 +15,23 @@ import { useNavigate } from "react-router-dom";
 
 
 function Logout() {
+
+    let timer: NodeJS.Timeout| undefined = undefined;
     const navigate = useNavigate();
     const [status, setStatus] = useState<string>(`currently login user: 
     Id:${getUserId()}, 
     Name: ${getUserName()}, 
     Type: ${getUserType()}
     `)
+
+
+    useEffect(() => {
+        return () => {
+            if (timer != null) {
+                clearTimeout(timer);
+            }
+        };
+    }, [])
 
     const toLogout = async () => {
         const user = getUserInfo();
@@ -36,7 +47,9 @@ function Logout() {
         localStorage.removeItem(user_token_key)
         message.info(resp.msg)
         setStatus('successfully logout')
-        navigate('/home')
+        setTimeout(() => {
+            navigate('/home');
+        }, 2000)
     };
 
     return {status, toLogout}
