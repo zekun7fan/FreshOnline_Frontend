@@ -8,9 +8,8 @@ import {Resp} from "./resp";
 
 axios.defaults.withCredentials = true;
 
-// axios.defaults.baseURL = 'http://localhost:8080'
 
-export const baseURL = 'http://localhost:8080';
+export const baseURL = 'http://138.197.147.136:8080';
 
 
 axios.defaults.baseURL = baseURL

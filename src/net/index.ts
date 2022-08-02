@@ -97,7 +97,7 @@ export function queryWeeklySpecial() {
 }
 
 export function queryCategoryGoods(idList?:Array<number>|number) {
-    return get('/random_goods', { 'catogory_id_list': idList })
+    return get('/random_goods', { 'category_id_list': idList })
 }
 
 export function queryUser(userId?:number) {
@@ -156,10 +156,8 @@ export function deleteGoodsPicture(id: number, info: GoodsPicInfo) {
 
 export function updateSaledGoods(goods: SaledGoods) {
     return put(saledGoodsUrl, {}, goods)
-
 }
 
 export function getFeedBack(goodsId: number) {
     return get(saledGoodsUrl, {'goodsId': goodsId})
-
 }

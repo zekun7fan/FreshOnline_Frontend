@@ -59,7 +59,7 @@ export function CategoryGoodsPanel() {
     const [data, setData] = useState<Array<CategoryGoods>>([])
 
     useEffect(() => {
-        componentDidMount()
+        componentDidMount().catch()
         return () => {
         };
     }, [])
