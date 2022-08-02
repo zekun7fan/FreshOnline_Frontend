@@ -1,16 +1,12 @@
 # FreshOnline_Frontend
 
-FreshOnline is a simple full stack online shopping project.
-This repository is the frontend part of it.
+FreshOnline is a simple full stack online shopping project. This repository is the frontend part of it.
+
+see [backend part here](https://github.com/zekun7fan/FreshOnline_Backend)
 
 # Overview
 
-
-This project is a React Hook project. 
-It listens to port 4000. 
-
-
-
+This project is a React Hook project. It listens to port 4000.
 
 # what framework/third library is used
 
